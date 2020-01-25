@@ -1,14 +1,14 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography'
+import React from 'react'
+import NavBar from './components/navBar'
+import Books from './components/books'
 
-const  App = () => {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-      <Typography variant="h1" color="primary">Hello World</Typography>
-      </header>
+      <NavBar />
+    <Books/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
