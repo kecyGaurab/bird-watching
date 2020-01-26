@@ -4,36 +4,30 @@ import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 // import SearchIcon from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField'
-// import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
+import Search from './search'
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 
-const NavBar = () => (
+const NavBar = ({handleSearch, handleSearchParameter}) => (
   <>
-    <AppBar position="static">
+    <AppBar color="primary" position="static">
       <Toolbar>
         <Grid
           container
           direction="row"
-          justify="space-around"
+          justify="space-between"
           alignItems="center"
           spacing={2}
         >
-          <Grid item xs={1}>
-            {/* <LibraryBooksIcon fontSize="large" /> */}
+          <Grid item xs={5}>
+            <Typography fontWeight="" variant="h3">
+              <LibraryBooksIcon fontSize="large" />
+              BOOKS FOR YOU
+            </Typography>
           </Grid>
-          <Grid item xs={3}>
-            <Typography variant="h4">BOOKS FOR YOU</Typography>
-          </Grid>
-
-          <Grid item xs={2}>
-            <TextField
-              style={{color: 'white'}}
-              fullWidth
-              size="medium"
-              id="outlined-search"
-              label="Search field"
-              type="search"
-              variant="outlined"
+          <Grid item xs={4}>
+            <Search
+              handleSearch={handleSearch}
+              handleSearchParameter={handleSearchParameter}
             />
           </Grid>
         </Grid>
