@@ -65,6 +65,10 @@ theme.overrides = {
       paddingRight: '5px',
       fontSize: '30px',
     },
+    fontSizeInherit: {
+      fontSize: '60px',
+      paddingTop: '25px',
+    },
     fontSizeLarge: {
       fontSize: '50px',
     },

@@ -11,8 +11,9 @@ import {
 
 import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {StyledCard, StyledLink} from './styledComponents';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const Image = styled.div`
 height:180px;
@@ -23,7 +24,7 @@ height:40px;
 overflow:hidden;
 `;
 
-const Book = ({book}) => {
+const Book = ({book, handleFavorite}) => {
   const [expanded, setExpanded] = useState (false);
   const handleExpandClick = () => {
     setExpanded (!expanded);
@@ -73,6 +74,13 @@ const Book = ({book}) => {
       <CardActions>
         <IconButton onClick={() => handleExpandClick (book)}>
           <ExpandMoreIcon />
+
+        </IconButton>
+        <IconButton
+          aria-label="add to favorites"
+          onClick={() => handleFavorite (book)}
+        >
+          <FavoriteIcon />
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

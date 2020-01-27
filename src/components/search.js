@@ -19,7 +19,7 @@ const Search = ({
 }) => {
   return (
     <Grid container direction="row" alignItems="center">
-      <Grid item xs={6}>
+      <Grid item md={6} xs={12}>
 
         <TextField
           value={query}
@@ -33,13 +33,13 @@ const Search = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon />
+                <SearchIcon fontSize="medium" />
               </InputAdornment>
             ),
           }}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} xs={12}>
         <Button
           disabled={query ? false : true}
           value={query}
@@ -52,7 +52,7 @@ const Search = ({
         </Button>
 
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={3} xs={12}>
         <Select
           onChange={handleSearchParameter}
           defaultValue="Book-Name"

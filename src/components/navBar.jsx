@@ -18,9 +18,9 @@ const NavBar = ({handleSearch, handleSearchParameter, query, handleSubmit}) => (
           spacing={2}
         >
           <Grid item xs={5}>
-            <Typography variant="h2">
-              <LibraryBooksIcon fontSize="large" />
-              BOOKS FOR YOU
+            <Typography variant="h3">
+              <LibraryBooksIcon fontSize="inherit" />
+              BOOKS
             </Typography>
           </Grid>
           <Grid item xs={5}>
