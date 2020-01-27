@@ -81,7 +81,7 @@ const Book = ({book}) => {
           <Typography variant="h6">
             Description
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body2" component="p">
             {book.searchInfo ? book.searchInfo.textSnippet : null}
           </Typography>
 
