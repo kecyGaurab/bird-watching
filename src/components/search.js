@@ -37,17 +37,16 @@ const Search = ({
               </InputAdornment>
             ),
           }}
-        >
-          <button />
-        </TextField>
+        />
       </Grid>
       <Grid item xs={2}>
         <Button
+          disabled={query ? false : true}
           value={query}
           onClick={handleSubmit}
-          variant="contained"
-          color="secondary"
           size="large"
+          variant="contained"
+          color="primary"
         >
           search
         </Button>

@@ -65,14 +65,20 @@ theme.overrides = {
       paddingRight: '5px',
       fontSize: '30px',
     },
+    fontSizeLarge: {
+      fontSize: '50px',
+    },
   },
   MuiButton: {
-    root: {
-      color: theme.palette.common.white,
-      variant: 'outlined',
-    },
     sizeLarge: {
       height: '55px',
+    },
+    containedPrimary: {
+      backgroundColor: 'green',
+      color: theme.palette.background.default,
+    },
+    label: {
+      color: 'white',
     },
   },
 };

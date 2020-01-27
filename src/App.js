@@ -29,7 +29,7 @@ const App = () => {
       return;
     }
     setOpen (false);
-    setQuery ();
+    setQuery ('');
     resetSearchQuery ();
   };
 
@@ -87,12 +87,7 @@ const App = () => {
       />
 
       <Container>
-        <Error
-          errorMessage={errorMessage}
-          open={open}
-          handleClose={handleClose}
-          handleClick={handleClick}
-        />
+
         <Grid container justify="space-around" direction="row" spacing={6}>
           {books
             ? books.map (book => (
@@ -101,10 +96,20 @@ const App = () => {
                     ? <Grid key={book.etag} item xs={3}>
                         <Book book={book} />
                       </Grid>
-                    : null}
+                    : <Error
+                        errorMessage={errorMessage}
+                        open={open}
+                        handleClose={handleClose}
+                        handleClick={handleClick}
+                      />}
                 </Fragment>
               ))
-            : null}
+            : <Error
+                errorMessage={errorMessage}
+                open={open}
+                handleClose={handleClose}
+                handleClick={handleClick}
+              />}
         </Grid>
       </Container>
     </Fragment>
