@@ -1,4 +1,4 @@
-import {Card, Typography} from '@material-ui/core'
+import {Card, Typography, ButtonBase} from '@material-ui/core'
 import styled, {css} from 'styled-components'
 
 export const StyledCard = styled(Card)`

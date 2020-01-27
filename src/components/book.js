@@ -12,7 +12,7 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {StyledCard, StyledLink} from './styledCard';
+import {StyledCard, StyledLink} from './styledComponents';
 
 const Image = styled.div`
 height:180px;

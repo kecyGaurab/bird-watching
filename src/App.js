@@ -1,54 +1,79 @@
 import React, {Fragment, useState, useEffect} from 'react';
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
-// import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import {Grid, Container, CssBaseline} from '@material-ui/core';
+import Error from './components/error';
 import NavBar from './components/navBar';
 import Book from './components/book';
-import {CssBaseline} from '@material-ui/core';
 
 const App = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [books, setbooks] = useState ([]);
   const [query, setQuery] = useState ('');
-  const [searchParameter, setSearchParameter] = useState ('');
+  const [searchQuery, setSearchQuery] = useState ('football');
+  const [searchParameter, setSearchParameter] = useState ('Book-Name');
+  const [errorMessage, setErrorMessage] = useState ('No results found');
+  const [open, setOpen] = useState (true);
+
+  const baseUrl = 'https://www.googleapis.com/books/v1/volumes';
+
+  const handleClick = () => {
+    setOpen (true);
+  };
+
+  const resetSearchQuery = () => {
+    setSearchQuery ('football');
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen (false);
+    setQuery ();
+    resetSearchQuery ();
+  };
 
   const handleSearchParameter = e => {
     setSearchParameter (e.target.value);
   };
 
   const handleSearch = e => {
-    setQuery (e.target.value);
+    setQuery (e.currentTarget.value);
   };
 
-  function getByBookName (query, apiKey) {
+  const handleSubmit = e => {
+    setSearchQuery (e.currentTarget.value);
+  };
+
+  function getByBookName (searchQuery, apiKey) {
     return axios.get (
-      `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}&maxResults=40`
+      `${baseUrl}?q=${searchQuery}&key=${apiKey}&maxResults=25`
     );
   }
 
-  function getByAuthor (query, apiKey) {
+  function getByAuthor (searchQuery, apiKey) {
     return axios.get (
-      `https://www.googleapis.com/books/v1/volumes?q=''+inauthor:${query}&orderBy=newest&key=${apiKey}&maxResults=40`
+      `${baseUrl}?q=''+inauthor:${searchQuery}&orderBy=newest&key=${apiKey}&maxResults=20`
     );
   }
 
   useEffect (
     () => {
-      searchParameter === 'Book-Name'
-        ? getByBookName (query, apiKey)
-        : getByAuthor (query, apiKey)
-            .then (res => {
-              const response = res.data;
-              console.log ('response', response);
-              setbooks (response.items);
-            })
-            .catch (err => {
-              console.log ('error is:', err);
-              setQuery ('a');
-            });
+      (searchParameter === 'Book-Name'
+        ? getByBookName (searchQuery, apiKey)
+        : getByAuthor (searchQuery, apiKey))
+        .then (res => {
+          const response = res.data;
+          setbooks (response.items);
+        })
+        .catch (err => {
+          const error = err.response.data.error.errors[0].reason;
+          setErrorMessage (error);
+          setOpen (true);
+          resetSearchQuery ();
+        });
     },
-    [query, searchParameter, apiKey]
+    [searchQuery, searchParameter, apiKey]
   );
 
   return (
@@ -57,9 +82,17 @@ const App = () => {
       <NavBar
         handleSearch={handleSearch}
         handleSearchParameter={handleSearchParameter}
+        query={query}
+        handleSubmit={handleSubmit}
       />
 
-      <Container style={{padding: '10px 0'}}>
+      <Container>
+        <Error
+          errorMessage={errorMessage}
+          open={open}
+          handleClose={handleClose}
+          handleClick={handleClick}
+        />
         <Grid container justify="space-around" direction="row" spacing={6}>
           {books
             ? books.map (book => (
@@ -71,7 +104,7 @@ const App = () => {
                     : null}
                 </Fragment>
               ))
-            : <p> No results</p>}
+            : null}
         </Grid>
       </Container>
     </Fragment>

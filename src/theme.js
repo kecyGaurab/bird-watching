@@ -26,6 +26,11 @@ theme.overrides = {
       borderRadius: '10px',
     },
   },
+  MuiContainer: {
+    root: {
+      padding: '10px 0',
+    },
+  },
   MuiCardHeader: {
     title: {
       overflow: 'hidden',
@@ -34,7 +39,8 @@ theme.overrides = {
   MuiTextField: {
     root: {
       backgroundColor: theme.palette.common.white,
-      fontSize: '20px',
+      fontSize: '30px',
+      borderRadius: '5px',
     },
   },
   MuiSelect: {
@@ -46,6 +52,27 @@ theme.overrides = {
     root: {
       paddingTop: '2px',
       paddingBottom: '2px',
+    },
+  },
+  MuiInputBase: {
+    root: {
+      borderRadius: '15px',
+      height: '3.5em',
+    },
+  },
+  MuiSvgIcon: {
+    root: {
+      paddingRight: '5px',
+      fontSize: '30px',
+    },
+  },
+  MuiButton: {
+    root: {
+      color: theme.palette.common.white,
+      variant: 'outlined',
+    },
+    sizeLarge: {
+      height: '55px',
     },
   },
 };
