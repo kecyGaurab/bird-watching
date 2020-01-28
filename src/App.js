@@ -49,7 +49,6 @@ const App = () => {
   const handleFavorite = book => {
     setFavorites ([...favorites, book]);
   };
-  console.log ('favorite', favorites);
 
   function getByBookName (searchQuery, apiKey) {
     return axios.get (
@@ -91,9 +90,7 @@ const App = () => {
         query={query}
         handleSubmit={handleSubmit}
       />
-
       <Container>
-
         <Grid container justify="space-around" direction="row" spacing={6}>
           {books
             ? books.map (book => (
