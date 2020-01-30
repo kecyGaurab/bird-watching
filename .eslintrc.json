@@ -19,7 +19,7 @@
   "plugins": ["react"],
   "rules": {
     "no-console": "off",
-    "commonjs": false,
+    "commonjs": 0,
     "amd": true
   },
   "settings": {
