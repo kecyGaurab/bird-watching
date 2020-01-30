@@ -12,7 +12,13 @@ import {
   Input
 } from "@material-ui/core";
 
-const Form = ({ handleSubmit, handleChange, bird }) => {
+const Form = ({
+  handleSubmit,
+  handleChange,
+  handleImageChange,
+  handleRarityChange,
+  bird
+}) => {
   return (
     <Card square>
       <CardContent>
@@ -42,24 +48,29 @@ const Form = ({ handleSubmit, handleChange, bird }) => {
               />
             </Grid>
             <Grid item xs={2}>
-              {/* <InputLabel for="rarity-select">Choose rarity:</InputLabel>
+              <InputLabel htmlFor="rarity-select">Choose rarity:</InputLabel>
               <Select
+                fullWidth
                 color="secondary"
-                variant="outlined"
+                variant="standard"
                 inputProps={{
-                  name: "rarity",
                   id: "rarity-select"
                 }}
+                defaultValue={"common"}
+                onChange={handleRarityChange}
               >
-                <MenuItem value="">--Please choose an option--</MenuItem>
-                <MenuItem value="common">Common</MenuItem>
-                <MenuItem value="rare">Rare</MenuItem>
-                <MenuItem value="extremely rare">Extremely Rare</MenuItem>
-              </Select> */}
+                <MenuItem value="common">common</MenuItem>
+                <MenuItem value="rare">rare</MenuItem>
+                <MenuItem value="extremely-rare">extremely rare</MenuItem>
+              </Select>
             </Grid>
             <Grid item xs={3}>
-              <label for="avatar">Choose a profile picture:</label>
-              <Input type="file" accept="image/png, image/jpeg" />
+              <label htmlFor="avatar">Upload image:</label>
+              <Input
+                onChange={handleImageChange}
+                type="file"
+                accept="image/png, image/jpeg"
+              />
             </Grid>
             <Grid item xs={3}>
               <Button type="submit" variant="outlined">
