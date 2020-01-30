@@ -19,8 +19,7 @@
   "plugins": ["react"],
   "rules": {
     "no-console": "off",
-    "commonjs": 0,
-    "amd": true
+    "commonjs": 0
   },
   "settings": {
     "import/resolver": {
