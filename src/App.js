@@ -5,6 +5,7 @@ import NavBar from './components/navBar';
 import Form from './components/form';
 import Bird from './components/bird';
 import {usePosition} from './hooks/position';
+import birdsService from './services/birds';
 
 const App = () => {
   const [bird, setBird] = useState ({
@@ -30,6 +31,12 @@ const App = () => {
     setBirds ([...birds, bird]);
     sessionStorage.setItem ('data', JSON.stringify (bird));
   };
+
+  useEffect (() => {
+    birdsService.getAll ().then (b => {
+      setBirds (b);
+    });
+  }, []);
 
   const handleRarityChange = e => {
     setBird ({
