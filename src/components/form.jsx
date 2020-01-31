@@ -17,6 +17,7 @@ const Form = ({
   handleChange,
   handleImageChange,
   handleRarityChange,
+  handleLocation,
   bird
 }) => {
   return (
@@ -69,8 +70,14 @@ const Form = ({
               <Input
                 onChange={handleImageChange}
                 type="file"
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg,image/jpg"
               />
+            </Grid>
+            <Grid item>
+              <Button onClick={handleLocation}>
+                {bird.location ? "Add location" : "Remove location"}
+              </Button>
+              <Typography>{bird.location}</Typography>
             </Grid>
             <Grid item xs={3}>
               <Button type="submit" variant="outlined">
