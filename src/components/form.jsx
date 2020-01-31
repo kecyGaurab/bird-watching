@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Select,
   TextField,
@@ -9,8 +9,8 @@ import {
   Button,
   Card,
   CardContent,
-  Input
-} from "@material-ui/core";
+  Input,
+} from '@material-ui/core'
 
 const Form = ({
   handleSubmit,
@@ -18,7 +18,7 @@ const Form = ({
   handleImageChange,
   handleRarityChange,
   handleLocation,
-  bird
+  bird,
 }) => {
   return (
     <Card square>
@@ -26,7 +26,7 @@ const Form = ({
         <form onSubmit={handleSubmit}>
           <Grid container direction="column" spacing={2}>
             <Grid item xs={2}>
-              <Typography variant="h6">Enter Bird Info</Typography>
+              <Typography variant="h6">Enter new observation</Typography>
             </Grid>
             <Grid item xs={2}>
               <TextField
@@ -55,9 +55,9 @@ const Form = ({
                 color="secondary"
                 variant="standard"
                 inputProps={{
-                  id: "rarity-select"
+                  id: 'rarity-select',
                 }}
-                defaultValue={"common"}
+                defaultValue={'common'}
                 onChange={handleRarityChange}
               >
                 <MenuItem value="common">common</MenuItem>
@@ -75,7 +75,7 @@ const Form = ({
             </Grid>
             <Grid item>
               <Button onClick={handleLocation}>
-                {bird.location ? "Add location" : "Remove location"}
+                {bird.location ? 'Add location' : 'Remove location'}
               </Button>
               <Typography>{bird.location}</Typography>
             </Grid>
@@ -89,7 +89,7 @@ const Form = ({
         </form>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form
