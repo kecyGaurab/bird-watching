@@ -8,8 +8,8 @@ export const StyledCard = styled(Card)`
     `;
   }}
 `;
-export const StyledLink = styled(Typography)`
-  ${css`
-    padding-top: "8px";
-  `}
-`;
+// export const StyledLink = styled(Typography)`
+//   ${css`
+//     padding-top: "8px";
+//   `}
+// `;

@@ -19,7 +19,18 @@
   "plugins": ["react"],
   "rules": {
     "no-console": "off",
-    "commonjs": 0
+    "commonjs": 0,
+    "comma-dangle": ["error", "never"],
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": "always",
+        "ObjectPattern": { "multiline": true },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+      }
+    ],
+    "amd": true
   },
   "settings": {
     "import/resolver": {

@@ -38,11 +38,7 @@ theme.overrides = {
       borderRadius: "5px"
     }
   },
-  MuiSelect: {
-    root: {
-      color: theme.palette.common.white
-    }
-  },
+
   MuiCardContent: {
     root: {
       // !important over the default &:last-child padding-bottom
@@ -112,12 +108,12 @@ theme.overrides = {
     colorPrimary: {
       backgroundColor: theme.palette.background.default
     }
-  },
-  MuiSelect: {
-    select: {
-      backgroundColor: theme.palette.primary.light
-    }
   }
+  // MuiSelect: {
+  //   select: {
+  //     backgroundColor: theme.palette.primary.main
+  //   }
+  // }
 };
 
 export default theme;
