@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { Container, CssBaseline } from "@material-ui/core";
+import { Container, CssBaseline, Grid } from "@material-ui/core";
 import NavBar from "./components/navBar";
 import Form from "./components/form";
+import Bird from "./components/bird";
+import { usePosition } from "./hooks/position";
 
 const App = () => {
   const [bird, setBird] = useState({
     name: "",
     species: "",
     rarity: [],
-    image: null
+    image: null,
+    location: [null, null],
+    date: new Date()
   });
 
   const [birds, setBirds] = useState([]);
 
+  const { latitude, longitude, error } = usePosition();
   const handleChange = e => {
     setBird({
       ...bird,
@@ -23,6 +28,8 @@ const App = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    setBirds([...birds, bird]);
+    sessionStorage.setItem("data", JSON.stringify(bird));
   };
 
   const handleRarityChange = e => {
@@ -34,10 +41,17 @@ const App = () => {
 
   const handleImageChange = e => {
     e.preventDefault();
-    setBird({ ...bird, image: e.target.files[0] });
+    let image = URL.createObjectURL(e.target.files[0]);
+    setBird({ ...bird, image: image });
   };
 
-  console.log("bird", bird);
+  const handleLocation = e => {
+    e.preventDefault();
+    setBird({ ...bird, location: [latitude, longitude] });
+  };
+
+  const birdData = sessionStorage.getItem("data");
+  console.log("birddata", birdData);
 
   return (
     <>
@@ -49,8 +63,16 @@ const App = () => {
           handleChange={handleChange}
           handleImageChange={handleImageChange}
           handleRarityChange={handleRarityChange}
+          handleLocation={handleLocation}
           bird={bird}
+          location={bird.location}
         />
+        {birds &&
+          birds.map(bird => (
+            <Grid key={bird.name} container>
+              <Bird bird={bird} />
+            </Grid>
+          ))}
       </Container>
     </>
   );
