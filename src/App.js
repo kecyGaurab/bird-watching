@@ -64,21 +64,32 @@ const App = () => {
       <CssBaseline />
       <NavBar />
       <Container>
-        <Form
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          handleImageChange={handleImageChange}
-          handleRarityChange={handleRarityChange}
-          handleLocation={handleLocation}
-          bird={bird}
-          location={bird.location}
-        />
-        {birds &&
-          birds.map (bird => (
-            <Grid key={bird.name} container>
-              <Bird bird={bird} />
-            </Grid>
-          ))}
+        <Grid
+          key={bird.name}
+          justify="space-around"
+          container
+          direction="row"
+          spacing={6}
+        >
+          <Grid item xs={12}>
+
+            <Form
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+              handleImageChange={handleImageChange}
+              handleRarityChange={handleRarityChange}
+              handleLocation={handleLocation}
+              bird={bird}
+              location={bird.location}
+            />
+          </Grid>
+          {birds &&
+            birds.map (bird => (
+              <Grid item xs={3}>
+                <Bird bird={bird} />
+              </Grid>
+            ))}
+        </Grid>
       </Container>
     </Fragment>
   );
