@@ -7,18 +7,18 @@ const getAll = async () => {
 };
 
 const create = async newObs => {
-  const response = await axios.post (`${baseUrl}/${id}`, newBlog);
+  const response = await axios.post (`${baseUrl}`, newObs);
   return response.data;
 };
 
 //update takes in id and newObject to update the observation
 const update = async (id, obs) => {
-  const response = await axios.put (`${id}, obs`);
+  const response = await axios.put (`${id}`, obs);
   return response.data;
 };
 
 const remove = async id => {
-  const response = await axios.delete (`${baseUrl}/${id}`, config);
+  const response = await axios.delete (`${baseUrl}/${id}`);
   return response.data;
 };
 

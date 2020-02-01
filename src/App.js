@@ -5,6 +5,7 @@ import NavBar from './components/navBar';
 import Form from './components/form';
 import Bird from './components/bird';
 import {usePosition} from './hooks/position';
+import birdsService from './services/birds';
 
 const App = () => {
   const [bird, setBird] = useState ({
@@ -30,6 +31,12 @@ const App = () => {
     setBirds ([...birds, bird]);
     sessionStorage.setItem ('data', JSON.stringify (bird));
   };
+
+  useEffect (() => {
+    birdsService.getAll ().then (b => {
+      setBirds (b);
+    });
+  }, []);
 
   const handleRarityChange = e => {
     setBird ({
@@ -57,21 +64,32 @@ const App = () => {
       <CssBaseline />
       <NavBar />
       <Container>
-        <Form
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          handleImageChange={handleImageChange}
-          handleRarityChange={handleRarityChange}
-          handleLocation={handleLocation}
-          bird={bird}
-          location={bird.location}
-        />
-        {birds &&
-          birds.map (bird => (
-            <Grid key={bird.name} container>
-              <Bird bird={bird} />
-            </Grid>
-          ))}
+        <Grid
+          key={bird.name}
+          justify="space-around"
+          container
+          direction="row"
+          spacing={6}
+        >
+          <Grid item xs={12}>
+
+            <Form
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+              handleImageChange={handleImageChange}
+              handleRarityChange={handleRarityChange}
+              handleLocation={handleLocation}
+              bird={bird}
+              location={bird.location}
+            />
+          </Grid>
+          {birds &&
+            birds.map (bird => (
+              <Grid item xs={3}>
+                <Bird bird={bird} />
+              </Grid>
+            ))}
+        </Grid>
       </Container>
     </Fragment>
   );
