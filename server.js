@@ -53,8 +53,9 @@ const generateId = () => {
 
 app.post ('/api/birds', (request, response) => {
   const body = request.body;
-
-  if (!body.name) {
+  console.log ('body :', body);
+  console.dir ('body :', body.image);
+  if (!body.commonname) {
     return response.status (400).json ({
       error: 'content missing',
     });
@@ -62,7 +63,7 @@ app.post ('/api/birds', (request, response) => {
 
   const bird = {
     name: body.name,
-    species: body.species || false,
+    species: body.species,
     date: new Date (),
     id: generateId (),
     rarity: body.rarity,

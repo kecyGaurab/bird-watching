@@ -34,8 +34,8 @@ const Form = ({
                 variant="outlined"
                 type="text"
                 label="Name"
-                name="name"
-                value={bird.name}
+                name="commonname"
+                value={bird.commonname}
               />
             </Grid>
             <Grid item xs={2}>
