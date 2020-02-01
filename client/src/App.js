@@ -9,7 +9,7 @@ import birdsService from './services/birds';
 
 const App = () => {
   const [bird, setBird] = useState ({
-    name: '',
+    commonname: '',
     species: '',
     rarity: [],
     image: null,
@@ -28,8 +28,15 @@ const App = () => {
 
   const handleSubmit = e => {
     e.preventDefault ();
-    setBirds ([...birds, bird]);
-    sessionStorage.setItem ('data', JSON.stringify (bird));
+    birdsService
+      .create (bird)
+      .then (res => {
+        console.log ('res.data :', res.data);
+      })
+      .catch (error => {
+        console.log ('error :', error);
+      });
+    // sessionStorage.setItem ('data', JSON.stringify (bird));
   };
 
   useEffect (() => {
@@ -47,7 +54,7 @@ const App = () => {
 
   const handleImageChange = e => {
     e.preventDefault ();
-    let image = URL.createObjectURL (e.target.files[0]);
+    let image = e.target.files[0];
     setBird ({...bird, image: image});
   };
 
@@ -84,8 +91,8 @@ const App = () => {
             />
           </Grid>
           {birds &&
-            birds.map (bird => (
-              <Grid item xs={3}>
+            birds.map ((bird, index) => (
+              <Grid key={index} item xs={3}>
                 <Bird bird={bird} />
               </Grid>
             ))}
