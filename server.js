@@ -41,7 +41,7 @@ app.get ('/api/birds', (req, res) => {
 });
 
 app.get ('/api/birds/:id', (request, response) => {
-  const rid = Number (request.params.id);
+  const id = Number (request.params.id);
   const bird = birds.find (bird => bird.id === rid);
   response.json (bird);
 });
@@ -54,7 +54,7 @@ const generateId = () => {
 app.post ('/api/birds', (request, response) => {
   const body = request.body;
   console.log ('body :', body);
-  console.dir ('body :', body.image);
+  console.dir ('body.image :', body.image);
   if (!body.commonname) {
     return response.status (400).json ({
       error: 'content missing',
@@ -68,6 +68,7 @@ app.post ('/api/birds', (request, response) => {
     id: generateId (),
     rarity: body.rarity,
     location: body.location,
+    image: body.image,
   };
 
   birds = birds.concat (bird);

@@ -28,16 +28,21 @@ const App = () => {
 
   const handleSubmit = e => {
     e.preventDefault ();
+
     birdsService
       .create (bird)
       .then (res => {
-        console.log ('res.data :', res.data);
+        setBirds (birds.concat (res));
       })
       .catch (error => {
         console.log ('error :', error);
       });
-    // sessionStorage.setItem ('data', JSON.stringify (bird));
   };
+  // sessionStorage.setItem ('data', JSON.stringify (bird));
+
+  const data = new FormData ();
+  const r = data.append ('image', bird.image);
+  console.log ('data :', r);
 
   useEffect (() => {
     birdsService.getAll ().then (b => {
@@ -62,9 +67,6 @@ const App = () => {
     e.preventDefault ();
     setBird ({...bird, location: [latitude, longitude]});
   };
-
-  const birdData = sessionStorage.getItem ('data');
-  console.log ('birddata', birdData);
 
   return (
     <Fragment>
