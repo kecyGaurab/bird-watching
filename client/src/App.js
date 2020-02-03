@@ -1,6 +1,7 @@
 import React, {useState, useEffect, Fragment} from 'react';
 
-import {Container, CssBaseline, Grid} from '@material-ui/core';
+import {Container, CssBaseline, Grid, Snackbar} from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import NavBar from './components/navBar';
 import Form from './components/form';
 import Bird from './components/bird';
@@ -16,6 +17,25 @@ const App = () => {
   });
 
   const [image, setImage] = useState (null);
+  const [open, setOpen] = useState (false);
+  const [birds, setBirds] = useState ([]);
+  const [error, setError] = useState (false);
+  const [message, setMessage] = useState ('');
+
+  const {latitude, longitude, navError, setPosition} = usePosition ();
+
+  const handleClick = () => {
+    setOpen (true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen (false);
+  };
+
   const resetFields = () => {
     setBird ({
       commonname: '',
@@ -26,9 +46,6 @@ const App = () => {
     setImage (null);
   };
 
-  const [birds, setBirds] = useState ([]);
-
-  const {latitude, longitude, error} = usePosition ();
   const handleChange = e => {
     setBird ({
       ...bird,
@@ -38,22 +55,27 @@ const App = () => {
 
   const handleSubmit = e => {
     e.preventDefault ();
-
     birdsService
       .create (bird, image)
       .then (res => {
-        console.log ('res :', res);
         setBirds (birds.concat (res));
+        setMessage ('Observation saved');
+        setOpen (true);
       })
       .catch (error => {
-        console.log ('error :', error);
+        setError (true);
+        setMessage (error.response.data.error);
+        setOpen (true);
+        setTimeout (() => {
+          setError (false);
+        }, 5000);
       });
     resetFields ();
   };
 
   useEffect (() => {
-    birdsService.getAll ().then (b => {
-      setBirds (b);
+    birdsService.getAll ().then (birds => {
+      setBirds (birds);
     });
   }, []);
 
@@ -72,7 +94,13 @@ const App = () => {
 
   const handleLocation = e => {
     e.preventDefault ();
-    setBird ({...bird, location: [latitude, longitude]});
+
+    if (window.confirm ('Are you sure you want to add location?'))
+      setBird ({...bird, location: [latitude, longitude]});
+  };
+
+  const Alert = props => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
   };
 
   return (
@@ -85,8 +113,25 @@ const App = () => {
           justify="space-around"
           container
           direction="row"
-          spacing={6}
+          spacing={3}
         >
+
+          <Grid item xs={12}>
+            <Snackbar
+              anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+              open={open}
+              autoHideDuration={6000}
+              onClose={handleClose}
+            >
+              {error
+                ? <Alert onClose={handleClose} severity="error">
+                    {message}
+                  </Alert>
+                : <Alert onClose={handleClose} severity="success">
+                    {message}
+                  </Alert>}
+            </Snackbar>
+          </Grid>
           <Grid item xs={12}>
 
             <Form
@@ -96,7 +141,6 @@ const App = () => {
               handleRarityChange={handleRarityChange}
               handleLocation={handleLocation}
               bird={bird}
-              location={bird.location}
             />
           </Grid>
           {birds &&

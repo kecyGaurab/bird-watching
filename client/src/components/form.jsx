@@ -75,7 +75,7 @@ const Form = ({
             </Grid>
             <Grid item>
               <Button onClick={handleLocation}>
-                {bird.location ? 'Add location' : 'Remove location'}
+                {!bird.location ? 'Add location' : 'Remove location'}
               </Button>
               <Typography>{bird.location}</Typography>
             </Grid>

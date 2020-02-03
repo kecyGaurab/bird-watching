@@ -3,7 +3,6 @@ const bodyParser = require ('body-parser');
 const morgan = require ('morgan');
 const uploader = require ('./uploader');
 const app = express ();
-const db = require ('./db');
 const upload = uploader.configure (app);
 
 let birds = [
