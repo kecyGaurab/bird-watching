@@ -1,39 +1,38 @@
 const express = require ('express');
 const bodyParser = require ('body-parser');
+const morgan = require ('morgan');
+const uploader = require ('./uploader');
+const app = express ();
+const db = require ('./db');
+const upload = uploader.configure (app);
 
 let birds = [
   {
-    id: 1,
-    name: 'sparrow',
-    species: 'sparus sparus',
+    commonname: 'crow',
+    species: 'corvus',
     rarity: 'common',
-    location: [60.5, 45],
+    location: [25, 56],
+    image: 'crow.png',
   },
   {
-    id: 2,
-    name: 'crow',
-    species: 'korus kor',
-    rarity: 'rare',
-    location: [60.5, 45],
+    commonname: 'sparrow',
+    species: 'passer domesticus',
+    rarity: 'common',
+    location: [25, 56],
+    image: 'sparrow.png',
   },
   {
-    id: 3,
-    name: 'eagle',
-    species: 'niggle giggle',
-    rarity: 'rare',
-    location: [60.5, 45],
-  },
-  {
-    id: 4,
-    name: 'hawk',
-    species: 'hawky giggle',
-    rarity: 'rare',
-    location: [60.5, 45],
+    commonname: 'danfe',
+    species: 'Lophophorus impejanus',
+    rarity: 'extremely-rare',
+    location: [25, 56],
+    image: 'danfe.png',
   },
 ];
 
-const app = express ();
+app.use (morgan ('tiny'));
 app.use (bodyParser.json ());
+
 const port = process.env.PORT || 5000;
 
 app.get ('/api/birds', (req, res) => {
@@ -41,37 +40,35 @@ app.get ('/api/birds', (req, res) => {
 });
 
 app.get ('/api/birds/:id', (request, response) => {
-  const rid = Number (request.params.id);
-  const bird = birds.find (bird => bird.id === rid);
+  const id = Number (request.params.id);
+  const bird = birds.find (bird => bird.id === id);
   response.json (bird);
 });
 
-const generateId = () => {
-  const maxId = birds.length > 0 ? Math.max (...birds.map (n => n.id)) : 0;
-  return maxId + 1;
-};
-
-app.post ('/api/birds', (request, response) => {
-  const body = request.body;
-  console.log ('body :', body);
-  console.dir ('body :', body.image);
-  if (!body.commonname) {
+app.post ('/api/birds', upload.single ('image'), (request, response, next) => {
+  const file = request.file;
+  console.log ('file :', file);
+  const {commonname, species, rarity, location} = request.body;
+  if (!file && !commonname) {
     return response.status (400).json ({
-      error: 'content missing',
+      error: 'Bird detail not found. Please make sure image and name exist',
     });
   }
 
-  const bird = {
-    name: body.name,
-    species: body.species,
-    date: new Date (),
-    id: generateId (),
-    rarity: body.rarity,
-    location: body.location,
-  };
+  const image = file.filename;
+  const bird = {name: commonname, species, rarity, location, image};
+  console.log ('bird :', bird);
 
+  // return db
+  //   .insert (bird)
+  //   .then (() => db.all ())
+  //   .then (birds => {
+  //     response.json (birds);
+  //   })
+  //   .catch (error => {
+  //     response.status (400).json ({error: error});
+  //   });
   birds = birds.concat (bird);
-
   response.json (bird);
 });
 
@@ -82,4 +79,9 @@ app.delete ('/birds/:id', (request, response) => {
   response.status (204).end ();
 });
 
-app.listen (port, () => console.log (`Listening on port ${port}`));
+app.listen (port, error => {
+  if (error) {
+    throw error;
+  }
+  console.log (`Listening on port ${port}`);
+});

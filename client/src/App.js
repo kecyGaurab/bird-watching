@@ -12,9 +12,19 @@ const App = () => {
     commonname: '',
     species: '',
     rarity: [],
-    image: null,
     location: [null, null],
   });
+
+  const [image, setImage] = useState (null);
+  const resetFields = () => {
+    setBird ({
+      commonname: '',
+      species: '',
+      rarity: [],
+      location: [null, null],
+    });
+    setImage (null);
+  };
 
   const [birds, setBirds] = useState ([]);
 
@@ -28,15 +38,17 @@ const App = () => {
 
   const handleSubmit = e => {
     e.preventDefault ();
+
     birdsService
-      .create (bird)
+      .create (bird, image)
       .then (res => {
-        console.log ('res.data :', res.data);
+        console.log ('res :', res);
+        setBirds (birds.concat (res));
       })
       .catch (error => {
         console.log ('error :', error);
       });
-    // sessionStorage.setItem ('data', JSON.stringify (bird));
+    resetFields ();
   };
 
   useEffect (() => {
@@ -54,17 +66,14 @@ const App = () => {
 
   const handleImageChange = e => {
     e.preventDefault ();
-    let image = e.target.files[0];
-    setBird ({...bird, image: image});
+    let birdImage = e.target.files[0];
+    setImage (birdImage);
   };
 
   const handleLocation = e => {
     e.preventDefault ();
     setBird ({...bird, location: [latitude, longitude]});
   };
-
-  const birdData = sessionStorage.getItem ('data');
-  console.log ('birddata', birdData);
 
   return (
     <Fragment>
