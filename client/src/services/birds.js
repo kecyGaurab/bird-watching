@@ -6,15 +6,18 @@ const getAll = async () => {
   return response.data;
 };
 
-const create = async newObs => {
+const create = async (newObs, image) => {
+  console.log ('newObs :', newObs.image);
   let data = new FormData ();
-  data.append ('image', newObs.image);
-  delete newObs.image; // delete the image in newObs to prevent duplication
+  // delete newObs.image; // delete the image in newObs to prevent duplication
+  data.append ('image', image);
 
   for (const key in newObs) {
     // append all the keys to data
     data.append (key, newObs[key]);
   }
+
+  console.log ('data :', data);
 
   const response = await axios.post (`${baseUrl}`, data, {
     headers: {
