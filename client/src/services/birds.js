@@ -7,9 +7,7 @@ const getAll = async () => {
 };
 
 const create = async (newObs, image) => {
-  console.log ('newObs :', newObs.image);
   let data = new FormData ();
-  // delete newObs.image; // delete the image in newObs to prevent duplication
   data.append ('image', image);
 
   for (const key in newObs) {

@@ -2,15 +2,15 @@ import React from 'react'
 import {
   Select,
   TextField,
-  InputLabel,
   Grid,
   Typography,
   MenuItem,
   Button,
   Card,
   CardContent,
-  Input,
+  InputLabel,
 } from '@material-ui/core'
+import FileUpload from './file-upload'
 
 const Form = ({
   handleSubmit,
@@ -18,6 +18,7 @@ const Form = ({
   handleImageChange,
   handleRarityChange,
   handleLocation,
+
   bird,
 }) => {
   return (
@@ -66,16 +67,11 @@ const Form = ({
               </Select>
             </Grid>
             <Grid item xs={3}>
-              <label htmlFor="avatar">Upload image:</label>
-              <Input
-                onChange={handleImageChange}
-                type="file"
-                accept="image/png, image/jpeg,image/jpg"
-              />
+              <FileUpload handleImageChange={handleImageChange} bird={bird} />
             </Grid>
             <Grid item>
               <Button onClick={handleLocation}>
-                {bird.location ? 'Add location' : 'Remove location'}
+                {!bird.location ? 'Add location' : 'Remove location'}
               </Button>
               <Typography>{bird.location}</Typography>
             </Grid>
