@@ -1,11 +1,13 @@
 import React, {useState, useEffect, Fragment} from 'react';
-
-import {Container, CssBaseline, Grid} from '@material-ui/core';
+import Resizer from 'react-image-file-resizer';
+import {Container, CssBaseline, Grid, Snackbar} from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import NavBar from './components/navBar';
-import Form from './components/form';
-import Bird from './components/bird';
+import Form from './components/Form/form';
+import Bird from './components/Bird/bird';
 import {usePosition} from './hooks/position';
 import birdsService from './services/birds';
+import * as moment from 'moment';
 
 const App = () => {
   const [bird, setBird] = useState ({
@@ -13,9 +15,45 @@ const App = () => {
     species: '',
     rarity: [],
     location: [null, null],
+    date: '',
   });
 
   const [image, setImage] = useState (null);
+  const [open, setOpen] = useState (false);
+  const [birds, setBirds] = useState ([]);
+  const [error, setError] = useState (false);
+  const [message, setMessage] = useState ('');
+
+  const {latitude, longitude} = usePosition ();
+
+  useEffect (() => {
+    birdsService.getAll ().then (birds => {
+      setBirds (birds);
+    });
+  }, []);
+
+  console.log ('birds :', birds);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen (false);
+  };
+
+  const handleRemove = id => {
+    const deleted = birds.filter (contact => contact.id !== id);
+    const birdToRemove = birds.find (n => n.id === id);
+    if (
+      window.confirm (
+        `Are you sure you want to delete ${birdToRemove.commonname} ?`
+      )
+    ) {
+      birdsService.remove (id).then (setBirds (deleted));
+    }
+  };
+
   const resetFields = () => {
     setBird ({
       commonname: '',
@@ -26,9 +64,6 @@ const App = () => {
     setImage (null);
   };
 
-  const [birds, setBirds] = useState ([]);
-
-  const {latitude, longitude, error} = usePosition ();
   const handleChange = e => {
     setBird ({
       ...bird,
@@ -38,24 +73,23 @@ const App = () => {
 
   const handleSubmit = e => {
     e.preventDefault ();
-
     birdsService
       .create (bird, image)
       .then (res => {
-        console.log ('res :', res);
         setBirds (birds.concat (res));
+        setMessage ('Observation saved');
+        setOpen (true);
       })
       .catch (error => {
-        console.log ('error :', error);
+        setError (true);
+        setMessage (error.response.data.error);
+        setOpen (true);
+        setTimeout (() => {
+          setError (false);
+        }, 5000);
       });
     resetFields ();
   };
-
-  useEffect (() => {
-    birdsService.getAll ().then (b => {
-      setBirds (b);
-    });
-  }, []);
 
   const handleRarityChange = e => {
     setBird ({
@@ -64,16 +98,45 @@ const App = () => {
     });
   };
 
-  const handleImageChange = e => {
+  const resizeFile = file =>
+    new Promise (resolve => {
+      Resizer.imageFileResizer (
+        file,
+        200,
+        300,
+        'JPEG',
+        100,
+        0,
+        uri => {
+          resolve (uri);
+        },
+        'blob'
+      );
+    });
+
+  const handleImageChange = async e => {
     e.preventDefault ();
     let birdImage = e.target.files[0];
-    setImage (birdImage);
+    let resizedImage = await resizeFile (birdImage);
+    console.log ('resizedImage :', resizedImage);
+
+    setImage (resizedImage);
   };
 
   const handleLocation = e => {
     e.preventDefault ();
-    setBird ({...bird, location: [latitude, longitude]});
+
+    if (window.confirm ('Are you sure you want to add location?'))
+      setBird ({...bird, location: [latitude, longitude]});
   };
+
+  const Alert = props => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  };
+
+  const sortedBirds = birds.sort (
+    (a, b) => new Date (b.date) - new Date (a.date)
+  );
 
   return (
     <Fragment>
@@ -85,8 +148,25 @@ const App = () => {
           justify="space-around"
           container
           direction="row"
-          spacing={6}
+          spacing={3}
         >
+
+          <Grid item xs={12}>
+            <Snackbar
+              anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+              open={open}
+              autoHideDuration={6000}
+              onClose={handleClose}
+            >
+              {error
+                ? <Alert onClose={handleClose} severity="error">
+                    {message}
+                  </Alert>
+                : <Alert onClose={handleClose} severity="success">
+                    {message}
+                  </Alert>}
+            </Snackbar>
+          </Grid>
           <Grid item xs={12}>
 
             <Form
@@ -96,13 +176,12 @@ const App = () => {
               handleRarityChange={handleRarityChange}
               handleLocation={handleLocation}
               bird={bird}
-              location={bird.location}
             />
           </Grid>
-          {birds &&
-            birds.map ((bird, index) => (
+          {sortedBirds &&
+            sortedBirds.map ((bird, index) => (
               <Grid key={index} item xs={3}>
-                <Bird bird={bird} />
+                <Bird handleRemove={handleRemove} bird={bird} />
               </Grid>
             ))}
         </Grid>
