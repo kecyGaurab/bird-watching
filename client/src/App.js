@@ -167,7 +167,7 @@ const App = () => {
                   </Alert>}
             </Snackbar>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
 
             <Form
               handleSubmit={handleSubmit}
@@ -180,7 +180,7 @@ const App = () => {
           </Grid>
           {sortedBirds &&
             sortedBirds.map ((bird, index) => (
-              <Grid key={index} item xs={3}>
+              <Grid key={index} item xs={12} md={3}>
                 <Bird handleRemove={handleRemove} bird={bird} />
               </Grid>
             ))}

@@ -42,6 +42,7 @@ const Form = ({
             </Grid>
             <Grid item xs={12}>
               <TextField
+                fullWidth
                 onChange={handleChange}
                 variant="outlined"
                 type="text"
