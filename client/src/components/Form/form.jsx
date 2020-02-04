@@ -25,12 +25,13 @@ const Form = ({
     <Card square>
       <CardContent>
         <form onSubmit={handleSubmit}>
-          <Grid container direction="column" spacing={2}>
-            <Grid item xs={2}>
+          <Grid container direction="column" spacing={1}>
+            <Grid item xs={12}>
               <Typography variant="h6">Enter new observation</Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={12}>
               <TextField
+                fullWidth
                 onChange={handleChange}
                 variant="outlined"
                 type="text"
@@ -39,7 +40,7 @@ const Form = ({
                 value={bird.commonname}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={12}>
               <TextField
                 onChange={handleChange}
                 variant="outlined"
@@ -49,7 +50,7 @@ const Form = ({
                 value={bird.species}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={12}>
               <InputLabel htmlFor="rarity-select">Choose rarity:</InputLabel>
               <Select
                 fullWidth
@@ -66,7 +67,7 @@ const Form = ({
                 <MenuItem value="extremely-rare">extremely rare</MenuItem>
               </Select>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12}>
               <FileUpload handleImageChange={handleImageChange} bird={bird} />
             </Grid>
             <Grid item>
@@ -75,7 +76,7 @@ const Form = ({
               </Button>
               <Typography>{bird.location}</Typography>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12}>
               <Button type="submit" variant="outlined">
                 Submit
               </Button>
