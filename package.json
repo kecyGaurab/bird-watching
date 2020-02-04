@@ -4,16 +4,23 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
+    "start": "cross-env NODE_ENV=production node server.js",
+    "watch": "cross-env NODE_ENV=development nodemon server.js",
     "client": "cd client && yarn start",
-    "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "build:ui": "rm -rf build && cd client && yarn run build --prod && cp -r build ../",
+    "deploy": "git push heroku master",
+    "deploy:full": "yarn run build:ui && git add . && git commit -m uibuild && yarn run deploy",
+    "logs:prod": "heroku logs --tail"
   },
   "dependencies": {
     "@material-ui/lab": "^4.0.0-alpha.41",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-router": "^0.0.1",
     "moment": "^2.24.0",
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.11",
@@ -24,7 +31,5 @@
     "react-image-file-resizer": "^0.2.1",
     "react-router-dom": "^5.1.2"
   },
-  "devDependencies": {
-    "concurrently": "^5.1.0"
-  }
+  "devDependencies": {}
 }

@@ -1,34 +1,46 @@
 const birdsRouter = require ('express').Router ();
 const Bird = require ('../models/bird.js');
+const express = require ('express');
+const app = express ();
+
+const uploader = require ('../uploader');
+const upload = uploader.configure (app);
 
 birdsRouter.get ('/', async (request, response) => {
-  const birds = await bird.find ({});
+  const birds = await Bird.find ({});
   response.json (birds.map (bird => bird.toJSON ()));
 });
 
-birdsRouter.post ('/', async (request, response, next) => {
-  const body = request.body;
+birdsRouter.post (
+  '/',
+  upload.single ('image'),
+  async (request, response, next) => {
+    const file = request.file;
+    console.log ('file :', file);
+    if (!file || !request.body.commonname) {
+      return response.status (400).json ({
+        error: 'Bird detail not found. Please make sure image and name exist',
+      });
+    }
 
-  bird.save ().then (result => {
-    response.status (201).json (result);
-  });
-  const bird = new Bird ({
-    commonname: body.commonname,
-    species: body.species,
-    rarity: body.rarity,
-    location: body.location,
-    image: body.image,
-  });
-  if (!body.commonname || !body.image) {
-    response.status (400).send ('Bad Request').end ();
+    const image = file.filename;
+    const body = request.body;
+    console.log ('request.body :', request.body);
+    const bird = new Bird ({
+      commonname: body.commonname,
+      species: body.species,
+      rarity: body.rarity,
+      location: body.location,
+      image: body.image,
+    });
+    try {
+      const savedBird = await bird.save ();
+      response.json (savedBird.toJSON ());
+    } catch (exception) {
+      next (exception);
+    }
   }
-  try {
-    const savedBird = await bird.save ();
-    response.json (savedBird.toJSON ());
-  } catch (exception) {
-    next (exception);
-  }
-});
+);
 
 birdsRouter.get ('/:id', async (request, response, next) => {
   try {
