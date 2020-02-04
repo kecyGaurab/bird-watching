@@ -17,6 +17,7 @@ const birdSchema = new mongoose.Schema ({
   image: {
     data: Buffer,
     contentType: String,
+    required: false,
   },
   date: {
     type: String,
@@ -28,4 +29,4 @@ const birdSchema = new mongoose.Schema ({
   },
 });
 
-module.exports = mongoose.model ('Blog', blogSchema);
+module.exports = mongoose.model ('Bird', birdSchema);
