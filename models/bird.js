@@ -15,9 +15,8 @@ const birdSchema = new mongoose.Schema ({
     required: true,
   },
   image: {
-    data: Buffer,
-    contentType: String,
-    required: false,
+    type: String,
+    required: true,
   },
   date: {
     type: String,

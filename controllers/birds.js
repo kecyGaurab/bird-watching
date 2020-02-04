@@ -25,13 +25,14 @@ birdsRouter.post (
 
     const image = file.filename;
     const body = request.body;
-    console.log ('request.body :', request.body);
+
+    console.log ('request.body :', file);
     const bird = new Bird ({
       commonname: body.commonname,
       species: body.species,
       rarity: body.rarity,
       location: body.location,
-      image: body.image,
+      image: file.filename,
     });
     try {
       const savedBird = await bird.save ();

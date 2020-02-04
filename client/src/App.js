@@ -7,6 +7,7 @@ import Form from './components/Form/form';
 import Bird from './components/Bird/bird';
 import {usePosition} from './hooks/position';
 import birdsService from './services/birds';
+import * as moment from 'moment';
 
 const App = () => {
   const [bird, setBird] = useState ({

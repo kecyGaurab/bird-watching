@@ -11,6 +11,8 @@ const Image = styled.div`
 `
 
 const Bird = ({bird, handleRemove}) => {
+  console.log('image :', bird.image)
+  const imagePath = bird.image && bird.image.replace(/\\/g, '/')
   const formattedDate = date => {
     return moment(date).format('MMMM Do YYYY, h:mm:ss a')
   }
@@ -31,7 +33,7 @@ const Bird = ({bird, handleRemove}) => {
           </Grid>
           <Grid item>
             <Image>
-              <img alt="bird" src={bird.image} />
+              <img alt="bird" src={`uploads/${bird.image}`} />
             </Image>
           </Grid>
           <Grid item>
