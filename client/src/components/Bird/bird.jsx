@@ -6,11 +6,13 @@ import Header from './header'
 import * as moment from 'moment'
 
 const Image = styled.div`
-  height: 200px;
+  height: 180px;
   padding: 10px 0px;
 `
 
 const Bird = ({bird, handleRemove}) => {
+  console.log('image :', bird.image)
+  const imagePath = bird.image && bird.image.replace(/\\/g, '/')
   const formattedDate = date => {
     return moment(date).format('MMMM Do YYYY, h:mm:ss a')
   }
@@ -18,7 +20,7 @@ const Bird = ({bird, handleRemove}) => {
   return (
     <StyledCard elevation={10}>
       <CardContent>
-        <Grid container direction="column">
+        <Grid container direction="column" spacing={1}>
           <Grid item>
             <Header bird={bird} handleRemove={handleRemove} />
           </Grid>
@@ -31,19 +33,23 @@ const Bird = ({bird, handleRemove}) => {
           </Grid>
           <Grid item>
             <Image>
-              <img alt="bird" src={bird.image} />
+              <img alt="bird" src={`uploads/${bird.image}`} />
             </Image>
           </Grid>
           <Grid item>
+            <Typography variant="h6">Observation info:</Typography>
+          </Grid>
+          <Grid item>
             <Typography variant="body2">
-              Observed date and time: {formattedDate(bird.date)}
+              Date and Time: {formattedDate(bird.date)}
             </Typography>
           </Grid>
           <Grid item>
-            <Link href={`https://en.wikipedia.org/wiki/${bird.commonname}`}>
-              Link to wikipedia page
-            </Link>
+            <Typography variant="body2">location:{bird.location}</Typography>
           </Grid>
+          <Link href={`https://en.wikipedia.org/wiki/${bird.commonname}`}>
+            Link to wikipedia page
+          </Link>
         </Grid>
       </CardContent>
     </StyledCard>
