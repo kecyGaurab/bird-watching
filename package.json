@@ -1,7 +1,7 @@
 {
   "name": "bird-watching",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
     "client": "cd client && yarn start",
@@ -11,9 +11,12 @@
   "dependencies": {
     "@material-ui/lab": "^4.0.0-alpha.41",
     "body-parser": "^1.18.3",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "moment": "^2.24.0",
     "mongodb": "^3.5.2",
+    "mongoose": "^5.8.11",
+    "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "nodemon": "^2.0.2",

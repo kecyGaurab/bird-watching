@@ -1,9 +1,7 @@
-const express = require ('express');
-const bodyParser = require ('body-parser');
-const morgan = require ('morgan');
-const uploader = require ('./uploader');
-const app = express ();
-const upload = uploader.configure (app);
+const app = require ('./app'); // the actual Express app
+const config = require ('./utils/config');
+
+const server = http.createServer (app);
 
 let birds = [
   {
@@ -44,8 +42,21 @@ app.use (bodyParser.json ());
 
 const port = process.env.PORT || 5000;
 
+// app.get ('/api/birds', (req, res) => {
+//   res.json (birds);
+// });
+
 app.get ('/api/birds', (req, res) => {
-  res.json (birds);
+  db
+    .all ()
+    .then (result => {
+      res.json (result);
+    })
+    .catch (error => {
+      res.status (400).json ({
+        error: error,
+      });
+    });
 });
 
 app.get ('/api/birds/:id', (request, response) => {
@@ -62,21 +73,34 @@ app.post ('/api/birds', upload.single ('image'), (request, response, next) => {
       error: 'Bird detail not found. Please make sure image and name exist',
     });
   }
-
   const image = file.filename;
-  const bird = {
-    id: generateId (),
-    commonname,
-    species,
-    rarity,
-    location,
-    image,
-    date: new Date (),
-  };
-  console.log ('bird :', bird);
-  birds = birds.concat (bird);
-  response.json (bird);
+  const bird = {commonname, species, rarity, location, image};
+
+  return db
+    .insert (bird)
+    .then (() => db.all ())
+    .then (birds => {
+      response.json (birds);
+    })
+    .catch (error => {
+      response.status (400).json ({error: error});
+    });
 });
+
+//   const image = file.filename;
+//   // const bird = {
+//   //   id: generateId (),
+//   //   commonname,
+//   //   species,
+//   //   rarity,
+//   //   location,
+//   //   image,
+//   //   date: new Date (),
+//   // };
+//   // console.log ('bird :', bird);
+//   // birds = birds.concat (bird);
+//   // response.json (bird);
+// });
 
 app.delete ('/birds/:id', (request, response) => {
   const id = Number (request.params.id);
@@ -89,4 +113,8 @@ app.listen (port, error => {
     throw error;
   }
   console.log (`Listening on port ${port}`);
+});
+
+server.listen (config.PORT, () => {
+  console.log (`Server running on port ${config.PORT}`);
 });
