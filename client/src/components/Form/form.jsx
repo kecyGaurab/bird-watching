@@ -72,9 +72,7 @@ const Form = ({
               <FileUpload handleImageChange={handleImageChange} bird={bird} />
             </Grid>
             <Grid item>
-              <Button onClick={handleLocation}>
-                {!bird.location ? 'Add location' : 'Remove location'}
-              </Button>
+              <Button onClick={handleLocation}>Add location</Button>
               <Typography>{bird.location}</Typography>
             </Grid>
             <Grid item xs={12}>

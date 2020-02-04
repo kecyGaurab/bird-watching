@@ -45,7 +45,10 @@ const Bird = ({bird, handleRemove}) => {
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body2">location:{bird.location}</Typography>
+            <Typography variant="body2">
+              location:
+              {bird.location && `${bird.location[0]}N  ${bird.location[0]}E}`}
+            </Typography>
           </Grid>
           <Link href={`https://en.wikipedia.org/wiki/${bird.commonname}`}>
             Link to wikipedia page
