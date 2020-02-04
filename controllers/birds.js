@@ -25,6 +25,7 @@ birdsRouter.post (
 
     const image = file.filename;
     const body = request.body;
+    const currentDate = new Date ();
 
     console.log ('request.body :', file);
     const bird = new Bird ({
@@ -33,6 +34,7 @@ birdsRouter.post (
       rarity: body.rarity,
       location: body.location,
       image: file.filename,
+      date: currentDate,
     });
     try {
       const savedBird = await bird.save ();

@@ -1,13 +1,22 @@
 import React, {useState, useEffect, Fragment} from 'react';
 import Resizer from 'react-image-file-resizer';
-import {Container, CssBaseline, Grid, Snackbar} from '@material-ui/core';
+import {
+  Container,
+  CssBaseline,
+  Grid,
+  Snackbar,
+  Dialog,
+  Button,
+  Card,
+  DialogContent,
+  DialogActions,
+} from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import NavBar from './components/navBar';
 import Form from './components/Form/form';
 import Bird from './components/Bird/bird';
 import {usePosition} from './hooks/position';
 import birdsService from './services/birds';
-import * as moment from 'moment';
 
 const App = () => {
   const [bird, setBird] = useState ({
@@ -23,6 +32,7 @@ const App = () => {
   const [birds, setBirds] = useState ([]);
   const [error, setError] = useState (false);
   const [message, setMessage] = useState ('');
+  const [dialogOpen, setDialogOpen] = useState (false);
 
   const {latitude, longitude} = usePosition ();
 
@@ -31,8 +41,6 @@ const App = () => {
       setBirds (birds);
     });
   }, []);
-
-  console.log ('birds :', birds);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -89,6 +97,7 @@ const App = () => {
         }, 5000);
       });
     resetFields ();
+    setDialogOpen (false);
   };
 
   const handleRarityChange = e => {
@@ -118,7 +127,6 @@ const App = () => {
     e.preventDefault ();
     let birdImage = e.target.files[0];
     let resizedImage = await resizeFile (birdImage);
-    console.log ('resizedImage :', resizedImage);
 
     setImage (resizedImage);
   };
@@ -127,7 +135,14 @@ const App = () => {
     e.preventDefault ();
 
     if (window.confirm ('Are you sure you want to add location?'))
-      setBird ({...bird, location: [latitude, longitude]});
+      setBird ({
+        ...bird,
+        location: [latitude.toFixed (2), longitude.toFixed (2)],
+      });
+  };
+
+  const handleOpen = () => {
+    setDialogOpen (true);
   };
 
   const Alert = props => {
@@ -142,6 +157,27 @@ const App = () => {
     <Fragment>
       <CssBaseline />
       <NavBar />
+      <Dialog
+        open={dialogOpen}
+        disablePortal
+        disableEnforceFocus
+        disableAutoFocusullScreen
+      >
+        <DialogContent>
+
+          <Form
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            handleImageChange={handleImageChange}
+            handleRarityChange={handleRarityChange}
+            handleLocation={handleLocation}
+            bird={bird}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialogOpen (false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
       <Container>
         <Grid
           key={bird.name}
@@ -155,7 +191,7 @@ const App = () => {
             <Snackbar
               anchorOrigin={{vertical: 'top', horizontal: 'center'}}
               open={open}
-              autoHideDuration={6000}
+              autoHideDuration={4000}
               onClose={handleClose}
             >
               {error
@@ -167,20 +203,14 @@ const App = () => {
                   </Alert>}
             </Snackbar>
           </Grid>
-          <Grid item xs={3}>
-
-            <Form
-              handleSubmit={handleSubmit}
-              handleChange={handleChange}
-              handleImageChange={handleImageChange}
-              handleRarityChange={handleRarityChange}
-              handleLocation={handleLocation}
-              bird={bird}
-            />
+          <Grid item xs={11}>
+            <Button variant="outlined" onClick={() => setDialogOpen (true)}>
+              Add New
+            </Button>
           </Grid>
           {sortedBirds &&
             sortedBirds.map ((bird, index) => (
-              <Grid key={index} item xs={3}>
+              <Grid key={index} item xs={12} md={3}>
                 <Bird handleRemove={handleRemove} bird={bird} />
               </Grid>
             ))}

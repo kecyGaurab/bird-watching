@@ -20,12 +20,8 @@ const birdSchema = new mongoose.Schema ({
   },
   date: {
     type: String,
-    required: false,
+    required: true,
   },
-  //   location: {
-  //     type: [Number],
-  //     required: false,
-  //   },
 });
 
 birdSchema.set ('toJSON', {
