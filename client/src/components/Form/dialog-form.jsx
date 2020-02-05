@@ -12,13 +12,7 @@ const DialogForm = ({
   bird,
 }) => {
   return (
-    <Dialog
-      open
-      fullScreen={true}
-      disablePortal
-      disableEnforceFocus
-      disableAutoFocus
-    >
+    <Dialog open fullScreen={true} disablePortal>
       <DialogContent>
         <Form
           handleSubmit={handleSubmit}
