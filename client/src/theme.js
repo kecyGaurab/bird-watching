@@ -1,8 +1,8 @@
-import {red} from '@material-ui/core/colors';
-import {createMuiTheme} from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 // A custom theme for this app
-const theme = createMuiTheme ({
+const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#002884',
@@ -42,12 +42,12 @@ theme.overrides = {
   MuiCardContent: {
     root: {
       // !important over the default &:last-child padding-bottom
-      padding: `${theme.spacing (4)}px !important`,
+      padding: `${theme.spacing(4)}px !important`,
     },
   },
   MuiDialog: {
     root: {
-      margin: `${theme.spacing (5)}px`,
+      margin: `${theme.spacing(5)}px`,
     },
     paperFullScreen: {
       backgroundColor: theme.palette.background.default,
@@ -55,7 +55,7 @@ theme.overrides = {
   },
   MuiCardHeader: {
     root: {
-      padding: theme.spacing (4),
+      padding: theme.spacing(4),
       '& + .MuiCardContent-root': {
         paddingTop: '0 !important',
       },
@@ -106,15 +106,6 @@ theme.overrides = {
       background: theme.palette.background.default,
     },
     colorPrimary: {
-      backgroundColor: theme.palette.background.default,
-    },
-  },
-  MuiDialog: {
-    root: {
-      margin: `${theme.spacing (5)}px`,
-      width: '100%',
-    },
-    paperFullScreen: {
       backgroundColor: theme.palette.background.default,
     },
   },

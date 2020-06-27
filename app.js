@@ -1,34 +1,35 @@
-const config = require ('./utils/config');
-const express = require ('express');
-const bodyParser = require ('body-parser');
-const app = express ();
-const cors = require ('cors');
-const birdsRouter = require ('./controllers/birds');
-const middleware = require ('./utils/middleware');
-const mongoose = require ('mongoose');
-const logger = require ('./utils/logger');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-app.use (cors ());
+const app = express();
+const cors = require('cors');
+const mongoose = require('mongoose');
+const config = require('./utils/config');
+const middleware = require('./utils/middleware');
+const birdsRouter = require('./controllers/birds');
+const logger = require('./utils/logger');
 
-logger.info ('connecting to', config.MONGODB_URI);
+app.use(cors());
+
+logger.info('connecting to', process.env.MONGODB_URI);
 
 mongoose
-  .connect (config.MONGODB_URI || 'mongodb://localhost/birdswatching-app', {
+  .connect(config.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then (() => {
-    logger.info ('connected to MongoDB');
+  .then(() => {
+    logger.info('connected to MongoDB');
   })
-  .catch (error => {
-    logger.error ('error connection to MongoDB:', error.message);
+  .catch((error) => {
+    logger.error('error connection to MongoDB:', error.message);
   });
 
-app.use (bodyParser.json ());
-app.use (middleware.requestLogger);
-app.use ('/api/birds', birdsRouter);
+app.use(bodyParser.json());
+app.use(middleware.requestLogger);
+app.use('/api/birds', birdsRouter);
 
-app.use (middleware.unknownEndpoint);
-app.use (middleware.errorHandler);
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 module.exports = app;

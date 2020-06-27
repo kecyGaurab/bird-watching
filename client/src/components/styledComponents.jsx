@@ -1,10 +1,10 @@
-import {Card} from '@material-ui/core'
-import styled, {css} from 'styled-components'
+import { Card } from '@material-ui/core';
+import styled, { css } from 'styled-components';
 
 export const StyledCard = styled(Card)`
-  ${props => {
+  ${(props) => {
     return css`
       height: ${props.extended === true ? ' 580px' : '492px'};
-    `
+    `;
   }}
-`
+`;
