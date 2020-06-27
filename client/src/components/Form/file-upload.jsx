@@ -1,15 +1,10 @@
-import React from 'react'
-import {Grid, Input, InputLabel, IconButton} from '@material-ui/core'
-import CancelIcon from '@material-ui/icons/Cancel'
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import { Grid, Input, InputLabel } from '@material-ui/core';
 
-const FileUpload = ({handleImageChange, bird}) => {
+const FileUpload = ({ handleImageChange, bird }) => {
   return (
-    <Grid
-      container
-      direction="row"
-      justify="space-between"
-      alignItems="flex-end"
-    >
+    <Grid container direction="row" justify="space-between" alignItems="flex-end">
       <Grid item xs={9}>
         <InputLabel>Upload image:</InputLabel>
         <Input
@@ -19,13 +14,8 @@ const FileUpload = ({handleImageChange, bird}) => {
           accept="image/png, image/jpeg,image/jpg"
         />
       </Grid>
-      <Grid item xs={3}>
-        <IconButton>
-          <CancelIcon />
-        </IconButton>
-      </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default FileUpload
+export default FileUpload;

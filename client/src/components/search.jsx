@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, TextField, Grid, InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-const Search = () => (
+const Search = ({ query, handleQueryChange }) => (
   <Grid container direction="row" alignItems="center">
     <Grid item md={6} xs={12}>
       <TextField
@@ -13,6 +13,8 @@ const Search = () => (
         type="search"
         variant="outlined"
         placeholder="Search"
+        onChange={handleQueryChange}
+        value={query}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

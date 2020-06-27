@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 /* eslint-disable no-alert */
 import React, { useState, useEffect } from 'react';
 import Resizer from 'react-image-file-resizer';
@@ -11,6 +12,7 @@ import {
   DialogContent,
   DialogActions,
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import MuiAlert from '@material-ui/lab/Alert';
 import NavBar from './components/navBar';
 import Form from './components/Form/form';
@@ -30,6 +32,8 @@ const App = () => {
   const [image, setImage] = useState(null);
   const [open, setOpen] = useState(false);
   const [birds, setBirds] = useState([]);
+  const [query, setQuery] = useState('');
+  const [filteredBirds, setFilteredBirds] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -41,6 +45,16 @@ const App = () => {
       setBirds(response);
     });
   }, []);
+
+  useEffect(() => {
+    const handleFilter = () => {
+      const matchedBirds = birds.filter((n) =>
+        n.commonname.toLowerCase().startsWith(query.toLowerCase()),
+      );
+      setFilteredBirds(matchedBirds);
+    };
+    handleFilter();
+  }, [query, birds]);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -73,6 +87,10 @@ const App = () => {
       ...bird,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleQueryChange = (event) => {
+    setQuery(event.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -146,8 +164,13 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-      <NavBar />
-      <Dialog open={dialogOpen} disablePortal disableEnforceFocus disableAutoFocusullScreen>
+      <NavBar query={query} handleQueryChange={handleQueryChange} />
+      <Dialog open={dialogOpen} disablePortal disableEnforceFocus>
+        <DialogActions>
+          <Button onClick={() => setDialogOpen(false)}>
+            <CloseIcon />
+          </Button>
+        </DialogActions>
         <DialogContent>
           <Form
             handleSubmit={handleSubmit}
@@ -158,9 +181,6 @@ const App = () => {
             bird={bird}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDialogOpen(false)}>Close</Button>
-        </DialogActions>
       </Dialog>
       <Container>
         <Grid key={bird.name} justify="space-around" container direction="row" spacing={3}>
@@ -187,12 +207,18 @@ const App = () => {
               Add New
             </Button>
           </Grid>
-          {sortedBirds &&
-            sortedBirds.map((b) => (
-              <Grid key={b.id} item xs={12} md={3}>
-                <Bird handleRemove={handleRemove} bird={b} />
-              </Grid>
-            ))}
+          {filteredBirds
+            ? filteredBirds.map((b) => (
+                <Grid key={b.id} item xs={12} md={3}>
+                  <Bird handleRemove={handleRemove} bird={b} />
+                </Grid>
+              ))
+            : sortedBirds &&
+              sortedBirds.map((b) => (
+                <Grid key={b.id} item xs={12} md={3}>
+                  <Bird handleRemove={handleRemove} bird={b} />
+                </Grid>
+              ))}
         </Grid>
       </Container>
     </>

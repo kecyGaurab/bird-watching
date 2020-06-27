@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
 import {
   Select,
   TextField,
@@ -9,8 +10,9 @@ import {
   Card,
   CardContent,
   InputLabel,
-} from '@material-ui/core'
-import FileUpload from './file-upload'
+} from '@material-ui/core';
+
+import FileUpload from './file-upload';
 
 const Form = ({
   handleSubmit,
@@ -60,7 +62,7 @@ const Form = ({
                 inputProps={{
                   id: 'rarity-select',
                 }}
-                defaultValue={'common'}
+                defaultValue="common"
                 onChange={handleRarityChange}
               >
                 <MenuItem value="common">common</MenuItem>
@@ -79,13 +81,12 @@ const Form = ({
               <Button type="submit" variant="outlined">
                 Submit
               </Button>
-              <Button variant="outlined">Cancel</Button>
             </Grid>
           </Grid>
         </form>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;
