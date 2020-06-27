@@ -6,7 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Search from './search';
 
-const NavBar = ({ handleSearch, handleSearchParameter, query, handleSubmit }) => (
+const NavBar = ({ query, handleQueryChange }) => (
   <>
     <AppBar color="primary" position="static">
       <Toolbar>
@@ -17,12 +17,7 @@ const NavBar = ({ handleSearch, handleSearchParameter, query, handleSubmit }) =>
             </Typography>
           </Grid>
           <Grid item xs={3}>
-            <Search
-              query={query}
-              handleSearch={handleSearch}
-              handleSearchParameter={handleSearchParameter}
-              handleSubmit={handleSubmit}
-            />
+            <Search handleQueryChange={handleQueryChange} query={query} />
           </Grid>
         </Grid>
       </Toolbar>

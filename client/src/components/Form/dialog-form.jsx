@@ -1,7 +1,8 @@
-import React from 'react'
-import {Dialog, DialogContent, DialogActions} from '@material-ui/core'
-import Form from './form'
-import {withRouter} from 'react-router'
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import { Dialog, DialogContent } from '@material-ui/core';
+import withRouter from 'react-router-dom';
+import Form from './form';
 
 const DialogForm = ({
   handleSubmit,
@@ -12,7 +13,7 @@ const DialogForm = ({
   bird,
 }) => {
   return (
-    <Dialog open fullScreen={true} disablePortal>
+    <Dialog open fullScreen disablePortal>
       <DialogContent>
         <Form
           handleSubmit={handleSubmit}
@@ -24,7 +25,7 @@ const DialogForm = ({
         />
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default withRouter(DialogForm)
+export default withRouter(DialogForm);
