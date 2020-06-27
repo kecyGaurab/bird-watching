@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { StylesProvider } from '@material-ui/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import App from './App';
 import theme from './theme';
-import {ThemeProvider as StyledThemeProvider} from 'styled-components';
-import StylesProvider from '@material-ui/styles/StylesProvider';
-import {MuiThemeProvider} from '@material-ui/core/styles';
 
-ReactDOM.render (
+ReactDOM.render(
   <StylesProvider injectFirst>
     <StyledThemeProvider theme={theme}>
       <MuiThemeProvider theme={theme}>
@@ -15,5 +15,5 @@ ReactDOM.render (
       </MuiThemeProvider>
     </StyledThemeProvider>
   </StylesProvider>,
-  document.getElementById ('root')
+  document.getElementById('root'),
 );

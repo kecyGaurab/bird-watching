@@ -13,6 +13,7 @@
     "deploy:full": "yarn run build:ui && git add . && git commit -m uibuild && yarn run deploy",
     "logs:prod": "heroku logs --tail"
   },
+  "proxy": "localhost:5000",
   "dependencies": {
     "@material-ui/lab": "^4.0.0-alpha.41",
     "body-parser": "^1.18.3",
@@ -27,9 +28,23 @@
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
-    "nodemon": "^2.0.2",
     "react-image-file-resizer": "^0.2.1",
     "react-router-dom": "^5.1.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-eslint": "10.1.0",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-config-prettier": "6.7.0",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-react": "7.17.0",
+    "eslint-plugin-react-hooks": "2.3.0",
+    "jest": "24.9.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.4",
+    "prettier": "1.19.1",
+    "supertest": "^4.0.2"
+  }
 }

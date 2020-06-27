@@ -1,6 +1,7 @@
-import React from "react";
-import { Button, TextField, Grid, InputAdornment } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import { Button, TextField, Grid, InputAdornment } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 
 const Search = () => (
   <Grid container direction="row" alignItems="center">
@@ -17,7 +18,7 @@ const Search = () => (
             <InputAdornment position="start">
               <SearchIcon />
             </InputAdornment>
-          )
+          ),
         }}
       />
     </Grid>
