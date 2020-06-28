@@ -25,7 +25,8 @@ const App = () => {
     commonname: '',
     species: '',
     rarity: [],
-    location: [null, null],
+    latitude: null,
+    longitude: null,
     date: '',
   });
 
@@ -37,7 +38,6 @@ const App = () => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
-
   const { latitude, longitude } = usePosition();
 
   useEffect(() => {
@@ -55,6 +55,12 @@ const App = () => {
     };
     handleFilter();
   }, [query, birds]);
+
+  console.log('birds', birds);
+
+  // useEffect(() => {
+  //   if (latitude && longitude) setlocation(latitude, longitude);
+  // }, []);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -77,7 +83,8 @@ const App = () => {
       commonname: '',
       species: '',
       rarity: [],
-      location: [null, null],
+      latitude: null,
+      longitude: null,
     });
     setImage(null);
   };
@@ -92,6 +99,8 @@ const App = () => {
   const handleQueryChange = (event) => {
     setQuery(event.target.value);
   };
+
+  console.log('bird', bird);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -146,12 +155,13 @@ const App = () => {
   };
 
   const handleLocation = (e) => {
+    console.log('latitude', latitude);
     e.preventDefault();
-
     if (window.confirm('Are you sure you want to add location?'))
       setBird({
         ...bird,
-        location: [latitude.toFixed(2), longitude.toFixed(2)],
+        latitude,
+        longitude,
       });
   };
 

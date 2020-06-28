@@ -25,7 +25,7 @@ const Bird = ({ bird, handleRemove }) => {
     <>
       <StyledCard elevation={10}>
         <CardContent>
-          <Grid container Card direction="column" spacing={1}>
+          <Grid container direction="column" spacing={1}>
             <Grid item>
               <Header bird={bird} handleRemove={handleRemove} />
             </Grid>
@@ -60,7 +60,7 @@ const Bird = ({ bird, handleRemove }) => {
             <Grid item>
               <Typography variant="inherit">
                 Location:&nbsp;
-                {bird.location && `${bird.location[0]}N  ${bird.location[0]}E}`}
+                {bird.latitude && `${bird.latitude}N ${bird.longitude}E `}
               </Typography>
             </Grid>
             <Grid item>
