@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { StylesProvider } from '@material-ui/styles';
@@ -11,7 +12,9 @@ ReactDOM.render(
   <StylesProvider injectFirst>
     <StyledThemeProvider theme={theme}>
       <MuiThemeProvider theme={theme}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </MuiThemeProvider>
     </StyledThemeProvider>
   </StylesProvider>,
