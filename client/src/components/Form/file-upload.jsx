@@ -11,7 +11,7 @@ const FileUpload = ({ handleImageChange, bird }) => {
           value={bird.image}
           onChange={handleImageChange}
           type="file"
-          accept="image/png, image/jpeg,image/jpg"
+          accept="image/png,image/jpeg,image/jpg"
         />
       </Grid>
     </Grid>

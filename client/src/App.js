@@ -1,31 +1,23 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable no-alert */
 import React, { useState, useEffect } from 'react';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import Resizer from 'react-image-file-resizer';
-import {
-  Container,
-  CssBaseline,
-  Grid,
-  Snackbar,
-  Dialog,
-  Button,
-  DialogContent,
-  DialogActions,
-} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import MuiAlert from '@material-ui/lab/Alert';
+import { CssBaseline } from '@material-ui/core';
 import NavBar from './components/navBar';
 import Form from './components/Form/form';
-import Bird from './components/Bird/bird';
+import HomePage from './HomePage';
 import { usePosition } from './hooks/position';
 import birdsService from './services/birds';
+import BirdDetail from './BirdDetail';
 
-const App = () => {
+const App = (props) => {
   const [bird, setBird] = useState({
     commonname: '',
     species: '',
     rarity: [],
-    location: [null, null],
+    latitude: null,
+    longitude: null,
     date: '',
   });
 
@@ -36,9 +28,8 @@ const App = () => {
   const [filteredBirds, setFilteredBirds] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
-  const [dialogOpen, setDialogOpen] = useState(false);
-
   const { latitude, longitude } = usePosition();
+
 
   useEffect(() => {
     birdsService.getAll().then((response) => {
@@ -69,6 +60,7 @@ const App = () => {
     const birdToRemove = birds.find((n) => n.id === id);
     if (window.confirm(`Are you sure you want to delete ${birdToRemove.commonname} ?`)) {
       birdsService.remove(id).then(setBirds(deleted));
+      props.history.push('/');
     }
   };
 
@@ -77,12 +69,14 @@ const App = () => {
       commonname: '',
       species: '',
       rarity: [],
-      location: [null, null],
+      latitude: null,
+      longitude: null,
     });
     setImage(null);
   };
 
   const handleChange = (e) => {
+    e.preventDefault();
     setBird({
       ...bird,
       [e.target.name]: e.target.value,
@@ -111,7 +105,7 @@ const App = () => {
         }, 5000);
       });
     resetFields();
-    setDialogOpen(false);
+    props.history.push('/');
   };
 
   const handleRarityChange = (e) => {
@@ -126,7 +120,7 @@ const App = () => {
       Resizer.imageFileResizer(
         file,
         200,
-        300,
+        250,
         'JPEG',
         100,
         0,
@@ -141,22 +135,17 @@ const App = () => {
     e.preventDefault();
     const birdImage = e.target.files[0];
     const resizedImage = await resizeFile(birdImage);
-
     setImage(resizedImage);
   };
 
   const handleLocation = (e) => {
     e.preventDefault();
-
     if (window.confirm('Are you sure you want to add location?'))
       setBird({
         ...bird,
-        location: [latitude.toFixed(2), longitude.toFixed(2)],
+        latitude,
+        longitude,
       });
-  };
-
-  const Alert = (props) => {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
   };
 
   const sortedBirds = birds.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -165,64 +154,46 @@ const App = () => {
     <>
       <CssBaseline />
       <NavBar query={query} handleQueryChange={handleQueryChange} />
-      <Dialog open={dialogOpen} disablePortal disableEnforceFocus>
-        <DialogActions>
-          <Button onClick={() => setDialogOpen(false)}>
-            <CloseIcon />
-          </Button>
-        </DialogActions>
-        <DialogContent>
-          <Form
-            handleSubmit={handleSubmit}
-            handleChange={handleChange}
-            handleImageChange={handleImageChange}
-            handleRarityChange={handleRarityChange}
-            handleLocation={handleLocation}
-            bird={bird}
-          />
-        </DialogContent>
-      </Dialog>
-      <Container>
-        <Grid key={bird.name} justify="space-around" container direction="row" spacing={3}>
-          <Grid item xs={12}>
-            <Snackbar
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <HomePage
+              {...props}
+              handleClose={handleClose}
+              handleRemove={handleRemove}
+              filteredBirds={filteredBirds}
+              message={message}
+              error={error}
+              sortedBirds={sortedBirds}
+            />
+          )}
+        />
+        <Route
+          path="/add"
+          render={() => (
+            <Form
+              {...props}
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+              handleImageChange={handleImageChange}
+              handleRarityChange={handleRarityChange}
+              handleLocation={handleLocation}
               open={open}
-              autoHideDuration={4000}
-              onClose={handleClose}
-            >
-              {error ? (
-                <Alert onClose={handleClose} severity="error">
-                  {message}
-                </Alert>
-              ) : (
-                <Alert onClose={handleClose} severity="success">
-                  {message}
-                </Alert>
-              )}
-            </Snackbar>
-          </Grid>
-          <Grid item xs={11}>
-            <Button variant="outlined" onClick={() => setDialogOpen(true)}>
-              Add New
-            </Button>
-          </Grid>
-          {filteredBirds
-            ? filteredBirds.map((b) => (
-                <Grid key={b.id} item xs={12} md={3}>
-                  <Bird handleRemove={handleRemove} bird={b} />
-                </Grid>
-              ))
-            : sortedBirds &&
-              sortedBirds.map((b) => (
-                <Grid key={b.id} item xs={12} md={3}>
-                  <Bird handleRemove={handleRemove} bird={b} />
-                </Grid>
-              ))}
-        </Grid>
-      </Container>
+              bird={bird}
+            />
+          )}
+        />
+        {birds && (
+          <Route
+            path="/:id"
+            render={() => <BirdDetail {...props} handleRemove={handleRemove} birds={birds} />}
+          />
+        )}
+      </Switch>
     </>
   );
 };
 
-export default App;
+export default withRouter(App);
