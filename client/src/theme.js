@@ -42,7 +42,7 @@ theme.overrides = {
   MuiCardContent: {
     root: {
       // !important over the default &:last-child padding-bottom
-      padding: `${theme.spacing(4)}px !important`,
+      padding: `${theme.spacing(3)}px !important`,
     },
   },
   MuiDialog: {

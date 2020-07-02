@@ -1,14 +1,19 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { Link, Typography, Grid, CardContent } from '@material-ui/core';
-import styled from 'styled-components';
+import { Typography, Grid, CardContent, Paper } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import * as moment from 'moment';
-import { StyledCard } from '../styledComponents';
+import styled from 'styled-components';
 import Header from './header';
+import { StyledCard } from '../styledComponents';
 
 const Image = styled.div`
-  height: 180px;
+  height: 180px important!;
   padding: 10px 0px;
+`;
+
+const SCard = styled(Paper)`
+  height: 190px;
 `;
 
 const Bird = ({ bird, handleRemove }) => {
@@ -25,42 +30,43 @@ const Bird = ({ bird, handleRemove }) => {
             <Grid item>
               <Header bird={bird} handleRemove={handleRemove} />
             </Grid>
-
             <Grid item>
-              <Typography variant="body2">
-                Species:
+              <Typography variant="inherit">
+                Species:&nbsp;
                 {bird.species}
               </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="body2">
-                Rarity:
+              <Typography variant="inherit">
+                Rarity:&nbsp;
                 {bird.rarity}
               </Typography>
             </Grid>
             <Grid item>
-              <Image>
-                <img alt="bird" src={`uploads/${bird.image}`} />
-              </Image>
+              <SCard align="center" variant="outlined">
+                <Image>
+                  <img alt="bird" src={`uploads/${bird.image}`} />
+                </Image>
+              </SCard>
             </Grid>
             <Grid item>
               <Typography variant="h6">Observation info:</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="body2">
-                Date and Time:
+              <Typography variant="inherit">
+                Date and Time:&nbsp;
                 {formattedDate(bird.date)}
               </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="body2">
-                location:
-                {bird.location && `${bird.location[0]}N  ${bird.location[0]}E}`}
+              <Typography variant="inherit">
+                Location:&nbsp;
+                {bird.latitude && `${bird.latitude.toFixed(2)}N, ${bird.longitude.toFixed(2)}E `}
               </Typography>
             </Grid>
-            <Link href={`https://en.wikipedia.org/wiki/${bird.commonname}`}>
-              Link to wikipedia page
-            </Link>
+            <Grid item align="stretch">
+              <Link to={`/${bird.id}`}>Details</Link>
+            </Grid>
           </Grid>
         </CardContent>
       </StyledCard>
