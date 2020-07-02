@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { Link, Typography, Grid, CardContent, Paper } from '@material-ui/core';
+import { Typography, Grid, CardContent, Paper } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import * as moment from 'moment';
 import styled from 'styled-components';
 import Header from './header';
@@ -63,10 +64,8 @@ const Bird = ({ bird, handleRemove }) => {
                 {bird.latitude && `${bird.latitude.toFixed(2)}N, ${bird.longitude.toFixed(2)}E `}
               </Typography>
             </Grid>
-            <Grid item>
-              <Link href={`https://en.wikipedia.org/wiki/${bird.commonname}`}>
-                Link to wikipedia page
-              </Link>
+            <Grid item align="stretch">
+              <Link to={`/${bird.id}`}>Details</Link>
             </Grid>
           </Grid>
         </CardContent>

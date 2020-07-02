@@ -9,6 +9,7 @@ import Form from './components/Form/form';
 import HomePage from './HomePage';
 import { usePosition } from './hooks/position';
 import birdsService from './services/birds';
+import BirdDetail from './BirdDetail';
 
 const App = (props) => {
   const [bird, setBird] = useState({
@@ -29,6 +30,7 @@ const App = (props) => {
   const [message, setMessage] = useState('');
   const { latitude, longitude } = usePosition();
 
+
   useEffect(() => {
     birdsService.getAll().then((response) => {
       setBirds(response);
@@ -45,12 +47,6 @@ const App = (props) => {
     handleFilter();
   }, [query, birds]);
 
-  console.log('birds', birds);
-
-  // useEffect(() => {
-  //   if (latitude && longitude) setlocation(latitude, longitude);
-  // }, []);
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -64,6 +60,7 @@ const App = (props) => {
     const birdToRemove = birds.find((n) => n.id === id);
     if (window.confirm(`Are you sure you want to delete ${birdToRemove.commonname} ?`)) {
       birdsService.remove(id).then(setBirds(deleted));
+      props.history.push('/');
     }
   };
 
@@ -123,7 +120,7 @@ const App = (props) => {
       Resizer.imageFileResizer(
         file,
         200,
-        300,
+        250,
         'JPEG',
         100,
         0,
@@ -174,7 +171,6 @@ const App = (props) => {
           )}
         />
         <Route
-          exact
           path="/add"
           render={() => (
             <Form
@@ -189,6 +185,12 @@ const App = (props) => {
             />
           )}
         />
+        {birds && (
+          <Route
+            path="/:id"
+            render={() => <BirdDetail {...props} handleRemove={handleRemove} birds={birds} />}
+          />
+        )}
       </Switch>
     </>
   );
