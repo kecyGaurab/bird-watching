@@ -30,7 +30,6 @@ const App = (props) => {
   const [message, setMessage] = useState('');
   const { latitude, longitude } = usePosition();
 
-
   useEffect(() => {
     birdsService.getAll().then((response) => {
       setBirds(response);
