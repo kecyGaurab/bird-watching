@@ -64,7 +64,7 @@ const Bird = ({ bird, handleRemove }) => {
               <Typography variant="inherit">
                 Location:&nbsp;
                 {bird.latitude === 0
-                  ? 'location not available'
+                  ? 'Not available'
                   : `${bird.latitude.toFixed(2)}N, ${bird.longitude.toFixed(2)}E `}
               </Typography>
             </Grid>
