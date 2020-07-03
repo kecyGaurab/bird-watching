@@ -6,10 +6,10 @@ import Resizer from 'react-image-file-resizer';
 import { CssBaseline } from '@material-ui/core';
 import NavBar from './components/navBar';
 import Form from './components/Form/form';
-import HomePage from './HomePage';
+import HomePage from './pages/HomePage';
 import { usePosition } from './hooks/position';
 import birdsService from './services/birds';
-import BirdDetail from './BirdDetail';
+import BirdDetail from './pages/BirdDetail';
 
 const App = (props) => {
   const [bird, setBird] = useState({

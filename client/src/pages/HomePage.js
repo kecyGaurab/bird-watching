@@ -6,7 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { Container, Grid, Snackbar, Button } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import Bird from './components/Bird/bird';
+import Bird from '../components/Bird/bird';
 
 const HomePage = ({ birds, ...props }) => {
   const Alert = () => {
@@ -18,7 +18,7 @@ const HomePage = ({ birds, ...props }) => {
   };
   return (
     <Container>
-      <Grid justify="space-around" container direction="row" spacing={3}>
+      <Grid justify="space-around" container direction="row" spacing={5}>
         <Grid item xs={12}>
           <Snackbar
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
@@ -37,9 +37,11 @@ const HomePage = ({ birds, ...props }) => {
             )}
           </Snackbar>
         </Grid>
-        <Grid item xs={11}>
+        <Grid item xs={12} align="center">
           <Link style={{ textDecoration: 'none' }} to="/add">
-            <Button variant="outlined">Add New</Button>
+            <Button size="large" variant="outlined">
+              Add New
+            </Button>
           </Link>
         </Grid>
         {filteredBirds

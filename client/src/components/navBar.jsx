@@ -6,18 +6,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Search from './search';
 
-const NavBar = ({ query, handleQueryChange }) => (
+const NavBar = ({ handleQueryChange, query }) => (
   <>
     <AppBar color="primary" position="static">
       <Toolbar>
-        <Grid container direction="row" justify="space-around" alignItems="center" spacing={2}>
-          <Grid item xs={3}>
+        <Grid container justify="space-between">
+          <Grid item xs={3} align="right">
             <Typography variant="h3" color="primary">
               Birds
             </Typography>
           </Grid>
-          <Grid item xs={3}>
-            <Search handleQueryChange={handleQueryChange} query={query} />
+          <Grid item xs={4}>
+            <Search query={query} handleQueryChange={handleQueryChange} />
           </Grid>
         </Grid>
       </Toolbar>

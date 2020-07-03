@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Box, Container } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-import SimpleMap from './GoogleMap';
-import Bird from './components/Bird/bird';
+import SimpleMap from '../components/GoogleMap';
+import Bird from '../components/Bird/bird';
 
 const BirdDetail = (props) => {
   const { match, handleRemove, handleEdit, birds } = props;
