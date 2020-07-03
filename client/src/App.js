@@ -14,10 +14,10 @@ import BirdDetail from './BirdDetail';
 const App = (props) => {
   const [bird, setBird] = useState({
     commonname: '',
-    species: '',
+    species: 'unknown',
     rarity: [],
-    latitude: null,
-    longitude: null,
+    latitude: 0,
+    longitude: 0,
     date: '',
   });
 
@@ -67,10 +67,10 @@ const App = (props) => {
   const resetFields = () => {
     setBird({
       commonname: '',
-      species: '',
+      species: 'unknown',
       rarity: [],
-      latitude: null,
-      longitude: null,
+      latitude: 0,
+      longitude: 0,
     });
     setImage(null);
   };

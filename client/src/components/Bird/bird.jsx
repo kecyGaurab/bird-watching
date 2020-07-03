@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { Typography, Grid, CardContent, Paper } from '@material-ui/core';
+import { Typography, Grid, CardContent, Paper, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import * as moment from 'moment';
 import styled from 'styled-components';
@@ -31,10 +31,12 @@ const Bird = ({ bird, handleRemove }) => {
               <Header bird={bird} handleRemove={handleRemove} />
             </Grid>
             <Grid item>
-              <Typography variant="inherit">
-                Species:&nbsp;
-                {bird.species}
-              </Typography>
+              <Box fontStyle="italic">
+                <Typography variant="inherit">
+                  Species:&nbsp;
+                  {bird.species}
+                </Typography>
+              </Box>
             </Grid>
             <Grid item>
               <Typography variant="inherit">
@@ -61,7 +63,9 @@ const Bird = ({ bird, handleRemove }) => {
             <Grid item>
               <Typography variant="inherit">
                 Location:&nbsp;
-                {bird.latitude && `${bird.latitude.toFixed(2)}N, ${bird.longitude.toFixed(2)}E `}
+                {bird.latitude === 0
+                  ? 'location not available'
+                  : `${bird.latitude.toFixed(2)}N, ${bird.longitude.toFixed(2)}E `}
               </Typography>
             </Grid>
             <Grid item align="stretch">
