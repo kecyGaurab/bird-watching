@@ -5,7 +5,7 @@ import { IconButton, Typography, Grid } from '@material-ui/core';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 
-const Header = ({ bird, handleRemove }) => {
+const Header = ({ bird, handleRemove, handleEdit }) => {
   return (
     <Grid container direction="row" justify="space-between" alignItems="center">
       <Grid item xs={9}>
@@ -15,7 +15,7 @@ const Header = ({ bird, handleRemove }) => {
         </Typography>
       </Grid>
       <Grid item xs={1}>
-        <IconButton onClick={() => handleRemove(bird.id)}>
+        <IconButton onClick={() => handleEdit(bird.id)}>
           <EditIcon />
         </IconButton>
       </Grid>

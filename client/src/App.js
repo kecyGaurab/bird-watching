@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage';
 import { usePosition } from './hooks/position';
 import birdsService from './services/birds';
 import BirdDetail from './pages/BirdDetail';
+import EditBird from './pages/EditBird';
 
 const App = (props) => {
   const [bird, setBird] = useState({
@@ -118,8 +119,8 @@ const App = (props) => {
     new Promise((resolve) => {
       Resizer.imageFileResizer(
         file,
-        200,
-        250,
+        240,
+        240,
         'JPEG',
         100,
         0,
@@ -147,28 +148,32 @@ const App = (props) => {
       });
   };
 
+  const handleEdit = (id) => {
+    props.history.push(`/edit/${id}`);
+  };
+
   const sortedBirds = birds.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <>
       <CssBaseline />
       <NavBar query={query} handleQueryChange={handleQueryChange} />
+      <Route
+        exact
+        path="/"
+        render={() => (
+          <HomePage
+            {...props}
+            handleClose={handleClose}
+            handleRemove={handleRemove}
+            filteredBirds={filteredBirds}
+            message={message}
+            error={error}
+            sortedBirds={sortedBirds}
+          />
+        )}
+      />
       <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <HomePage
-              {...props}
-              handleClose={handleClose}
-              handleRemove={handleRemove}
-              filteredBirds={filteredBirds}
-              message={message}
-              error={error}
-              sortedBirds={sortedBirds}
-            />
-          )}
-        />
         <Route
           path="/add"
           render={() => (
@@ -186,10 +191,32 @@ const App = (props) => {
         />
         {birds && (
           <Route
-            path="/:id"
-            render={() => <BirdDetail {...props} handleRemove={handleRemove} birds={birds} />}
+            path="/edit/:id"
+            render={() => (
+              <EditBird
+                {...props}
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                handleImageChange={handleImageChange}
+                handleRarityChange={handleRarityChange}
+                handleLocation={handleLocation}
+                open={open}
+                birds={birds}
+              />
+            )}
           />
         )}
+        <Route
+          path="/:id"
+          render={() => (
+            <BirdDetail
+              {...props}
+              handleRemove={handleRemove}
+              handleEdit={handleEdit}
+              birds={birds}
+            />
+          )}
+        />
       </Switch>
     </>
   );

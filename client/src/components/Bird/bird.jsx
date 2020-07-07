@@ -16,7 +16,7 @@ const SCard = styled(Paper)`
   height: 190px;
 `;
 
-const Bird = ({ bird, handleRemove }) => {
+const Bird = ({ bird, handleRemove, handleEdit }) => {
   // const imagePath = bird.image && bird.image.replace(/\\/g, '/');
   const formattedDate = (date) => {
     return moment(new Date(date)).format('MMMM Do YYYY, h:mm:ss a');
@@ -28,7 +28,7 @@ const Bird = ({ bird, handleRemove }) => {
         <CardContent>
           <Grid container direction="column" spacing={1}>
             <Grid item>
-              <Header bird={bird} handleRemove={handleRemove} />
+              <Header bird={bird} handleEdit={handleEdit} handleRemove={handleRemove} />
             </Grid>
             <Grid item>
               <Box fontStyle="italic">
