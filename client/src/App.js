@@ -149,7 +149,7 @@ const App = (props) => {
   };
 
   const handleEdit = (id) => {
-    props.history.push(`/edit/${id}`);
+    props.history.push(`/${id}/edit`);
   };
 
   const sortedBirds = birds.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -191,7 +191,7 @@ const App = (props) => {
         />
         {birds && (
           <Route
-            path="/edit/:id"
+            path="/:id/edit"
             render={() => (
               <EditBird
                 {...props}

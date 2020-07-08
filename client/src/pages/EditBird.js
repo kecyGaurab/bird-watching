@@ -17,12 +17,10 @@ import {
   DialogContent,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import birdsService from '../services/birds';
 
-import FileUpload from '../components/Form/file-upload';
 
 const EditBird = (props) => {
-  const { match, handleSubmit, handleChange, handleRarityChange, handleLocation, birds } = props;
+  const { match, handleChange, handleRarityChange, handleLocation, birds } = props;
   const { id } = match.params;
   const bird = birds.find((b) => b.id === id);
 
@@ -45,16 +43,6 @@ const EditBird = (props) => {
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    // birdsService
-    //   .update(id, birdToEdit)
-    //   .then((res) => {
-    //     setBirds(birds.concat(res));
-    //     setMessage('Observation saved');
-    //     setOpen(true);
-    //   })
-    //   .catch((err) => {
-    //     console.log('err', err);
-    //   });
     props.history.push('/');
   };
 
@@ -118,9 +106,7 @@ const EditBird = (props) => {
                     <MenuItem value="extremely-rare">extremely rare</MenuItem>
                   </Select>
                 </Grid>
-                {/* <Grid item xs={12}>
-                  <FileUpload handleImageChange={handleImageChange} birdToEdit={birdToEdit} />
-                </Grid> */}
+
                 <Grid item>
                   <Button onClick={handleLocation}>Add location</Button>
                   <Typography>{birdToEdit.location}</Typography>

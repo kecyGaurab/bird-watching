@@ -7,12 +7,12 @@ import styled from 'styled-components';
 import Header from './header';
 import { StyledCard } from '../styledComponents';
 
-const Image = styled.div`
+export const Image = styled.div`
   height: 180px important!;
   padding: 10px 0px;
 `;
 
-const SCard = styled(Paper)`
+export const SCard = styled(Paper)`
   height: 190px;
 `;
 
