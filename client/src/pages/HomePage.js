@@ -3,17 +3,20 @@
 /* eslint-disable react/jsx-no-undef */
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import { Container, Grid, Snackbar, Button } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import Bird from '../components/Bird/bird';
 
 const HomePage = ({ birds, ...props }) => {
+  const { charis } = props;
   const Alert = () => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   };
 
-  const { handleClose, open, message, handleRemove, error, sortedBirds, filteredBirds } = {
+  const sortedBirds = charis.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const { handleClose, open, message, handleRemove, error, filteredBirds } = {
     ...props,
   };
   return (
@@ -61,4 +64,10 @@ const HomePage = ({ birds, ...props }) => {
   );
 };
 
-export default withRouter(HomePage);
+const mapStateToProps = (state) => {
+  return {
+    charis: state.bird.charis,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(HomePage));

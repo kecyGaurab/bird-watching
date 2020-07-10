@@ -2,8 +2,10 @@
 /* eslint-disable no-alert */
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Resizer from 'react-image-file-resizer';
 import { CssBaseline } from '@material-ui/core';
+import { initializeBirds } from './redux/reducers/birdReducer';
 import NavBar from './components/navBar';
 import Form from './components/Form/form';
 import HomePage from './pages/HomePage';
@@ -30,6 +32,11 @@ const App = (props) => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
   const { latitude, longitude } = usePosition();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(initializeBirds());
+  }, [dispatch]);
 
   useEffect(() => {
     birdsService.getAll().then((response) => {
@@ -152,8 +159,6 @@ const App = (props) => {
     props.history.push(`/${id}/edit`);
   };
 
-  const sortedBirds = birds.sort((a, b) => new Date(b.date) - new Date(a.date));
-
   return (
     <>
       <CssBaseline />
@@ -169,7 +174,6 @@ const App = (props) => {
             filteredBirds={filteredBirds}
             message={message}
             error={error}
-            sortedBirds={sortedBirds}
           />
         )}
       />
