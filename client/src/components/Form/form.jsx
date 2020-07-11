@@ -1,6 +1,8 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import {
   Select,
@@ -17,18 +19,113 @@ import {
   DialogContent,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import Resizer from 'react-image-file-resizer';
+import birdsService from '../../services/birds';
+import { createBird } from '../../redux/reducers/birdReducer';
+import { usePosition } from '../../hooks/position';
 
 import FileUpload from './file-upload';
 
 const Form = (props) => {
-  const {
-    handleSubmit,
-    handleChange,
-    handleImageChange,
-    handleRarityChange,
-    handleLocation,
-    bird,
-  } = props;
+  console.log('props', props);
+  const { history } = props;
+  const dispatch = useDispatch();
+
+  const [bird, setBird] = useState({
+    commonname: '',
+    species: 'unknown',
+    rarity: [],
+    latitude: 0,
+    longitude: 0,
+    date: '',
+  });
+
+  const [image, setImage] = useState(null);
+  const [birds, setBirds] = useState([]);
+  const { latitude, longitude } = usePosition();
+
+  const resetFields = () => {
+    setBird({
+      commonname: '',
+      species: 'unknown',
+      rarity: [],
+      latitude: 0,
+      longitude: 0,
+    });
+    setImage(null);
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setBird({
+      ...bird,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    birdsService
+      .create(bird, image)
+      .then((res) => {
+        setBirds(birds.concat(res));
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
+    resetFields();
+    props.history.push('/');
+  };
+
+  const handleRarityChange = (e) => {
+    setBird({
+      ...bird,
+      rarity: e.target.value,
+    });
+  };
+
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        240,
+        240,
+        'JPEG',
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        'blob',
+      );
+    });
+
+  const handleImageChange = async (e) => {
+    e.preventDefault();
+    const birdImage = e.target.files[0];
+    const resizedImage = await resizeFile(birdImage);
+    setImage(resizedImage);
+  };
+
+  const handleLocation = (e) => {
+    e.preventDefault();
+    if (window.confirm('Are you sure you want to add location?'))
+      setBird({
+        ...bird,
+        latitude,
+        longitude,
+      });
+  };
+
+  const addBird = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(createBird(bird, image));
+      props.history.push('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Dialog open disablePortal disableEnforceFocus>
       <DialogActions>
@@ -41,7 +138,7 @@ const Form = (props) => {
       <DialogContent>
         <Card square>
           <CardContent>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={addBird}>
               <Grid container direction="column" spacing={1}>
                 <Grid item xs={12}>
                   <Typography variant="h6">Enter new observation</Typography>

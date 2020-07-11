@@ -29,6 +29,16 @@ export const birdReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
+export const createBird = (obs, image) => {
+  return async (dispatch) => {
+    const newObs = await birdService.create(obs, image);
+    dispatch({
+      type: ADD_BIRD,
+      payload: newObs,
+    });
+  };
+};
+
 export const initializeBirds = () => {
   return async (dispatch) => {
     const charis = await birdService.getAll();
