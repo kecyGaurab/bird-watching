@@ -9,6 +9,11 @@ const getAll = async () => {
   return response.data;
 };
 
+const get = async (id) => {
+  const response = await axios.get(`${baseUrl}/${id}`);
+  return response.data;
+};
+
 const create = async (newObs, image) => {
   const data = new FormData();
   data.append('image', image);
@@ -28,7 +33,7 @@ const create = async (newObs, image) => {
 
 // update takes in id and newObject to update the observation
 const update = async (id, obs) => {
-  const response = await axios.put(`${id}`, obs);
+  const response = await axios.put(`${baseUrl}/${id}`, obs);
   return response.data;
 };
 
@@ -38,6 +43,7 @@ const remove = async (id) => {
 };
 
 export default {
+  get,
   getAll,
   create,
   remove,

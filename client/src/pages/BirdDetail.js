@@ -1,20 +1,31 @@
 import React from 'react';
-import { Grid, Box, Container } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Grid, Box, Container, Button } from '@material-ui/core';
+import { withRouter, Link } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SimpleMap from '../components/GoogleMap';
 import Bird from '../components/Bird/bird';
+import NavBar from '../components/navBar';
 
 const BirdDetail = (props) => {
-  const { match, handleRemove, handleEdit, birds } = props;
+  const { match, birds } = props;
 
   const { id } = match.params;
   const bird = birds && birds.find((b) => b.id === id);
   return (
     <Box>
+      <NavBar />
       <Container>
+        <Link to="/">
+          <Button>
+            <ArrowBackIcon />
+            Back
+          </Button>
+        </Link>
         <Grid container direction="row" justify="space-around" alignContent="center">
+          <Grid item />
           <Grid item xs={3}>
-            <Bird handleRemove={handleRemove} handleEdit={handleEdit} bird={bird} />
+            <Bird bird={bird} />
           </Grid>
           <Grid item xs={9}>
             <SimpleMap latitude={bird && bird.latitude} longitude={bird && bird.longitude} />
@@ -25,4 +36,9 @@ const BirdDetail = (props) => {
   );
 };
 
-export default withRouter(BirdDetail);
+const mapStateToProps = (state) => {
+  return {
+    birds: state.bird.charis,
+  };
+};
+export default connect(mapStateToProps)(withRouter(BirdDetail));

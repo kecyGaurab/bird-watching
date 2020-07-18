@@ -64,4 +64,24 @@ birdsRouter.delete('/:id', async (request, response, next) => {
   }
 });
 
+birdsRouter.put('/:id', async (request, response, next) => {
+  const currentDate = new Date();
+
+  const { body } = request;
+  const birdToEdit = {
+    commonname: body.commonname,
+    species: body.species,
+    rarity: body.rarity,
+    latitude: body.latitude,
+    longitude: body.longitude,
+    date: currentDate,
+  };
+  try {
+    const editedBird = await Bird.findByIdAndUpdate(request.params.id, birdToEdit, { new: true });
+    response.json(editedBird.toJSON());
+  } catch (exception) {
+    next(exception);
+  }
+});
+
 module.exports = birdsRouter;

@@ -19,81 +19,65 @@ import {
   DialogContent,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import Resizer from 'react-image-file-resizer';
-import { createBird } from '../../redux/reducers/birdReducer';
-import { usePosition } from '../../hooks/position';
+import { editBird } from '../redux/reducers/birdReducer';
+import { usePosition } from '../hooks/position';
 
-import FileUpload from './file-upload';
-
-const Form = (props) => {
-  const [bird, setBird] = useState({
-    commonname: '',
-    species: 'unknown',
-    rarity: [],
-    latitude: 0,
-    longitude: 0,
-    date: '',
-  });
-
-  const [image, setImage] = useState(null);
+const EditBird = (props) => {
   const { latitude, longitude } = usePosition();
 
-  const handleChange = (e) => {
+  const { match, birds } = props;
+  const { id } = match.params;
+
+  const bird = birds.find((b) => b.id === id);
+
+  const [birdToEdit, setBirdToEdit] = useState({
+    commonname: bird.commonname,
+    species: bird.species,
+    rarity: bird.rarity,
+    latitude: bird.latitude,
+    longitude: bird.longitude,
+  });
+
+  const handleNameChange = (e) => {
     e.preventDefault();
-    setBird({
-      ...bird,
-      [e.target.name]: e.target.value,
+    setBirdToEdit({
+      ...birdToEdit,
+      commonname: e.target.value,
     });
   };
-
+  const handleSpeciesChange = (e) => {
+    e.preventDefault();
+    setBirdToEdit({
+      ...birdToEdit,
+      species: e.target.value,
+    });
+  };
   const handleRarityChange = (e) => {
-    setBird({
-      ...bird,
+    setBirdToEdit({
+      ...birdToEdit,
       rarity: e.target.value,
     });
-  };
-
-  const resizeFile = (file) =>
-    new Promise((resolve) => {
-      Resizer.imageFileResizer(
-        file,
-        240,
-        240,
-        'JPEG',
-        100,
-        0,
-        (uri) => {
-          resolve(uri);
-        },
-        'blob',
-      );
-    });
-
-  const handleImageChange = async (e) => {
-    e.preventDefault();
-    const birdImage = e.target.files[0];
-    const resizedImage = await resizeFile(birdImage);
-    setImage(resizedImage);
   };
 
   const handleLocation = (e) => {
     e.preventDefault();
     if (window.confirm('Are you sure you want to add location?'))
-      setBird({
+      setBirdToEdit({
         ...bird,
         latitude,
         longitude,
       });
   };
 
-  const addBird = async () => {
-    props.createBird(bird, image).then(props.history.push('/'));
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    props.editBird(id, birdToEdit).then(props.history.push(`/${id}`));
   };
 
   return (
     <Dialog open disablePortal disableEnforceFocus>
       <DialogActions>
-        <Link style={{ textDecoration: 'none' }} to="/">
+        <Link style={{ textDecoration: 'none' }} to={`/${id}`}>
           <Button>
             <CloseIcon />
           </Button>
@@ -102,32 +86,34 @@ const Form = (props) => {
       <DialogContent>
         <Card square>
           <CardContent>
-            <form onSubmit={addBird}>
+            <form onSubmit={handleEditSubmit}>
               <Grid container direction="column" spacing={1}>
                 <Grid item xs={12}>
-                  <Typography variant="h6">Enter new observation</Typography>
+                  <Typography variant="h6">Edit Observation</Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    onChange={handleChange}
+                    onChange={handleNameChange}
                     variant="outlined"
                     type="text"
                     label="Name"
                     name="commonname"
-                    value={bird.commonname}
+                    placeholder={bird.commonname}
+                    value={birdToEdit.commonname}
                     autoFocus
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    onChange={handleChange}
+                    onChange={handleSpeciesChange}
                     variant="outlined"
                     type="text"
                     label="Species"
                     name="species"
-                    value={bird.species}
+                    placeholder={bird.species}
+                    value={birdToEdit.species}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -140,6 +126,7 @@ const Form = (props) => {
                       id: 'rarity-select',
                     }}
                     defaultValue="common"
+                    placeholder={bird.rarity}
                     onChange={handleRarityChange}
                   >
                     <MenuItem value="common">common</MenuItem>
@@ -147,12 +134,10 @@ const Form = (props) => {
                     <MenuItem value="extremely-rare">extremely rare</MenuItem>
                   </Select>
                 </Grid>
-                <Grid item xs={12}>
-                  <FileUpload handleImageChange={handleImageChange} bird={bird} />
-                </Grid>
+
                 <Grid item>
                   <Button onClick={handleLocation}>Add location</Button>
-                  <Typography>{bird.location}</Typography>
+                  <Typography>{birdToEdit.location}</Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <Button type="submit" variant="outlined">
@@ -168,4 +153,10 @@ const Form = (props) => {
   );
 };
 
-export default connect(null, { createBird })(withRouter(Form));
+const mapStateToProps = (state) => {
+  return {
+    birds: state.bird.charis,
+  };
+};
+
+export default connect(mapStateToProps, { editBird })(withRouter(EditBird));

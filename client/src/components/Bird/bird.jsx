@@ -1,23 +1,22 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { Typography, Grid, CardContent, Paper, Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
 import styled from 'styled-components';
-import Header from './header';
 import { StyledCard } from '../styledComponents';
+import Header from './header';
 
-const Image = styled.div`
+export const Image = styled.div`
   height: 180px important!;
   padding: 10px 0px;
 `;
 
-const SCard = styled(Paper)`
+export const SCard = styled(Paper)`
   height: 190px;
 `;
 
-const Bird = ({ bird, handleRemove }) => {
-  // const imagePath = bird.image && bird.image.replace(/\\/g, '/');
+const Bird = ({ bird }) => {
   const formattedDate = (date) => {
     return moment(new Date(date)).format('MMMM Do YYYY, h:mm:ss a');
   };
@@ -28,7 +27,7 @@ const Bird = ({ bird, handleRemove }) => {
         <CardContent>
           <Grid container direction="column" spacing={1}>
             <Grid item>
-              <Header bird={bird} handleRemove={handleRemove} />
+              <Header bird={bird} />
             </Grid>
             <Grid item>
               <Box fontStyle="italic">
@@ -63,7 +62,7 @@ const Bird = ({ bird, handleRemove }) => {
             <Grid item>
               <Typography variant="inherit">
                 Location:&nbsp;
-                {bird.latitude === 0
+                {bird && bird.latitude === 0
                   ? 'Not available'
                   : `${bird.latitude.toFixed(2)}N, ${bird.longitude.toFixed(2)}E `}
               </Typography>
@@ -78,4 +77,4 @@ const Bird = ({ bird, handleRemove }) => {
   );
 };
 
-export default Bird;
+export default withRouter(Bird);
