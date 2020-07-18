@@ -39,6 +39,16 @@ export const createBird = (obs, image) => {
   };
 };
 
+export const removeBird = (id) => {
+  return async (dispatch) => {
+    const newObs = await birdService.remove(id);
+    dispatch({
+      type: REMOVE_BIRD,
+      payload: newObs,
+    });
+  };
+};
+
 export const initializeBirds = () => {
   return async (dispatch) => {
     const charis = await birdService.getAll();

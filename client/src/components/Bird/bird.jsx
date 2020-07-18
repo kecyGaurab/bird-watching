@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { Typography, Grid, CardContent, Paper, Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
 import styled from 'styled-components';
-import Header from './header';
 import { StyledCard } from '../styledComponents';
+import Header from './header';
 
 export const Image = styled.div`
   height: 180px important!;
@@ -16,8 +16,10 @@ export const SCard = styled(Paper)`
   height: 190px;
 `;
 
-const Bird = ({ bird, handleRemove, handleEdit }) => {
+const Bird = ({ bird, ...props }) => {
   // const imagePath = bird.image && bird.image.replace(/\\/g, '/');
+  console.log('props', props);
+  const { location } = props;
   const formattedDate = (date) => {
     return moment(new Date(date)).format('MMMM Do YYYY, h:mm:ss a');
   };
@@ -27,9 +29,11 @@ const Bird = ({ bird, handleRemove, handleEdit }) => {
       <StyledCard elevation={10}>
         <CardContent>
           <Grid container direction="column" spacing={1}>
-            <Grid item>
-              <Header bird={bird} handleEdit={handleEdit} handleRemove={handleRemove} />
-            </Grid>
+            {location.pathname === '/' ? null : (
+              <Grid item>
+                <Header bird={bird} />
+              </Grid>
+            )}
             <Grid item>
               <Box fontStyle="italic">
                 <Typography variant="inherit">
@@ -63,7 +67,7 @@ const Bird = ({ bird, handleRemove, handleEdit }) => {
             <Grid item>
               <Typography variant="inherit">
                 Location:&nbsp;
-                {bird.latitude === 0
+                {bird && bird.latitude === 0
                   ? 'Not available'
                   : `${bird.latitude.toFixed(2)}N, ${bird.longitude.toFixed(2)}E `}
               </Typography>
@@ -78,4 +82,4 @@ const Bird = ({ bird, handleRemove, handleEdit }) => {
   );
 };
 
-export default Bird;
+export default withRouter(Bird);

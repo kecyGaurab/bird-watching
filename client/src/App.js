@@ -1,226 +1,159 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable no-alert */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import Resizer from 'react-image-file-resizer';
+import { useDispatch, connect } from 'react-redux';
+
 import { CssBaseline } from '@material-ui/core';
-import { initializeBirds } from './redux/reducers/birdReducer';
 import NavBar from './components/navBar';
 import Form from './components/Form/form';
 import HomePage from './pages/HomePage';
-import { usePosition } from './hooks/position';
-import birdsService from './services/birds';
 import BirdDetail from './pages/BirdDetail';
 import EditBird from './pages/EditBird';
 
-const App = (props) => {
-  const [bird, setBird] = useState({
-    commonname: '',
-    species: 'unknown',
-    rarity: [],
-    latitude: 0,
-    longitude: 0,
-    date: '',
-  });
+const App = () => {
+  // const [bird, setBird] = useState({
+  //   commonname: '',
+  //   species: 'unknown',
+  //   rarity: [],
+  //   latitude: 0,
+  //   longitude: 0,
+  //   date: '',
+  // });
 
-  const [image, setImage] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [birds, setBirds] = useState([]);
+  // const [image, setImage] = useState(null);
+  // const [open, setOpen] = useState(false);
+  // const [birds, setBirds] = useState([]);
   const [query, setQuery] = useState('');
-  const [filteredBirds, setFilteredBirds] = useState([]);
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState('');
-  const { latitude, longitude } = usePosition();
+  // const [filteredBirds, setFilteredBirds] = useState([]);
+  // const [error, setError] = useState(false);
+  // const [message, setMessage] = useState('');
+  // const { latitude, longitude } = usePosition();
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(initializeBirds());
-  }, [dispatch]);
+  // // useEffect(() => {
+  // //   const handleFilter = () => {
+  //     const matchedBirds = birds.filter((n) =>
+  //       n.commonname.toLowerCase().startsWith(query.toLowerCase()),
+  //     );
+  //     setFilteredBirds(matchedBirds);
+  //   };
+  //   handleFilter();
+  // }, [query, birds]);
 
-  useEffect(() => {
-    birdsService.getAll().then((response) => {
-      setBirds(response);
-    });
-  }, []);
+  // // const handleClose = (event, reason) => {
+  // //   if (reason === 'clickaway') {
+  // //     return;
+  // //   }
 
-  useEffect(() => {
-    const handleFilter = () => {
-      const matchedBirds = birds.filter((n) =>
-        n.commonname.toLowerCase().startsWith(query.toLowerCase()),
-      );
-      setFilteredBirds(matchedBirds);
-    };
-    handleFilter();
-  }, [query, birds]);
+  // //   setOpen(false);
+  // // };
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  // const handleRemove = (id) => {
+  //   const deleted = birds.filter((contact) => contact.id !== id);
+  //   const birdToRemove = birds.find((n) => n.id === id);
+  //   if (window.confirm(`Are you sure you want to delete ${birdToRemove.commonname} ?`)) {
+  //     birdsService.remove(id).then(setBirds(deleted));
+  //     props.history.push('/');
+  //   }
+  // };
 
-    setOpen(false);
-  };
+  // const resetFields = () => {
+  //   setBird({
+  //     commonname: '',
+  //     species: 'unknown',
+  //     rarity: [],
+  //     latitude: 0,
+  //     longitude: 0,
+  //   });
+  //   setImage(null);
+  // };
 
-  const handleRemove = (id) => {
-    const deleted = birds.filter((contact) => contact.id !== id);
-    const birdToRemove = birds.find((n) => n.id === id);
-    if (window.confirm(`Are you sure you want to delete ${birdToRemove.commonname} ?`)) {
-      birdsService.remove(id).then(setBirds(deleted));
-      props.history.push('/');
-    }
-  };
-
-  const resetFields = () => {
-    setBird({
-      commonname: '',
-      species: 'unknown',
-      rarity: [],
-      latitude: 0,
-      longitude: 0,
-    });
-    setImage(null);
-  };
-
-  const handleChange = (e) => {
-    e.preventDefault();
-    setBird({
-      ...bird,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const handleChange = (e) => {
+  //   e.preventDefault();
+  //   setBird({
+  //     ...bird,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   const handleQueryChange = (event) => {
     setQuery(event.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    birdsService
-      .create(bird, image)
-      .then((res) => {
-        setBirds(birds.concat(res));
-        setMessage('Observation saved');
-        setOpen(true);
-      })
-      .catch((err) => {
-        setError(true);
-        setMessage(err.response.data.error);
-        setOpen(true);
-        setTimeout(() => {
-          setError(false);
-        }, 5000);
-      });
-    resetFields();
-    props.history.push('/');
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   birdsService
+  //     .create(bird, image)
+  //     .then((res) => {
+  //       setBirds(birds.concat(res));
+  //       setMessage('Observation saved');
+  //       setOpen(true);
+  //     })
+  //     .catch((err) => {
+  //       setError(true);
+  //       setMessage(err.response.data.error);
+  //       setOpen(true);
+  //       setTimeout(() => {
+  //         setError(false);
+  //       }, 5000);
+  //     });
+  //   resetFields();
+  //   props.history.push('/');
+  // };
 
-  const handleRarityChange = (e) => {
-    setBird({
-      ...bird,
-      rarity: e.target.value,
-    });
-  };
+  // const handleRarityChange = (e) => {
+  //   setBird({
+  //     ...bird,
+  //     rarity: e.target.value,
+  //   });
+  // };
 
-  const resizeFile = (file) =>
-    new Promise((resolve) => {
-      Resizer.imageFileResizer(
-        file,
-        240,
-        240,
-        'JPEG',
-        100,
-        0,
-        (uri) => {
-          resolve(uri);
-        },
-        'blob',
-      );
-    });
+  // const resizeFile = (file) =>
+  //   new Promise((resolve) => {
+  //     Resizer.imageFileResizer(
+  //       file,
+  //       240,
+  //       240,
+  //       'JPEG',
+  //       100,
+  //       0,
+  //       (uri) => {
+  //         resolve(uri);
+  //       },
+  //       'blob',
+  //     );
+  //   });
 
-  const handleImageChange = async (e) => {
-    e.preventDefault();
-    const birdImage = e.target.files[0];
-    const resizedImage = await resizeFile(birdImage);
-    setImage(resizedImage);
-  };
+  // const handleImageChange = async (e) => {
+  //   e.preventDefault();
+  //   const birdImage = e.target.files[0];
+  //   const resizedImage = await resizeFile(birdImage);
+  //   setImage(resizedImage);
+  // };
 
-  const handleLocation = (e) => {
-    e.preventDefault();
-    if (window.confirm('Are you sure you want to add location?'))
-      setBird({
-        ...bird,
-        latitude,
-        longitude,
-      });
-  };
+  // const handleLocation = (e) => {
+  //   e.preventDefault();
+  //   if (window.confirm('Are you sure you want to add location?'))
+  //     setBird({
+  //       ...bird,
+  //       latitude,
+  //       longitude,
+  //     });
+  // };
 
-  const handleEdit = (id) => {
-    props.history.push(`/${id}/edit`);
-  };
+  // const handleEdit = (id) => {
+  //   props.history.push(`/${id}/edit`);
+  // };
 
   return (
     <>
       <CssBaseline />
       <NavBar query={query} handleQueryChange={handleQueryChange} />
-      <Route
-        exact
-        path="/"
-        render={() => (
-          <HomePage
-            {...props}
-            handleClose={handleClose}
-            handleRemove={handleRemove}
-            filteredBirds={filteredBirds}
-            message={message}
-            error={error}
-          />
-        )}
-      />
+      <Route exact path="/" component={HomePage} />
       <Switch>
-        <Route
-          path="/add"
-          render={() => (
-            <Form
-              {...props}
-              handleSubmit={handleSubmit}
-              handleChange={handleChange}
-              handleImageChange={handleImageChange}
-              handleRarityChange={handleRarityChange}
-              handleLocation={handleLocation}
-              open={open}
-              bird={bird}
-            />
-          )}
-        />
-        {birds && (
-          <Route
-            path="/:id/edit"
-            render={() => (
-              <EditBird
-                {...props}
-                handleSubmit={handleSubmit}
-                handleChange={handleChange}
-                handleImageChange={handleImageChange}
-                handleRarityChange={handleRarityChange}
-                handleLocation={handleLocation}
-                open={open}
-                birds={birds}
-              />
-            )}
-          />
-        )}
-        <Route
-          path="/:id"
-          render={() => (
-            <BirdDetail
-              {...props}
-              handleRemove={handleRemove}
-              handleEdit={handleEdit}
-              birds={birds}
-            />
-          )}
-        />
+        <Route path="/add" component={Form} />
+        <Route path="/:id/edit" component={EditBird} />
+        <Route path="/:id" component={BirdDetail} />
       </Switch>
     </>
   );

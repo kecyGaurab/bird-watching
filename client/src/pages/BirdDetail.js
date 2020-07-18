@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Grid, Box, Container } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import SimpleMap from '../components/GoogleMap';
 import Bird from '../components/Bird/bird';
 
 const BirdDetail = (props) => {
-  const { match, handleRemove, handleEdit, birds } = props;
+  const { match, birds } = props;
 
   const { id } = match.params;
   const bird = birds && birds.find((b) => b.id === id);
@@ -14,7 +15,7 @@ const BirdDetail = (props) => {
       <Container>
         <Grid container direction="row" justify="space-around" alignContent="center">
           <Grid item xs={3}>
-            <Bird handleRemove={handleRemove} handleEdit={handleEdit} bird={bird} />
+            <Bird bird={bird} />
           </Grid>
           <Grid item xs={9}>
             <SimpleMap latitude={bird && bird.latitude} longitude={bird && bird.longitude} />
@@ -25,4 +26,9 @@ const BirdDetail = (props) => {
   );
 };
 
-export default withRouter(BirdDetail);
+const mapStateToProps = (state) => {
+  return {
+    birds: state.bird.charis,
+  };
+};
+export default connect(mapStateToProps)(withRouter(BirdDetail));

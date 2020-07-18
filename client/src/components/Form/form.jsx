@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 
 import {
   Select,
@@ -27,9 +27,6 @@ import { usePosition } from '../../hooks/position';
 import FileUpload from './file-upload';
 
 const Form = (props) => {
-  console.log('props', props);
-  const { history } = props;
-  const dispatch = useDispatch();
 
   const [bird, setBird] = useState({
     commonname: '',
@@ -63,19 +60,19 @@ const Form = (props) => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    birdsService
-      .create(bird, image)
-      .then((res) => {
-        setBirds(birds.concat(res));
-      })
-      .catch((err) => {
-        console.log('err', err);
-      });
-    resetFields();
-    props.history.push('/');
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   birdsService
+  //     .create(bird, image)
+  //     .then((res) => {
+  //       setBirds(birds.concat(res));
+  //     })
+  //     .catch((err) => {
+  //       console.log('err', err);
+  //     });
+  //   resetFields();
+  //   props.history.push('/');
+  // };
 
   const handleRarityChange = (e) => {
     setBird({
@@ -117,15 +114,10 @@ const Form = (props) => {
       });
   };
 
-  const addBird = async (e) => {
-    e.preventDefault();
-    try {
-      dispatch(createBird(bird, image));
-      props.history.push('/');
-    } catch (error) {
-      console.log(error);
-    }
+  const addBird = async () => {
+    props.createBird(bird, image).then(props.history.push('/'));
   };
+
   return (
     <Dialog open disablePortal disableEnforceFocus>
       <DialogActions>
@@ -204,4 +196,4 @@ const Form = (props) => {
   );
 };
 
-export default withRouter(Form);
+export default connect(null, { createBird })(withRouter(Form));
