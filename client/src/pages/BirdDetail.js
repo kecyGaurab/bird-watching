@@ -1,9 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Grid, Box, Container } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Grid, Box, Container, Button } from '@material-ui/core';
+import { withRouter, Link } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SimpleMap from '../components/GoogleMap';
 import Bird from '../components/Bird/bird';
+import NavBar from '../components/navBar';
 
 const BirdDetail = (props) => {
   const { match, birds } = props;
@@ -12,8 +14,16 @@ const BirdDetail = (props) => {
   const bird = birds && birds.find((b) => b.id === id);
   return (
     <Box>
+      <NavBar />
       <Container>
+        <Link to="/">
+          <Button>
+            <ArrowBackIcon />
+            Back
+          </Button>
+        </Link>
         <Grid container direction="row" justify="space-around" alignContent="center">
+          <Grid item />
           <Grid item xs={3}>
             <Bird bird={bird} />
           </Grid>

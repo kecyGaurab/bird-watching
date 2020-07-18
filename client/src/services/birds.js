@@ -33,7 +33,7 @@ const create = async (newObs, image) => {
 
 // update takes in id and newObject to update the observation
 const update = async (id, obs) => {
-  const response = await axios.put(`${id}`, obs);
+  const response = await axios.put(`${baseUrl}/${id}`, obs);
   return response.data;
 };
 

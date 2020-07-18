@@ -16,10 +16,7 @@ export const SCard = styled(Paper)`
   height: 190px;
 `;
 
-const Bird = ({ bird, ...props }) => {
-  // const imagePath = bird.image && bird.image.replace(/\\/g, '/');
-  console.log('props', props);
-  const { location } = props;
+const Bird = ({ bird }) => {
   const formattedDate = (date) => {
     return moment(new Date(date)).format('MMMM Do YYYY, h:mm:ss a');
   };
@@ -29,11 +26,9 @@ const Bird = ({ bird, ...props }) => {
       <StyledCard elevation={10}>
         <CardContent>
           <Grid container direction="column" spacing={1}>
-            {location.pathname === '/' ? null : (
-              <Grid item>
-                <Header bird={bird} />
-              </Grid>
-            )}
+            <Grid item>
+              <Header bird={bird} />
+            </Grid>
             <Grid item>
               <Box fontStyle="italic">
                 <Typography variant="inherit">

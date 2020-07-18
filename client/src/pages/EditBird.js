@@ -1,6 +1,8 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import {
   Select,
@@ -17,39 +19,65 @@ import {
   DialogContent,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-
+import { editBird } from '../redux/reducers/birdReducer';
+import { usePosition } from '../hooks/position';
 
 const EditBird = (props) => {
-  const { match, handleChange, handleRarityChange, handleLocation, birds } = props;
+  const { latitude, longitude } = usePosition();
+
+  const { match, birds } = props;
   const { id } = match.params;
+
   const bird = birds.find((b) => b.id === id);
 
   const [birdToEdit, setBirdToEdit] = useState({
-    commonname: '',
-    species: '',
-    rarity: [],
-    latitude: 0,
-    longitude: 0,
-    date: '',
+    commonname: bird.commonname,
+    species: bird.species,
+    rarity: bird.rarity,
+    latitude: bird.latitude,
+    longitude: bird.longitude,
   });
 
-  const handleEditChange = (e) => {
+  const handleNameChange = (e) => {
     e.preventDefault();
     setBirdToEdit({
       ...birdToEdit,
-      [e.target.name]: e.target.value,
+      commonname: e.target.value,
     });
+  };
+  const handleSpeciesChange = (e) => {
+    e.preventDefault();
+    setBirdToEdit({
+      ...birdToEdit,
+      species: e.target.value,
+    });
+  };
+  const handleRarityChange = (e) => {
+    setBirdToEdit({
+      ...birdToEdit,
+      rarity: e.target.value,
+    });
+  };
+
+  const handleLocation = (e) => {
+    e.preventDefault();
+    if (window.confirm('Are you sure you want to add location?'))
+      setBirdToEdit({
+        ...bird,
+        latitude,
+        longitude,
+      });
   };
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    props.history.push('/');
+    props.editBird(id, birdToEdit).then(props.history.push(`/${id}`));
   };
 
   return (
     <Dialog open disablePortal disableEnforceFocus>
       <DialogActions>
-        <Link style={{ textDecoration: 'none' }} to="/">
+        <Link style={{ textDecoration: 'none' }} to={`/${id}`}>
           <Button>
             <CloseIcon />
           </Button>
@@ -66,7 +94,7 @@ const EditBird = (props) => {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    onChange={handleEditChange}
+                    onChange={handleNameChange}
                     variant="outlined"
                     type="text"
                     label="Name"
@@ -79,7 +107,7 @@ const EditBird = (props) => {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    onChange={handleChange}
+                    onChange={handleSpeciesChange}
                     variant="outlined"
                     type="text"
                     label="Species"
@@ -125,4 +153,10 @@ const EditBird = (props) => {
   );
 };
 
-export default withRouter(EditBird);
+const mapStateToProps = (state) => {
+  return {
+    birds: state.bird.charis,
+  };
+};
+
+export default connect(mapStateToProps, { editBird })(withRouter(EditBird));

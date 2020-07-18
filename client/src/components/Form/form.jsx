@@ -20,14 +20,12 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import Resizer from 'react-image-file-resizer';
-import birdsService from '../../services/birds';
 import { createBird } from '../../redux/reducers/birdReducer';
 import { usePosition } from '../../hooks/position';
 
 import FileUpload from './file-upload';
 
 const Form = (props) => {
-
   const [bird, setBird] = useState({
     commonname: '',
     species: 'unknown',
@@ -38,19 +36,7 @@ const Form = (props) => {
   });
 
   const [image, setImage] = useState(null);
-  const [birds, setBirds] = useState([]);
   const { latitude, longitude } = usePosition();
-
-  const resetFields = () => {
-    setBird({
-      commonname: '',
-      species: 'unknown',
-      rarity: [],
-      latitude: 0,
-      longitude: 0,
-    });
-    setImage(null);
-  };
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -59,20 +45,6 @@ const Form = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   birdsService
-  //     .create(bird, image)
-  //     .then((res) => {
-  //       setBirds(birds.concat(res));
-  //     })
-  //     .catch((err) => {
-  //       console.log('err', err);
-  //     });
-  //   resetFields();
-  //   props.history.push('/');
-  // };
 
   const handleRarityChange = (e) => {
     setBird({
