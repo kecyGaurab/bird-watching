@@ -16,7 +16,9 @@ export const SCard = styled(Paper)`
   height: 190px;
 `;
 
-const Bird = ({ bird }) => {
+const Bird = (props) => {
+  const { bird, location } = props;
+
   const formattedDate = (date) => {
     return moment(new Date(date)).format('MMMM Do YYYY, h:mm:ss a');
   };
@@ -68,7 +70,7 @@ const Bird = ({ bird }) => {
               </Typography>
             </Grid>
             <Grid item align="stretch">
-              <Link to={`/${bird.id}`}>Details</Link>
+              {location.pathname === '/' ? <Link to={`/${bird.id}`}>Details</Link> : null}
             </Grid>
           </Grid>
         </CardContent>

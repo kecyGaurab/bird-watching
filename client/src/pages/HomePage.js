@@ -41,12 +41,6 @@ const HomePage = (props) => {
 
   const sortedBirds = birds.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // const { handleClose, open, message, error, filteredBirds } = {
-  //   ...props,
-  // };
-  // const { filteredBirds } = {
-  //   ...props,
-  // };
   return (
     <>
       <NavBar query={query} handleQueryChange={handleQueryChange} />

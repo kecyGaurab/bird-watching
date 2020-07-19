@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-shadow */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
@@ -13,10 +14,9 @@ const Header = (props) => {
   const { id } = bird;
 
   const handleRemove = async () => {
-    removeBird(id).then(history.push('/'));
-  };
-  const handleEdit = () => {
-    console.log('edit clicked');
+    if (window.confirm(`Are you sure you want to delete ${bird.commonname} ?`)) {
+      removeBird(id).then(history.push('/'));
+    }
   };
   return (
     <Grid container direction="row" justify="space-between" alignItems="center">
