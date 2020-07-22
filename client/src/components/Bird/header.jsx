@@ -21,10 +21,7 @@ const Header = (props) => {
   return (
     <Grid container direction="row" justify="space-between" alignItems="center">
       <Grid item xs={9}>
-        <Typography variant="body1">
-          Common name: &nbsp;
-          {bird.commonname}
-        </Typography>
+        <Typography variant="body1">{bird.commonname}</Typography>
       </Grid>
       {location.pathname === `/${id}` ? (
         <>

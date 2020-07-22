@@ -96,6 +96,7 @@ theme.overrides = {
     },
     sizeLarge: {
       height: '55px',
+      opacity: 6,
     },
     outlinedSecondary: {
       backgroundColor: theme.palette.primary.main,
