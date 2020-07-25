@@ -45,6 +45,13 @@ theme.overrides = {
       padding: `${theme.spacing(3)}px !important`,
     },
   },
+  MuiCardMedia: {
+    root: {
+      height: 0,
+      paddingTop: '56.25%',
+      margin: '0 10% 0 10%',
+    },
+  },
   MuiDialog: {
     root: {
       margin: `${theme.spacing(5)}px`,

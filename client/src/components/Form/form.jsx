@@ -86,7 +86,7 @@ const Form = (props) => {
       });
   };
 
-  const addBird = async () => {
+  const addBird = () => {
     props.createBird(bird, image).then(props.history.push('/'));
   };
 

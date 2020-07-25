@@ -1,6 +1,5 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-shadow */
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { IconButton, Typography, Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -12,8 +11,7 @@ import { removeBird } from '../../redux/reducers/birdReducer';
 const Header = (props) => {
   const { history, location, bird, removeBird } = props;
   const { id } = bird;
-
-  const handleRemove = async () => {
+  const handleRemove = () => {
     if (window.confirm(`Are you sure you want to delete ${bird.commonname} ?`)) {
       removeBird(id).then(history.push('/'));
     }

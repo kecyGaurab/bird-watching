@@ -1,17 +1,27 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { Grid, Box, Container, Button } from '@material-ui/core';
 import { withRouter, Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SimpleMap from '../components/GoogleMap';
 import Bird from '../components/Bird/bird';
 import NavBar from '../components/navBar';
+import { getBird } from '../redux/reducers/birdReducer';
 
 const BirdDetail = (props) => {
-  const { match, birds } = props;
-
+  const dispatch = useDispatch();
+  const { match, bird } = props;
   const { id } = match.params;
-  const bird = birds && birds.find((b) => b.id === id);
+
+  useEffect(() => {
+    dispatch(getBird(id));
+  }, [dispatch, id]);
+
+  if (!bird) {
+    return <p>loading</p>;
+  }
+
+  // const bird = birds && birds.find((b) => b.id === id);
   return (
     <Box>
       <NavBar />
@@ -38,7 +48,7 @@ const BirdDetail = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    birds: state.bird.charis,
+    bird: state.bird.chari,
   };
 };
-export default connect(mapStateToProps)(withRouter(BirdDetail));
+export default connect(mapStateToProps, { getBird })(withRouter(BirdDetail));

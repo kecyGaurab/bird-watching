@@ -8,9 +8,9 @@ import EditBird from './pages/EditBird';
 const App = () => {
   return (
     <>
-      <Route exact path="/" component={HomePage} />
+      <Route exact path={['/', '/add']} component={HomePage} />
       <Switch>
-        <Route path="/add" component={Form} />
+        <Route exact path="/add" component={Form} />
         <Route path="/:id" component={BirdDetail} />
       </Switch>
       <Route path="/:id/edit" component={EditBird} />
