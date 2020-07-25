@@ -41,12 +41,6 @@ const HomePage = (props) => {
 
   const sortedBirds = birds.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // const { handleClose, open, message, error, filteredBirds } = {
-  //   ...props,
-  // };
-  // const { filteredBirds } = {
-  //   ...props,
-  // };
   return (
     <>
       <NavBar query={query} handleQueryChange={handleQueryChange} />
@@ -72,7 +66,7 @@ const HomePage = (props) => {
           </Grid>
           <Grid item xs={12} align="center">
             <Link style={{ textDecoration: 'none' }} to="/add">
-              <Button size="large" variant="outlined">
+              <Button size="large" color="primary" variant="outlined">
                 Add New
               </Button>
             </Link>
