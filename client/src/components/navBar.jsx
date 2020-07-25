@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,9 +15,11 @@ const NavBar = (props) => {
         <Toolbar>
           <Grid container justify="space-between">
             <Grid item xs={3} align="right">
-              <Typography variant="h3" color="primary">
-                Birds
-              </Typography>
+              <Link style={{ textDecoration: 'none' }} to="/">
+                <Typography variant="h3" color="primary">
+                  Birds
+                </Typography>
+              </Link>
             </Grid>
             {location.pathname === '/' ? (
               <Grid item xs={4}>

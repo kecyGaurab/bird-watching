@@ -28,7 +28,7 @@ import FileUpload from './file-upload';
 const Form = (props) => {
   const [bird, setBird] = useState({
     commonname: '',
-    species: 'unknown',
+    species: '',
     rarity: [],
     latitude: 0,
     longitude: 0,
@@ -58,7 +58,7 @@ const Form = (props) => {
       Resizer.imageFileResizer(
         file,
         240,
-        240,
+        190,
         'JPEG',
         100,
         0,
@@ -86,7 +86,7 @@ const Form = (props) => {
       });
   };
 
-  const addBird = async () => {
+  const addBird = () => {
     props.createBird(bird, image).then(props.history.push('/'));
   };
 
@@ -155,7 +155,11 @@ const Form = (props) => {
                   <Typography>{bird.location}</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button type="submit" variant="outlined">
+                  <Button
+                    disabled={!bird.commonname || !bird.rarity}
+                    type="submit"
+                    variant="outlined"
+                  >
                     Submit
                   </Button>
                 </Grid>
