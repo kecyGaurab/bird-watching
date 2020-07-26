@@ -48,7 +48,7 @@ const BirdDetail = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    bird: state.bird.chari,
+    bird: state.observations.bird,
   };
 };
 export default connect(mapStateToProps, { getBird })(withRouter(BirdDetail));

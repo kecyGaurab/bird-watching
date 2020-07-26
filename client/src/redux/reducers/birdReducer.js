@@ -3,7 +3,7 @@ import { ADD_BIRD, REMOVE_BIRD, INIT_BIRDS, EDIT_BIRD, GET_BIRD } from '../const
 import birdService from '../../services/birds';
 
 const INITIAL_STATE = {
-  charis: [],
+  birds: [],
 };
 
 export const birdReducer = (state = INITIAL_STATE, action) => {
@@ -11,29 +11,29 @@ export const birdReducer = (state = INITIAL_STATE, action) => {
     case GET_BIRD:
       return {
         ...state,
-        chari: action.payload,
+        bird: action.payload,
       };
     case INIT_BIRDS:
       return {
         ...state,
-        charis: action.payload,
+        birds: action.payload,
       };
     case ADD_BIRD:
       return {
         ...state,
-        charis: state.charis.concat(action.payload),
+        birds: state.birds.concat(action.payload),
       };
     case EDIT_BIRD:
       const { id } = action.payload;
       return {
         ...state,
-        charis: state.charis.filter((b) => b.id !== id).concat(action.payload),
+        birds: state.birds.filter((b) => b.id !== id).concat(action.payload),
       };
 
     case REMOVE_BIRD:
       return {
         ...state,
-        charis: state.charis.filter((chari) => chari.id !== action.payload.id),
+        birds: state.birds.filter((chari) => chari.id !== action.payload.id),
       };
     default:
       return state;
@@ -82,10 +82,10 @@ export const removeBird = (id) => {
 
 export const initializeBirds = () => {
   return async (dispatch) => {
-    const charis = await birdService.getAll();
+    const birds = await birdService.getAll();
     dispatch({
       type: INIT_BIRDS,
-      payload: charis,
+      payload: birds,
     });
   };
 };

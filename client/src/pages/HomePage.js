@@ -11,7 +11,7 @@ import NavBar from '../components/navBar';
 
 const mapStateToProps = (state) => {
   return {
-    birds: state.bird.charis,
+    birds: state.observations.birds,
   };
 };
 
