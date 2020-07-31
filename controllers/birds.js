@@ -23,15 +23,18 @@ birdsRouter.post('/', upload.single('image'), async (request, response, next) =>
   }
 
   const { body } = request;
+  const { commonname, species, rarity, latitude, longitude } = body;
+
   const currentDate = new Date();
 
   const bird = new Bird({
-    commonname: body.commonname,
-    species: body.species,
-    rarity: body.rarity,
+    commonname,
+    species,
+    rarity,
+    latitude,
+    longitude,
     image: file.filename,
-    latitude: body.latitude,
-    longitude: body.longitude,
+
     date: currentDate,
   });
   try {
@@ -68,12 +71,13 @@ birdsRouter.put('/:id', async (request, response, next) => {
   const currentDate = new Date();
 
   const { body } = request;
+  const { commonname, species, rarity, latitude, longitude } = body;
   const birdToEdit = {
-    commonname: body.commonname,
-    species: body.species,
-    rarity: body.rarity,
-    latitude: body.latitude,
-    longitude: body.longitude,
+    commonname,
+    species,
+    rarity,
+    latitude,
+    longitude,
     date: currentDate,
   };
   try {
