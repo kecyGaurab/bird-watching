@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import {
@@ -54,8 +55,8 @@ const Bird = (props) => {
         <CardContent>
           <Table container="paper" size="small">
             <TableBody>
-              {rows.map((row) => (
-                <TableRow>
+              {rows.map((row, index) => (
+                <TableRow key={index}>
                   <TableCell component="th" scope="row">
                     {row.categories}
                   </TableCell>
