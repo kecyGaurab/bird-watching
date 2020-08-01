@@ -5,11 +5,12 @@
 /.pnp
 .pnp.js
 /client/node_modules
-client/public/uploads
+/client/public/uploads
 /client/.env
 # testing
 /coverage
 
+/uploads
 # production
 /build
 
