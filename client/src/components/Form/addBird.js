@@ -155,7 +155,11 @@ const AddBird = (props) => {
                   variant="outlined"
                   color="secondary"
                   size="medium"
-                  label={bird.latitude && bird.longitude ? 'location added' : 'location not added'}
+                  label={
+                    bird.latitude === 0 && bird.longitude === 0
+                      ? 'location not added'
+                      : 'location added'
+                  }
                   onClick={() => {
                     setBird({
                       ...bird,
