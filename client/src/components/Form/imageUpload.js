@@ -4,9 +4,11 @@ import { Grid, Input, InputLabel } from '@material-ui/core';
 
 const FileUpload = ({ handleImageChange, bird }) => {
   return (
-    <Grid container direction="row" justify="space-between" alignItems="flex-end">
-      <Grid item xs={9}>
+    <Grid container direction="row" justify="space-between">
+      <Grid item xs={12}>
         <InputLabel>Upload image:</InputLabel>
+      </Grid>
+      <Grid item xs={12}>
         <Input
           value={bird.image}
           onChange={handleImageChange}

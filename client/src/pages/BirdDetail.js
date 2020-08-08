@@ -21,7 +21,6 @@ const BirdDetail = (props) => {
     return <p>loading</p>;
   }
 
-  // const bird = birds && birds.find((b) => b.id === id);
   return (
     <Box>
       <NavBar />
