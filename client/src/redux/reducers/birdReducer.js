@@ -28,6 +28,7 @@ export const birdReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         birds: state.birds.filter((b) => b.id !== id).concat(action.payload),
+        bird: action.payload,
       };
 
     case REMOVE_BIRD:

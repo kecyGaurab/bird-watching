@@ -30,10 +30,10 @@ const Bird = (props) => {
   };
 
   function birdLocation() {
-    if (bird && bird.latitude === 0) {
+    if (bird && bird.lat === 0) {
       return 'Not available';
     }
-    return `${bird.latitude.toFixed(2)}N, ${bird.longitude.toFixed(2)}E `;
+    return `${bird.lat.toFixed(2)}N, ${bird.long.toFixed(2)}E `;
   }
 
   function createData(categories, values) {
@@ -51,7 +51,7 @@ const Bird = (props) => {
     <>
       <StyledCard elevation={10}>
         <CardHeader title={<Header bird={bird} />} />
-        <CardMedia image={`uploads/${bird.image}`} />
+        <CardMedia image={bird.image} />
         <CardContent>
           <Table container="paper" size="small">
             <TableBody>

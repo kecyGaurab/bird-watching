@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const http = require('http');
 const app = require('./app'); // the actual Express app
 const config = require('./utils/config');

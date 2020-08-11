@@ -21,7 +21,6 @@ const BirdDetail = (props) => {
     return <p>loading</p>;
   }
 
-  // const bird = birds && birds.find((b) => b.id === id);
   return (
     <Box>
       <NavBar />
@@ -38,7 +37,7 @@ const BirdDetail = (props) => {
             <Bird bird={bird} />
           </Grid>
           <Grid item xs={9}>
-            <SimpleMap latitude={bird && bird.latitude} longitude={bird && bird.longitude} />
+            <SimpleMap latitude={bird && bird.lat} longitude={bird && bird.long} />
           </Grid>
         </Grid>
       </Container>

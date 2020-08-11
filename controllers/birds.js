@@ -1,14 +1,9 @@
 /* eslint-disable consistent-return */
 
 const birdsRouter = require('express').Router();
-const express = require('express');
 const birdService = require('../services/birdService');
 
-const app = express();
-
-const uploader = require('../uploader');
-
-const upload = uploader.configure(app);
+const upload = require('../uploader');
 
 birdsRouter.get('/', birdService.getBirds);
 

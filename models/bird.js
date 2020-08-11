@@ -24,11 +24,11 @@ const birdSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  latitude: {
+  lat: {
     type: Number,
     required: false,
   },
-  longitude: {
+  long: {
     type: Number,
     required: false,
   },

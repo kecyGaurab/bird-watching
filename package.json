@@ -17,6 +17,7 @@
   "dependencies": {
     "@material-ui/lab": "^4.0.0-alpha.41",
     "body-parser": "^1.18.3",
+    "cloudinary": "^1.22.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.0",
     "dotenv": "^8.2.0",

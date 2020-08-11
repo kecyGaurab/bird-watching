@@ -1,4 +1,16 @@
+/* eslint-disable consistent-return */
+const cloudinary = require('cloudinary');
 const Bird = require('../models/bird.js');
+
+const config = require('../utils/config');
+
+const { CLOUD_NAME, API_KEY, API_SECRET } = config;
+
+cloudinary.config({
+  cloud_name: CLOUD_NAME,
+  api_key: API_KEY,
+  api_secret: API_SECRET,
+});
 
 const getBirds = async (request, response) => {
   const birds = await Bird.find({});
@@ -27,18 +39,19 @@ const createBird = async (request, response, next) => {
   }
 
   const { body } = request;
-  const { commonname, species, rarity, latitude, longitude } = body;
+  const { commonname, species, rarity, lat, long } = body;
 
   const currentDate = new Date();
+  const result = await cloudinary.v2.uploader.upload(file.path);
+  console.log('result', result);
 
   const bird = new Bird({
     commonname,
     species,
     rarity,
-    latitude,
-    longitude,
-    image: file.filename,
-
+    lat,
+    long,
+    image: result.secure_url,
     date: currentDate,
   });
   try {
@@ -62,13 +75,13 @@ const updateBird = async (request, response, next) => {
   const currentDate = new Date();
 
   const { body } = request;
-  const { commonname, species, rarity, latitude, longitude } = body;
+  const { commonname, species, rarity, lat, long } = body;
   const birdToEdit = {
     commonname,
     species,
     rarity,
-    latitude,
-    longitude,
+    lat,
+    long,
     date: currentDate,
   };
   try {
