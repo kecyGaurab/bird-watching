@@ -1,37 +1,31 @@
 /* eslint-disable no-alert */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {
-  Select,
-  TextField,
-  Grid,
-  Typography,
-  MenuItem,
-  Button,
-  CardContent,
-  InputLabel,
-  Dialog,
-} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import Resizer from 'react-image-file-resizer';
+import Form from '../components/Form/form';
 import { editBird } from '../redux/reducers/birdReducer';
 import { usePosition } from '../hooks/position';
 
 const EditBird = (props) => {
   const { latitude, longitude } = usePosition();
+  console.log('latitude', latitude);
 
   const { match, bird, history } = props;
   const { id } = match.params;
-  const { commonname, species, rarity, lat, long } = bird;
+  const { commonname, species, rarity, image: imageUrl, lat, long } = bird;
+
+  const [, setImage] = useState(null);
 
   const [birdToEdit, setBirdToEdit] = useState({
     commonname,
     species,
     rarity,
-    latitude: lat === undefined ? 0 : lat,
-    longitude: long === undefined ? 0 : long,
+    lat: lat === undefined ? 0 : lat,
+    long: long === undefined ? 0 : long,
+    imageUrl,
   });
 
   const handleChange = (e) => {
@@ -42,6 +36,8 @@ const EditBird = (props) => {
     });
   };
 
+  console.log('birdToEdit', birdToEdit);
+
   const handleRarityChange = (e) => {
     setBirdToEdit({
       ...birdToEdit,
@@ -49,14 +45,46 @@ const EditBird = (props) => {
     });
   };
 
+  function locationReset() {
+    setBirdToEdit({
+      ...birdToEdit,
+      lat: 0,
+      long: 0,
+    });
+  }
+
   const handleLocation = (e) => {
     e.preventDefault();
-    if (window.confirm('Are you sure you want to add location?'))
+    if (window.confirm('Are you sure you want to add location?')) {
       setBirdToEdit({
         ...birdToEdit,
-        latitude,
-        longitude,
+        lat: latitude,
+        long: longitude,
       });
+    }
+  };
+
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        240,
+        190,
+        'JPEG',
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        'blob',
+      );
+    });
+
+  const handleImageChange = async (e) => {
+    e.preventDefault();
+    const birdImage = e.target.files[0];
+    const resizedImage = await resizeFile(birdImage);
+    setImage(resizedImage);
   };
 
   const handleEditSubmit = () => {
@@ -65,74 +93,17 @@ const EditBird = (props) => {
 
   return (
     <>
-      {/* <Notification open /> */}
-      <Dialog open disablePortal disableEnforceFocus>
-        <Link style={{ textDecoration: 'none' }} to={`/${id}`}>
-          <Button>
-            <CloseIcon />
-          </Button>
-        </Link>
-        <CardContent>
-          <form onSubmit={handleEditSubmit}>
-            <Grid container direction="column" spacing={1}>
-              <Grid item xs={12}>
-                <Typography variant="h6">Edit Observation</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  onChange={handleChange}
-                  variant="outlined"
-                  type="text"
-                  label="Name"
-                  name="commonname"
-                  placeholder={bird.commonname}
-                  value={birdToEdit.commonname}
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  onChange={handleChange}
-                  variant="outlined"
-                  type="text"
-                  label="Species"
-                  name="species"
-                  placeholder={bird.species}
-                  value={birdToEdit.species}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <InputLabel htmlFor="rarity-select">Choose rarity:</InputLabel>
-                <Select
-                  fullWidth
-                  color="secondary"
-                  variant="standard"
-                  inputProps={{
-                    id: 'rarity-select',
-                  }}
-                  defaultValue={bird.rarity}
-                  onChange={handleRarityChange}
-                >
-                  <MenuItem value="common">common</MenuItem>
-                  <MenuItem value="rare">rare</MenuItem>
-                  <MenuItem value="extremely-rare">extremely rare</MenuItem>
-                </Select>
-              </Grid>
-              <Grid item>
-                <Button onClick={handleLocation}>Add location</Button>
-                <Typography>{birdToEdit.location}</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Button type="submit" variant="outlined">
-                  Submit
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </CardContent>
-      </Dialog>
+      <Form
+        onSubmit={handleEditSubmit}
+        handleChange={handleChange}
+        handleRarityChange={handleRarityChange}
+        handleImageChange={handleImageChange}
+        handleLocation={handleLocation}
+        bird={birdToEdit}
+        locationReset={locationReset}
+        title="Edit observation"
+        redirectTo={`/${id}`}
+      />
     </>
   );
 };

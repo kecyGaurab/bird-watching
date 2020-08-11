@@ -1,40 +1,27 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {
-  Select,
-  TextField,
-  Grid,
-  Typography,
-  MenuItem,
-  Button,
-  CardContent,
-  InputLabel,
-  Dialog,
-  Chip,
-} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import DoneIcon from '@material-ui/icons/Done';
 import Resizer from 'react-image-file-resizer';
+import Form from './form';
 import { createBird } from '../../redux/reducers/birdReducer';
 import { usePosition } from '../../hooks/position';
-import FileUpload from './imageUpload';
-import Notification from '../Notification';
 
 const AddBird = (props) => {
   const [bird, setBird] = useState({
     commonname: '',
     species: '',
     rarity: [],
-    latitude: 0,
-    longitude: 0,
+    lat: 0,
+    long: 0,
     date: '',
   });
 
   const [image, setImage] = useState(null);
   const { latitude, longitude } = usePosition();
+
+  console.log('latitude', latitude);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -67,8 +54,6 @@ const AddBird = (props) => {
       );
     });
 
-  console.log('image', image);
-
   const handleImageChange = async (e) => {
     e.preventDefault();
     const birdImage = e.target.files[0];
@@ -76,13 +61,21 @@ const AddBird = (props) => {
     setImage(resizedImage);
   };
 
+  function locationReset() {
+    setBird({
+      ...bird,
+      lat: 0,
+      long: 0,
+    });
+  }
+
   const handleLocation = (e) => {
     e.preventDefault();
     if (window.confirm('Are you sure you want to add location?'))
       setBird({
         ...bird,
-        latitude,
-        longitude,
+        lat: latitude,
+        long: longitude,
       });
   };
 
@@ -92,100 +85,17 @@ const AddBird = (props) => {
 
   return (
     <>
-      <Dialog open disablePortal disableEnforceFocus>
-        <Link align="right" style={{ textDecoration: 'none' }} to="/">
-          <Button>
-            <CloseIcon />
-          </Button>
-        </Link>
-        <CardContent>
-          <form onSubmit={addBird}>
-            <Grid container direction="column" spacing={1}>
-              <Grid item xs={12}>
-                <Typography variant="h6">Enter new observation</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  onChange={handleChange}
-                  variant="outlined"
-                  type="text"
-                  label="Name"
-                  name="commonname"
-                  value={bird.commonname}
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  onChange={handleChange}
-                  variant="outlined"
-                  type="text"
-                  label="Species"
-                  name="species"
-                  value={bird.species}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <InputLabel htmlFor="rarity-select">Choose rarity:</InputLabel>
-                <Select
-                  fullWidth
-                  color="secondary"
-                  variant="standard"
-                  inputProps={{
-                    id: 'rarity-select',
-                  }}
-                  defaultValue="common"
-                  onChange={handleRarityChange}
-                >
-                  <MenuItem value="common">common</MenuItem>
-                  <MenuItem value="rare">rare</MenuItem>
-                  <MenuItem value="extremely-rare">extremely rare</MenuItem>
-                </Select>
-              </Grid>
-              <Grid item xs={12}>
-                <FileUpload handleImageChange={handleImageChange} bird={bird} image={image} />
-              </Grid>
-              <Grid item>
-                <Button variant="outlined" onClick={handleLocation}>
-                  Add location
-                </Button>
-                <Chip
-                  variant="outlined"
-                  color="secondary"
-                  size="medium"
-                  label={
-                    bird.latitude === 0 && bird.longitude === 0
-                      ? 'location not added'
-                      : 'location added'
-                  }
-                  onClick={() => {
-                    setBird({
-                      ...bird,
-                      latitude: 0,
-                      longitude: 0,
-                    });
-                  }}
-                  deleteIcon={<DoneIcon />}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Button
-                  disabled={
-                    !bird.commonname || !bird.rarity || image === null || image === 'File Not Found'
-                  }
-                  type="submit"
-                  variant="outlined"
-                >
-                  Submit
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </CardContent>
-      </Dialog>
+      <Form
+        onSubmit={addBird}
+        handleChange={handleChange}
+        handleRarityChange={handleRarityChange}
+        handleImageChange={handleImageChange}
+        handleLocation={handleLocation}
+        bird={bird}
+        locationReset={locationReset}
+        title="Enter new observation"
+        redirectTo="/"
+      />
     </>
   );
 };

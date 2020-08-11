@@ -39,17 +39,18 @@ const createBird = async (request, response, next) => {
   }
 
   const { body } = request;
-  const { commonname, species, rarity, latitude, longitude } = body;
+  const { commonname, species, rarity, lat, long } = body;
 
   const currentDate = new Date();
   const result = await cloudinary.v2.uploader.upload(file.path);
+  console.log('result', result);
 
   const bird = new Bird({
     commonname,
     species,
     rarity,
-    latitude,
-    longitude,
+    lat,
+    long,
     image: result.secure_url,
     date: currentDate,
   });
@@ -74,13 +75,13 @@ const updateBird = async (request, response, next) => {
   const currentDate = new Date();
 
   const { body } = request;
-  const { commonname, species, rarity, latitude, longitude } = body;
+  const { commonname, species, rarity, lat, long } = body;
   const birdToEdit = {
     commonname,
     species,
     rarity,
-    latitude,
-    longitude,
+    lat,
+    long,
     date: currentDate,
   };
   try {
