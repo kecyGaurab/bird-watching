@@ -64,7 +64,7 @@ const createBird = async (request, response, next) => {
 
 const removeBird = async (request, response, next) => {
   try {
-    await Bird.findByIdAndRemove(request.params.id);
+     await Bird.findByIdAndRemove(request.params.id);
     response.status(204).end();
   } catch (exception) {
     next(exception);
