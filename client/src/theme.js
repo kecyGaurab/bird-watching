@@ -99,7 +99,7 @@ theme.overrides = {
   },
   MuiButton: {
     root: {
-      margin: '5px',
+      margin: '5px 5px 5px 0px',
     },
     sizeLarge: {
       height: '55px',

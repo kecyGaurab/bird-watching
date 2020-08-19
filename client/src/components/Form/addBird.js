@@ -19,9 +19,8 @@ const AddBird = (props) => {
   });
 
   const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState('');
   const { latitude, longitude } = usePosition();
-
-  console.log('latitude', latitude);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -55,11 +54,18 @@ const AddBird = (props) => {
     });
 
   const handleImageChange = async (e) => {
-    e.preventDefault();
     const birdImage = e.target.files[0];
-    const resizedImage = await resizeFile(birdImage);
-    setImage(resizedImage);
+    if (birdImage) {
+      const resizedImage = await resizeFile(birdImage);
+      setImage(resizedImage);
+      setImageName(birdImage.name);
+    }
   };
+
+  function clearImage() {
+    setImage(null);
+    setImageName(null);
+  }
 
   function locationReset() {
     setBird({
@@ -92,9 +98,13 @@ const AddBird = (props) => {
         handleImageChange={handleImageChange}
         handleLocation={handleLocation}
         bird={bird}
+        image={image}
+        imageName={imageName}
+        clearImage={clearImage}
         locationReset={locationReset}
         title="Enter new observation"
         redirectTo="/"
+        uploadButton="upload"
       />
     </>
   );

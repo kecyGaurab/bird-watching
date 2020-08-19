@@ -32,8 +32,19 @@ const create = async (newObs, image) => {
 };
 
 // update takes in id and newObject to update the observation
-const update = async (id, obs) => {
-  const response = await axios.put(`${baseUrl}/${id}`, obs);
+const update = async (id, birdToEdit, imageToUpdate) => {
+  const data = new FormData();
+  data.append('imageToUpdate', imageToUpdate);
+
+  for (const key in birdToEdit) {
+    // append all the keys to data
+    data.append(key, birdToEdit[key]);
+  }
+  const response = await axios.put(`${baseUrl}/${id}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return response.data;
 };
 

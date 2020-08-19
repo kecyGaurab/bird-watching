@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 const cloudinary = require('cloudinary');
 const Bird = require('../models/bird.js');
@@ -43,7 +44,7 @@ const createBird = async (request, response, next) => {
 
   const currentDate = new Date();
   const result = await cloudinary.v2.uploader.upload(file.path);
-  console.log('result', result);
+  const { public_id, version, secure_url } = result;
 
   const bird = new Bird({
     commonname,
@@ -51,7 +52,11 @@ const createBird = async (request, response, next) => {
     rarity,
     lat,
     long,
-    image: result.secure_url,
+    image: {
+      imageUrl: secure_url,
+      public_id,
+      version,
+    },
     date: currentDate,
   });
   try {
@@ -64,7 +69,7 @@ const createBird = async (request, response, next) => {
 
 const removeBird = async (request, response, next) => {
   try {
-     await Bird.findByIdAndRemove(request.params.id);
+    await Bird.findByIdAndRemove(request.params.id);
     response.status(204).end();
   } catch (exception) {
     next(exception);
@@ -75,15 +80,33 @@ const updateBird = async (request, response, next) => {
   const currentDate = new Date();
 
   const { body } = request;
-  const { commonname, species, rarity, lat, long } = body;
-  const birdToEdit = {
+
+  const { commonname, species, rarity, lat, long, imageObj: image } = body;
+  let birdToEdit = {
     commonname,
     species,
     rarity,
     lat,
     long,
+    image,
     date: currentDate,
   };
+  if (request.file) {
+    const { public_id: publicId } = image;
+    cloudinary.v2.uploader.destroy(publicId);
+    const result = await cloudinary.v2.uploader.upload(request.file.path);
+
+    const { public_id, version, secure_url } = result;
+    birdToEdit = {
+      ...birdToEdit,
+      image: {
+        public_id,
+        version,
+        imageUrl: secure_url,
+      },
+    };
+  }
+
   try {
     const editedBird = await Bird.findByIdAndUpdate(request.params.id, birdToEdit, { new: true });
     response.json(editedBird.toJSON());
