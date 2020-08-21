@@ -5,7 +5,7 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const ImageUpload = (props) => {
-  const { handleImageChange, bird, imageName, clearImage, uploadButton } = props;
+  const { handleImageChange, imageName, clearImage, uploadButton } = props;
   return (
     <>
       <input
@@ -14,7 +14,7 @@ const ImageUpload = (props) => {
         id="contained-button-file"
         multiple
         type="file"
-        value={bird.image || undefined}
+        value={undefined}
         onChange={handleImageChange}
       />
       <label htmlFor="contained-button-file">

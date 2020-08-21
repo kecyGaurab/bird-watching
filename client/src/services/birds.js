@@ -34,7 +34,9 @@ const create = async (newObs, image) => {
 // update takes in id and newObject to update the observation
 const update = async (id, birdToEdit, imageToUpdate) => {
   const data = new FormData();
-  data.append('imageToUpdate', imageToUpdate);
+  if (imageToUpdate !== null) {
+    data.append('imageToUpdate', imageToUpdate);
+  }
 
   for (const key in birdToEdit) {
     // append all the keys to data

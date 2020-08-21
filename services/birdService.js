@@ -52,11 +52,9 @@ const createBird = async (request, response, next) => {
     rarity,
     lat,
     long,
-    image: {
-      imageUrl: secure_url,
-      public_id,
-      version,
-    },
+    imageUrl: secure_url,
+    public_id,
+    version,
     date: currentDate,
   });
   try {
@@ -81,29 +79,28 @@ const updateBird = async (request, response, next) => {
 
   const { body } = request;
 
-  const { commonname, species, rarity, lat, long, imageObj: image } = body;
+  const { commonname, species, rarity, lat, long, imageUrl, public_id, version } = body;
   let birdToEdit = {
     commonname,
     species,
     rarity,
     lat,
     long,
-    image,
+    imageUrl,
+    public_id,
+    version,
     date: currentDate,
   };
-  if (request.file) {
-    const { public_id: publicId } = image;
-    cloudinary.v2.uploader.destroy(publicId);
+
+  if (request.file !== undefined) {
+    cloudinary.v2.uploader.destroy(public_id);
     const result = await cloudinary.v2.uploader.upload(request.file.path);
 
-    const { public_id, version, secure_url } = result;
     birdToEdit = {
       ...birdToEdit,
-      image: {
-        public_id,
-        version,
-        imageUrl: secure_url,
-      },
+      public_id: result.public_id,
+      version: result.version,
+      imageUrl: result.secure_url,
     };
   }
 

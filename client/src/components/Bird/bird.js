@@ -51,7 +51,7 @@ const Bird = (props) => {
     <>
       <StyledCard elevation={10}>
         <CardHeader title={<Header bird={bird} />} />
-        <CardMedia image={bird.image.imageUrl} />
+        <CardMedia image={bird.imageUrl} />
         <CardContent>
           <Table container="paper" size="small">
             <TableBody>

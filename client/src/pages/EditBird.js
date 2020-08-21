@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-alert */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
@@ -14,14 +15,11 @@ const EditBird = (props) => {
 
   const { match, bird, history } = props;
 
-  console.log('bird', bird)
   const { id } = match.params;
-  const { commonname, species, rarity, lat, long, image: imageObj } = bird;
+  const { commonname, species, rarity, lat, long, public_id, version, imageUrl } = bird;
 
   const [imageToUpdate, setImageToUpdate] = useState(null);
   const [imageName, setImageName] = useState('');
-
-  console.log('imageToUpdate', imageToUpdate);
 
   const [birdToEdit, setBirdToEdit] = useState({
     commonname,
@@ -29,7 +27,9 @@ const EditBird = (props) => {
     rarity,
     lat: lat === undefined ? 0 : lat,
     long: long === undefined ? 0 : long,
-    imageObj,
+    public_id,
+    imageUrl,
+    version,
   });
 
   console.log('birdToEdit', birdToEdit);
