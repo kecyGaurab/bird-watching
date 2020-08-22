@@ -61,12 +61,12 @@ export const createBird = (obs, image) => {
   };
 };
 
-export const editBird = (id, obs) => {
+export const editBird = (id, birdToEdit, imageToUpdate) => {
   return async (dispatch) => {
-    const birdToEdit = await birdService.update(id, obs);
+    const editedBird = await birdService.update(id, birdToEdit, imageToUpdate);
     dispatch({
       type: EDIT_BIRD,
-      payload: birdToEdit,
+      payload: editedBird,
     });
   };
 };

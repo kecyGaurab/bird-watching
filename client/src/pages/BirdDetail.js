@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Grid, Box, Container, Button } from '@material-ui/core';
 import { withRouter, Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import SimpleMap from '../components/GoogleMap';
+import GoogleMap from '../components/GoogleMap';
 import Bird from '../components/Bird/bird';
 import NavBar from '../components/navBar';
 import { getBird } from '../redux/reducers/birdReducer';
 
 const BirdDetail = (props) => {
   const dispatch = useDispatch();
+
   const { match, bird } = props;
   const { id } = match.params;
 
   useEffect(() => {
     dispatch(getBird(id));
   }, [dispatch, id]);
+
 
   if (!bird) {
     return <p>loading</p>;
@@ -37,7 +39,7 @@ const BirdDetail = (props) => {
             <Bird bird={bird} />
           </Grid>
           <Grid item xs={9}>
-            <SimpleMap latitude={bird && bird.lat} longitude={bird && bird.long} />
+            <GoogleMap latitude={bird.lat} longitude={bird.long} />
           </Grid>
         </Grid>
       </Container>

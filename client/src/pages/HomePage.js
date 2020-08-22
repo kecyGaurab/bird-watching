@@ -8,6 +8,7 @@ import { useDispatch, connect } from 'react-redux';
 import Bird from '../components/Bird/bird';
 import { initializeBirds } from '../redux/reducers/birdReducer';
 import NavBar from '../components/navBar';
+import ImageChange from '../components/Form/imageChange';
 
 const mapStateToProps = (state) => {
   return {
