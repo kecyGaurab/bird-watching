@@ -1,29 +1,37 @@
-/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { Grid, Input, InputLabel, IconButton } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
-const FileUpload = ({ handleImageChange, bird }) => {
+const ImageUpload = (props) => {
+  const { handleImageChange, imageName, clearImage, uploadButton } = props;
   return (
-    <Grid container direction="row" justify="space-between" alignItems="center">
-      <Grid item xs={12}>
-        <InputLabel>Upload image:</InputLabel>
-      </Grid>
-      <Grid item xs={9}>
-        <Input
-          value={bird.image}
-          onChange={handleImageChange}
-          type="file"
-          accept="image/png,image/jpeg,image/jpg"
-        />
-      </Grid>
-      <Grid item xs={3} align="center">
-        <IconButton type="reset">
+    <>
+      <input
+        style={{ display: 'none' }}
+        accept="image/*"
+        id="contained-button-file"
+        multiple
+        type="file"
+        value={undefined}
+        onChange={handleImageChange}
+      />
+      <label htmlFor="contained-button-file">
+        <Button startIcon={<PhotoCamera />} variant="contained" color="secondary" component="span">
+          {uploadButton}
+        </Button>
+        {imageName || null}
+        <IconButton
+          style={{ display: imageName ? 'inline' : 'none' }}
+          type="reset"
+          onClick={clearImage}
+        >
           <HighlightOffIcon />
         </IconButton>
-      </Grid>
-    </Grid>
+      </label>
+    </>
   );
 };
 
-export default FileUpload;
+export default ImageUpload;

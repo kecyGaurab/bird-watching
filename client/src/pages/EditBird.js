@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-alert */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
@@ -11,13 +12,14 @@ import { usePosition } from '../hooks/position';
 
 const EditBird = (props) => {
   const { latitude, longitude } = usePosition();
-  console.log('latitude', latitude);
 
   const { match, bird, history } = props;
-  const { id } = match.params;
-  const { commonname, species, rarity, image: imageUrl, lat, long } = bird;
 
-  const [, setImage] = useState(null);
+  const { id } = match.params;
+  const { commonname, species, rarity, lat, long, public_id, version, imageUrl } = bird;
+
+  const [imageToUpdate, setImageToUpdate] = useState(null);
+  const [imageName, setImageName] = useState('');
 
   const [birdToEdit, setBirdToEdit] = useState({
     commonname,
@@ -25,8 +27,12 @@ const EditBird = (props) => {
     rarity,
     lat: lat === undefined ? 0 : lat,
     long: long === undefined ? 0 : long,
+    public_id,
     imageUrl,
+    version,
   });
+
+  console.log('birdToEdit', birdToEdit);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -35,8 +41,6 @@ const EditBird = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-
-  console.log('birdToEdit', birdToEdit);
 
   const handleRarityChange = (e) => {
     setBirdToEdit({
@@ -84,11 +88,13 @@ const EditBird = (props) => {
     e.preventDefault();
     const birdImage = e.target.files[0];
     const resizedImage = await resizeFile(birdImage);
-    setImage(resizedImage);
+    setImageToUpdate(resizedImage);
+    setImageName(birdImage.name);
   };
 
-  const handleEditSubmit = () => {
-    props.editBird(id, birdToEdit).then(history.push(`/${id}`));
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    props.editBird(id, birdToEdit, imageToUpdate).then(history.push(`/${id}`));
   };
 
   return (
@@ -100,9 +106,11 @@ const EditBird = (props) => {
         handleImageChange={handleImageChange}
         handleLocation={handleLocation}
         bird={birdToEdit}
+        imageName={imageName}
         locationReset={locationReset}
         title="Edit observation"
         redirectTo={`/${id}`}
+        uploadButton="change image"
       />
     </>
   );

@@ -13,6 +13,6 @@ birdsRouter.get('/:id', birdService.getBirdbyId);
 
 birdsRouter.delete('/:id', birdService.removeBird);
 
-birdsRouter.put('/:id', birdService.updateBird);
+birdsRouter.put('/:id', upload.single('imageToUpdate'), birdService.updateBird);
 
 module.exports = birdsRouter;

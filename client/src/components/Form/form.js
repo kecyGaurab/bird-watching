@@ -14,9 +14,11 @@ import {
   Dialog,
   Chip,
 } from '@material-ui/core';
+
 import CloseIcon from '@material-ui/icons/Close';
+import AddLocationIcon from '@material-ui/icons/AddLocation';
 import DoneIcon from '@material-ui/icons/Done';
-import FileUpload from './imageUpload';
+import ImageUpload from './imageUpload';
 
 const Form = (props) => {
   const {
@@ -26,9 +28,13 @@ const Form = (props) => {
     handleImageChange,
     handleLocation,
     bird,
+    image,
+    imageName,
     locationReset,
     title,
     redirectTo,
+    clearImage,
+    uploadButton,
   } = props;
 
   return (
@@ -94,11 +100,21 @@ const Form = (props) => {
                     </Select>
                   </Grid>
                   <Grid item xs={12}>
-                    {bird.image ? <p>{bird.image}</p> : null}
-                    <FileUpload handleImageChange={handleImageChange} bird={bird} />
+                    <ImageUpload
+                      clearImage={clearImage}
+                      handleImageChange={handleImageChange}
+                      bird={bird}
+                      imageName={imageName}
+                      uploadButton={uploadButton}
+                    />
                   </Grid>
                   <Grid item>
-                    <Button variant="outlined" onClick={handleLocation}>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      onClick={handleLocation}
+                      endIcon={<AddLocationIcon />}
+                    >
                       Add location
                     </Button>
                     <Chip
@@ -118,8 +134,8 @@ const Form = (props) => {
                       disabled={
                         !bird.commonname ||
                         !bird.rarity ||
-                        bird.image === null ||
-                        bird.image === 'File Not Found'
+                        image === null ||
+                        image === 'File Not Found'
                       }
                       type="submit"
                       variant="outlined"
