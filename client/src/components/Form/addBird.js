@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';

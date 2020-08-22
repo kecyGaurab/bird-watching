@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Grid, Box, Container, Button } from '@material-ui/core';
 import { withRouter, Link } from 'react-router-dom';
@@ -17,7 +17,6 @@ const BirdDetail = (props) => {
   useEffect(() => {
     dispatch(getBird(id));
   }, [dispatch, id]);
-
 
   if (!bird) {
     return <p>loading</p>;
