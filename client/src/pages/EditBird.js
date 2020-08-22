@@ -92,7 +92,8 @@ const EditBird = (props) => {
     setImageName(birdImage.name);
   };
 
-  const handleEditSubmit = () => {
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
     props.editBird(id, birdToEdit, imageToUpdate).then(history.push(`/${id}`));
   };
 

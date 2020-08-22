@@ -8,7 +8,7 @@ import Form from './form';
 import { createBird } from '../../redux/reducers/birdReducer';
 import { usePosition } from '../../hooks/position';
 
-const AddBird = (props) => {
+const AddBird = ({ createBird, history }) => {
   const [bird, setBird] = useState({
     commonname: '',
     species: '',
@@ -85,8 +85,14 @@ const AddBird = (props) => {
       });
   };
 
-  const addBird = () => {
-    props.createBird(bird, image).then(props.history.push('/'));
+  const addBird = async (e) => {
+    e.preventDefault();
+    try {
+      createBird(bird, image);
+    } catch (error) {
+      console.log('error', error);
+    }
+    history.push('/');
   };
 
   return (
