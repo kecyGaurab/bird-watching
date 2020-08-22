@@ -4,6 +4,13 @@ import axios from 'axios';
 
 const baseUrl = '/api/birds';
 
+let token = null;
+
+// get the token and adds 'bearer' string
+const setToken = (newToken) => {
+  token = `bearer ${newToken}`;
+};
+
 const getAll = async () => {
   const response = await axios.get(baseUrl);
   return response.data;
@@ -26,6 +33,7 @@ const create = async (newObs, image) => {
   const response = await axios.post(`${baseUrl}`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Authorization: token,
     },
   });
   return response.data;
@@ -45,13 +53,18 @@ const update = async (id, birdToEdit, imageToUpdate) => {
   const response = await axios.put(`${baseUrl}/${id}`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Authorization: token,
     },
   });
   return response.data;
 };
 
 const remove = async (id) => {
-  const response = await axios.delete(`${baseUrl}/${id}`);
+  const response = await axios.delete(`${baseUrl}/${id}`, {
+    headers: {
+      Authorization: token,
+    },
+  });
   return response.data;
 };
 
@@ -61,4 +74,5 @@ export default {
   create,
   remove,
   update,
+  setToken,
 };

@@ -7,8 +7,15 @@ const userSchema = mongoose.Schema({
   username: {
     type: String,
   },
-  name: String,
-  passwordHash: String,
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  passwordHash: {
+    type: String,
+  },
   birds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Bird' }],
 });
 

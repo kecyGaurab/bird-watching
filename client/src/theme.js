@@ -86,7 +86,6 @@ theme.overrides = {
   },
   MuiSvgIcon: {
     root: {
-      paddingRight: '5px',
       fontSize: '30px',
     },
     fontSizeInherit: {
