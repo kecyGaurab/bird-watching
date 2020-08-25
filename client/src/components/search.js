@@ -3,15 +3,15 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, TextField, Grid, InputAdornment, Link } from '@material-ui/core';
+import { Button, TextField, Grid, InputAdornment, Link, Avatar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { removeUser } from '../redux/reducers/userReducer';
+import UserInfo from './userInfo';
 
 const Search = ({ query, handleQueryChange, user, removeUser }) => {
-
   const handleLogout = async () => {
     try {
-      removeUser();
+      await removeUser();
     } catch (error) {
       console.log('error', error);
     }
@@ -19,7 +19,7 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
 
   return (
     <Grid container direction="row" alignItems="center">
-      <Grid item md={6} xs={4}>
+      <Grid item md={5} xs={3}>
         <TextField
           fullWidth
           size="medium"
@@ -43,13 +43,13 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
           search
         </Button>
       </Grid>
-      <Grid item md={2} xs={6}>
+      <Grid item md={2} xs={3}>
         {!user ? (
           <Link style={{ textDecoration: 'none' }} href="/login" variant="body1">
             Login
           </Link>
         ) : (
-          <Button onClick={handleLogout}>Logout</Button>
+          <UserInfo user={user} handleLogout={handleLogout} />
         )}
       </Grid>
     </Grid>

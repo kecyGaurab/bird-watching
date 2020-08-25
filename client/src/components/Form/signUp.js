@@ -14,10 +14,11 @@ import {
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Alert from '@material-ui/lab/Alert';
 import userService from '../../services/signup';
 import { setCurrentUser } from '../../redux/reducers/userReducer';
 
-const SignUp = ({  history }) => {
+const SignUp = ({ history }) => {
   const initialState = {
     firstName: '',
     lastName: '',
@@ -76,11 +77,17 @@ const SignUp = ({  history }) => {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          {error ? <Typography style={{ color: 'red' }}>{error}</Typography> : null}
         </Grid>
       </Grid>
       <form onSubmit={handleSubmit} noValidate>
         <Grid container spacing={2}>
+          <Grid item xs={12}>
+            {error ? (
+              <Alert variant="outlined" severity="error">
+                {error}
+              </Alert>
+            ) : null}
+          </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               autoComplete="fname"

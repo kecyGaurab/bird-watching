@@ -14,6 +14,7 @@ import {
   Avatar,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Alert from '@material-ui/lab/Alert';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { setCurrentUser } from '../../redux/reducers/userReducer';
@@ -60,9 +61,15 @@ const Login = ({ setCurrentUser, history }) => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          {error ? <Typography style={{ color: 'red' }}>{error}</Typography> : null}
         </Grid>
+        {/* {error ? <Typography style={{ color: 'red' }}>{error}</Typography> : null} */}
       </Grid>
+      {error ? (
+        <Alert variant="outlined" severity="error">
+          {error}
+        </Alert>
+      ) : null}
+
       <form onSubmit={handleLogin} noValidate>
         <TextField
           fullWidth

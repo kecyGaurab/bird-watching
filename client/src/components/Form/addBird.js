@@ -9,6 +9,7 @@ import { createBird } from '../../redux/reducers/birdReducer';
 import { usePosition } from '../../hooks/position';
 
 const AddBird = ({ createBird, history }) => {
+  const { latitude, longitude } = usePosition();
   const user = useSelector((state) => state.user);
 
   const { token } = user.currentUser;
@@ -22,9 +23,10 @@ const AddBird = ({ createBird, history }) => {
     date: '',
   });
 
+  console.log('bird', bird)
+
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState('');
-  const { latitude, longitude } = usePosition();
 
   const handleChange = (e) => {
     e.preventDefault();

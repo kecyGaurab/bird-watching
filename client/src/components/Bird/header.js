@@ -22,10 +22,11 @@ const Header = (props) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const handleRemove = async () => {
     try {
-      removeBird(id, token)(history.push('/'));
+      await removeBird(id, token);
     } catch (error) {
       console.log('error', error);
     }
+    history.push('/');
   };
   return (
     <Grid container direction="row" justify="space-between" alignItems="center">

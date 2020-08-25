@@ -88,10 +88,6 @@ theme.overrides = {
     root: {
       fontSize: '30px',
     },
-    fontSizeInherit: {
-      fontSize: '60px',
-      paddingTop: '25px',
-    },
     fontSizeLarge: {
       fontSize: '50px',
     },
@@ -116,11 +112,11 @@ theme.overrides = {
       backgroundColor: theme.palette.background.default,
     },
   },
-  // MuiSelect: {
-  //   select: {
-  //     backgroundColor: theme.palette.primary.main
-  //   }
-  // }
+  MuiAlert: {
+    root: {
+      marginTop: '15px',
+    },
+  },
 };
 
 export default theme;
