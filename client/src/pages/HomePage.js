@@ -8,21 +8,31 @@ import { useDispatch, connect } from 'react-redux';
 import Bird from '../components/Bird/bird';
 import { initializeBirds } from '../redux/reducers/birdReducer';
 import NavBar from '../components/navBar';
+import { setCurrentUser } from '../redux/reducers/userReducer';
 
 const mapStateToProps = (state) => {
   return {
     birds: state.observations.birds,
+    user: state.user,
   };
 };
 
 const HomePage = (props) => {
   const [query, setQuery] = useState('');
   const [filteredBirds, setFilteredBirds] = useState('');
-  const { birds } = props;
+  const { birds, user } = props;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(initializeBirds());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser');
+    if (loggedUserJSON) {
+      const getUser = JSON.parse(loggedUserJSON);
+      dispatch(setCurrentUser(getUser));
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -47,7 +57,7 @@ const HomePage = (props) => {
       <Container>
         <Grid justify="space-around" container direction="row" spacing={5}>
           <Grid item xs={12} align="center">
-            <Link style={{ textDecoration: 'none' }} to="/add">
+            <Link style={{ textDecoration: 'none' }} to={user.currentUser ? '/add' : '/login'}>
               <Button size="large" color="primary" variant="outlined">
                 Add New
               </Button>

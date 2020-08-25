@@ -2,14 +2,17 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-
+import { connect, useSelector } from 'react-redux';
 import Resizer from 'react-image-file-resizer';
 import Form from './form';
 import { createBird } from '../../redux/reducers/birdReducer';
 import { usePosition } from '../../hooks/position';
 
 const AddBird = ({ createBird, history }) => {
+  const user = useSelector((state) => state.user);
+
+  const { token } = user.currentUser;
+
   const [bird, setBird] = useState({
     commonname: '',
     species: '',
@@ -89,7 +92,7 @@ const AddBird = ({ createBird, history }) => {
   const addBird = async (e) => {
     e.preventDefault();
     try {
-      createBird(bird, image);
+      createBird(bird, image, token);
     } catch (error) {
       console.log('error', error);
     }

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import {
   TextField,
@@ -12,9 +14,13 @@ import {
   Avatar,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import loginService from '../../services/login';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { setCurrentUser } from '../../redux/reducers/userReducer';
+import userService from '../../services/login';
 
-const Login = () => {
+const Login = ({ setCurrentUser, history }) => {
+  const [error, setError] = useState('');
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
@@ -27,9 +33,18 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    const user = await loginService.login(credentials);
-    setCredentials({ username: '', password: '' });
-    window.localStorage.setItem('loggedUser', JSON.stringify(user));
+    try {
+      const user = await userService.login(credentials);
+      setCurrentUser(user);
+      setCredentials({ username: '', password: '' });
+      history.push('/');
+    } catch (error) {
+      const errorMessage = error.response.data.error;
+      setError(errorMessage);
+      setTimeout(() => {
+        setError('');
+      }, 3000);
+    }
   };
 
   return (
@@ -45,6 +60,7 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          {error ? <Typography style={{ color: 'red' }}>{error}</Typography> : null}
         </Grid>
       </Grid>
       <form onSubmit={handleLogin} noValidate>
@@ -94,4 +110,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default connect(null, { setCurrentUser })(withRouter(Login));

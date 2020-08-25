@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import {
@@ -10,10 +11,13 @@ import {
   Link,
   Avatar,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import userService from '../../services/signup';
+import { setCurrentUser } from '../../redux/reducers/userReducer';
 
-const SignUp = () => {
+const SignUp = ({  history }) => {
   const initialState = {
     firstName: '',
     lastName: '',
@@ -22,6 +26,7 @@ const SignUp = () => {
     confirmPassword: '',
   };
   const [information, setInformation] = useState(initialState);
+  const [error, setError] = useState('');
 
   const handleChange = (event) => {
     setInformation({
@@ -34,16 +39,28 @@ const SignUp = () => {
     e.preventDefault();
     const { firstName, lastName, username, password, confirmPassword } = information;
     if (!(firstName || lastName || username || password || confirmPassword)) {
-      alert('Please enter valid');
+      setError('Please fill all the fields');
+      setTimeout(() => {
+        setError('');
+      }, 5000);
       return;
     }
-    if (password !== confirmPassword){
-      alert('Please make sure passwords match');
+    if (password !== confirmPassword) {
+      setError('Please make sure the passwords match');
+      setTimeout(() => {
+        setError('');
+      }, 5000);
       return;
     }
-    const res = await userService.signup(information);
-    setInformation(initialState);
-    console.log('res', res);
+    try {
+      await userService.signup(information);
+      history.push('/login');
+    } catch (err) {
+      setError('Username already taken');
+      setTimeout(() => {
+        setError('');
+      }, 5000);
+    }
   };
 
   return (
@@ -59,6 +76,7 @@ const SignUp = () => {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
+          {error ? <Typography style={{ color: 'red' }}>{error}</Typography> : null}
         </Grid>
       </Grid>
       <form onSubmit={handleSubmit} noValidate>
@@ -143,4 +161,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default connect(null, { setCurrentUser })(withRouter(SignUp));

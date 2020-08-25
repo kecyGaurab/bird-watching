@@ -1,5 +1,4 @@
-import { SET_CURRENT_USER } from '../constants/action-types';
-import userService from '../../services/login';
+import { SET_CURRENT_USER, REMOVE_CURRENT_USER } from '../constants/action-types';
 
 const INITIAL_STATE = {
   currentUser: null,
@@ -12,17 +11,32 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: action.payload,
       };
+    case REMOVE_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
     default:
       return state;
   }
 };
 
-export const setCurrentUser = (credentials) => {
+export const setCurrentUser = (user) => {
   return async (dispatch) => {
-    const response = await userService.login(credentials);
+    window.localStorage.setItem('loggedUser', JSON.stringify(user));
     dispatch({
       type: SET_CURRENT_USER,
-      payload: response,
+      payload: user,
+    });
+  };
+};
+
+export const removeUser = () => {
+  return async (dispatch) => {
+    window.localStorage.removeItem('loggedUser');
+    dispatch({
+      type: REMOVE_CURRENT_USER,
+      payload: null,
     });
   };
 };

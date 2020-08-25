@@ -6,15 +6,20 @@ const uniqueValidator = require('mongoose-unique-validator');
 const userSchema = mongoose.Schema({
   username: {
     type: String,
+    required: true,
+    unique: true,
   },
   firstName: {
     type: String,
+    required: true,
   },
   lastName: {
     type: String,
+    required: true,
   },
   passwordHash: {
     type: String,
+    required: true,
   },
   birds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Bird' }],
 });

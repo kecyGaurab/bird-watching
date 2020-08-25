@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import AddBird from './components/Form/addBird';
@@ -15,7 +16,7 @@ const App = () => {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/add" component={AddBird} />
-        <Route exact path="/:id" component={BirdDetail} />
+        <Route path="/:id" component={BirdDetail} />
       </Switch>
       <Route path="/:id/edit" component={EditBird} />
     </>

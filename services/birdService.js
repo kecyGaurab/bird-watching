@@ -17,8 +17,8 @@ cloudinary.config({
 
 const getTokenFrom = (request) => {
   const authorization = request.get('authorization');
-  if (authorization && authorization.toLowercase().startsWith('bearer')) {
-    return authorization.subString(7);
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7);
   }
   return null;
 };
@@ -76,6 +76,7 @@ const createBird = async (request, response, next) => {
       version,
       date: currentDate,
       user: user._id,
+      username: user.username,
     });
     const savedBird = await bird.save();
     user.birds = user.birds.concat(savedBird._id);
@@ -89,13 +90,12 @@ const createBird = async (request, response, next) => {
 const removeBird = async (request, response, next) => {
   const token = getTokenFrom(request);
   const bird = await Bird.findById(request.params.id);
+  const decodedToken = jwt.verify(token, SECRET);
+  const user = await User.findById(decodedToken.id);
+  if (!token || !decodedToken.id || bird.user.toString() !== user.id.toString()) {
+    return response.status(401).json({ error: 'Token missing or invalid' });
+  }
   try {
-    const decodedToken = jwt.verify(token, SECRET);
-    const user = await User.findById(decodedToken.id);
-    if (!token || !decodedToken.id || bird.user.toString() !== user.id.toString()) {
-      return response.status(401).json({ error: 'Token missing or invalid' });
-    }
-
     await Bird.findByIdAndRemove(request.params.id);
     response.status(204).end();
   } catch (exception) {
@@ -127,6 +127,7 @@ const updateBird = async (request, response, next) => {
       public_id,
       version,
       user: user._id,
+      username: user.username,
       date: currentDate,
     };
 
