@@ -34,7 +34,7 @@ export const birdReducer = (state = INITIAL_STATE, action) => {
     case REMOVE_BIRD:
       return {
         ...state,
-        birds: state.birds.filter((chari) => chari.id !== action.payload.id),
+        birds: state.birds.filter((b) => b.id !== action.payload),
       };
     default:
       return state;
@@ -51,9 +51,9 @@ export const getBird = (id) => {
   };
 };
 
-export const createBird = (obs, image) => {
+export const createBird = (obs, image, token) => {
   return async (dispatch) => {
-    const newObs = await birdService.create(obs, image);
+    const newObs = await birdService.create(obs, image, token);
     dispatch({
       type: ADD_BIRD,
       payload: newObs,
@@ -61,9 +61,9 @@ export const createBird = (obs, image) => {
   };
 };
 
-export const editBird = (id, birdToEdit, imageToUpdate) => {
+export const editBird = (id, birdToEdit, imageToUpdate, token) => {
   return async (dispatch) => {
-    const editedBird = await birdService.update(id, birdToEdit, imageToUpdate);
+    const editedBird = await birdService.update(id, birdToEdit, imageToUpdate, token);
     dispatch({
       type: EDIT_BIRD,
       payload: editedBird,
@@ -71,12 +71,12 @@ export const editBird = (id, birdToEdit, imageToUpdate) => {
   };
 };
 
-export const removeBird = (id) => {
+export const removeBird = (id, token) => {
   return async (dispatch) => {
-    const newObs = await birdService.remove(id);
+    await birdService.remove(id, token);
     dispatch({
       type: REMOVE_BIRD,
-      payload: newObs,
+      payload: id,
     });
   };
 };

@@ -40,6 +40,14 @@ const birdSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
+  user: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
 });
 
 birdSchema.set('toJSON', {

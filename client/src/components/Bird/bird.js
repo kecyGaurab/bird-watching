@@ -11,6 +11,7 @@ import {
   TableCell,
   TableRow,
   Table,
+  Typography,
 } from '@material-ui/core';
 import { Link, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
@@ -69,6 +70,12 @@ const Bird = (props) => {
                     <Link style={{ textDecoration: 'none' }} to={`/${bird.id}`}>
                       <ButtonBase>Details</ButtonBase>
                     </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="caption">
+                      Added by &nbsp;
+                      {bird.username}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ) : null}
