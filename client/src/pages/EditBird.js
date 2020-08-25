@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import Resizer from 'react-image-file-resizer';
 import Form from '../components/Form/form';
@@ -11,6 +11,7 @@ import { editBird } from '../redux/reducers/birdReducer';
 import { usePosition } from '../hooks/position';
 
 const EditBird = (props) => {
+  const token = useSelector((state) => state.user.currentUser.token);
   const { latitude, longitude } = usePosition();
 
   const { match, bird, history } = props;
@@ -94,7 +95,7 @@ const EditBird = (props) => {
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    props.editBird(id, birdToEdit, imageToUpdate).then(history.push(`/${id}`));
+    props.editBird(id, birdToEdit, imageToUpdate, token).then(history.push(`/${id}`));
   };
 
   return (
