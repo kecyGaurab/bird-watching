@@ -82,6 +82,7 @@ theme.overrides = {
     root: {
       borderRadius: '15px',
       height: '3.5em',
+      width: '80%',
     },
   },
   MuiSvgIcon: {

@@ -48,6 +48,10 @@ const birdSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  dateAdded: {
+    type: String,
+    required: true,
+  },
 });
 
 birdSchema.set('toJSON', {

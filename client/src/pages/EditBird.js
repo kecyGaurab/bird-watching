@@ -31,6 +31,7 @@ const EditBird = (props) => {
     public_id,
     imageUrl,
     version,
+    date: bird.date,
   });
 
   console.log('birdToEdit', birdToEdit);
@@ -40,6 +41,13 @@ const EditBird = (props) => {
     setBirdToEdit({
       ...birdToEdit,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleDateChange = (date) => {
+    setBirdToEdit({
+      ...birdToEdit,
+      date,
     });
   };
 
@@ -98,11 +106,14 @@ const EditBird = (props) => {
     props.editBird(id, birdToEdit, imageToUpdate, token).then(history.push(`/${id}`));
   };
 
+
+
   return (
     <>
       <Form
         onSubmit={handleEditSubmit}
         handleChange={handleChange}
+        handleDateChange={handleDateChange}
         handleRarityChange={handleRarityChange}
         handleImageChange={handleImageChange}
         handleLocation={handleLocation}

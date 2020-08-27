@@ -20,10 +20,10 @@ const AddBird = ({ createBird, history }) => {
     rarity: [],
     lat: 0,
     long: 0,
-    date: '',
+    date: new Date(),
   });
 
-  console.log('bird', bird)
+  console.log('bird', bird);
 
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState('');
@@ -33,6 +33,13 @@ const AddBird = ({ createBird, history }) => {
     setBird({
       ...bird,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleDateChange = (date) => {
+    setBird({
+      ...bird,
+      date,
     });
   };
 
@@ -109,6 +116,7 @@ const AddBird = ({ createBird, history }) => {
         handleRarityChange={handleRarityChange}
         handleImageChange={handleImageChange}
         handleLocation={handleLocation}
+        handleDateChange={handleDateChange}
         bird={bird}
         image={image}
         imageName={imageName}

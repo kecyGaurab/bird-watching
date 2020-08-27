@@ -1,7 +1,6 @@
 /* eslint-disable no-alert */
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import {
   Select,
   TextField,
@@ -19,6 +18,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import DoneIcon from '@material-ui/icons/Done';
 import ImageUpload from './imageUpload';
+import DateAndTime from './dateAndTime';
 
 const Form = (props) => {
   const {
@@ -26,6 +26,7 @@ const Form = (props) => {
     handleChange,
     handleRarityChange,
     handleImageChange,
+    handleDateChange,
     handleLocation,
     bird,
     image,
@@ -107,6 +108,9 @@ const Form = (props) => {
                       imageName={imageName}
                       uploadButton={uploadButton}
                     />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <DateAndTime handleDateChange={handleDateChange} date={bird.date}/>
                   </Grid>
                   <Grid item>
                     <Button

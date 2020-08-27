@@ -59,7 +59,7 @@ const createBird = async (request, response, next) => {
       });
     }
 
-    const { commonname, species, rarity, lat, long } = body;
+    const { commonname, species, rarity, lat, long, date } = body;
 
     const currentDate = new Date();
     const result = await cloudinary.v2.uploader.upload(file.path);
@@ -74,7 +74,8 @@ const createBird = async (request, response, next) => {
       imageUrl: secure_url,
       public_id,
       version,
-      date: currentDate,
+      date,
+      dateAdded: currentDate,
       user: user._id,
       username: user.username,
     });
@@ -116,7 +117,7 @@ const updateBird = async (request, response, next) => {
     if (!token || !decodedToken.id || bird.user.toString() !== user.id.toString()) {
       return response.status(401).json({ error: 'Token missing or invalid' });
     }
-    const { commonname, species, rarity, lat, long, imageUrl, public_id, version } = body;
+    const { commonname, species, rarity, lat, long, imageUrl, public_id, version, date } = body;
     let birdToEdit = {
       commonname,
       species,
@@ -128,7 +129,8 @@ const updateBird = async (request, response, next) => {
       version,
       user: user._id,
       username: user.username,
-      date: currentDate,
+      date,
+      dateAdded: currentDate,
     };
 
     if (request.file !== undefined) {

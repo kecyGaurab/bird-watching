@@ -18,8 +18,8 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
   };
 
   return (
-    <Grid container direction="row" alignItems="center">
-      <Grid item md={5} xs={3}>
+    <Grid container direction="row" alignItems="center" spacing={2} justify="space-between">
+      <Grid item md={8} xs={8}>
         <TextField
           fullWidth
           size="medium"
@@ -38,15 +38,10 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
           }}
         />
       </Grid>
-      <Grid item md={2} xs={4}>
-        <Button size="large" variant="outlined" color="primary">
-          search
-        </Button>
-      </Grid>
-      <Grid item md={2} xs={3}>
+      <Grid item md={4} xs={4} align="left">
         {!user ? (
           <Link style={{ textDecoration: 'none' }} href="/login" variant="body1">
-            Login
+            <Button>Login</Button>
           </Link>
         ) : (
           <UserInfo user={user} handleLogout={handleLogout} />

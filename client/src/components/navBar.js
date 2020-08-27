@@ -22,7 +22,7 @@ const NavBar = (props) => {
               </Link>
             </Grid>
             {location.pathname === '/' ? (
-              <Grid item xs={6}>
+              <Grid item xs={5} align="right">
                 <Search query={query} handleQueryChange={handleQueryChange} />
               </Grid>
             ) : null}
