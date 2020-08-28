@@ -1,4 +1,5 @@
-# Bird Watching
+
+# Bird Watching App
 
 Bird watching application is built for bird watching enthusiasts that lets users to save observations with common name, scientific name, rarity, location, image, date and time of observation. Observations are saved in the mongodb and can be added, deleted or edited only users who are authenticated.
 
