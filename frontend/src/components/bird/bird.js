@@ -32,7 +32,7 @@ const Bird = (props) => {
 
   function birdLocation() {
     if (bird && bird.lat === 0) {
-      return 'Not available';
+      return 'Not added';
     }
     return `${bird.lat.toFixed(2)}N, ${bird.long.toFixed(2)}E `;
   }
