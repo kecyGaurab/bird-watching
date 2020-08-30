@@ -1,7 +1,7 @@
 
 # Bird Watching App
 
-Bird watching application is built for bird watching enthusiasts that lets users to save observations with common name, scientific name, rarity, location, image, date and time of observation. Observations are saved in the mongodb and can be added, deleted or edited only users who are authenticated.
+Bird watching application is built for bird watching enthusiasts that lets users to save observations with common name, scientific name, rarity, location, image, date and time of observation. Observations are saved in the mongodb and can be added, deleted or edited only users who are authenticated. The lastest version of the application production version of application can be viewed from https://bird-watching-app.herokuapp.com/
 
 # Features
 
@@ -40,3 +40,6 @@ Bird watching application is built for bird watching enthusiasts that lets users
 * To run E2E tests `cd frontend && yarn run cypress:open` or `npm run cypress:open`
 * To run unit tests `cd frontend && yarn test` or `npm run test`
 
+## Deployment
+
+* The application has been deployed in Heroku and can be viewed on https://  bird-watching-app.herokuapp.com/
