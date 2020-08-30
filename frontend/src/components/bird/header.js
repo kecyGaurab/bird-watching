@@ -36,14 +36,14 @@ const Header = (props) => {
       {location.pathname === `/${id}` && bird.username === username ? (
         <>
           <Grid item xs={1}>
-            <Link to={`/${id}/edit`}>
-              <IconButton>
+            <Link data-testid="edit-bird" to={`/${id}/edit`}>
+              <IconButton >
                 <EditIcon />
               </IconButton>
             </Link>
           </Grid>
           <Grid item xs={1}>
-            <IconButton onClick={() => setConfirmOpen(true)}>
+            <IconButton data-testid="delete-bird" onClick={() => setConfirmOpen(true)}>
               <DeleteOutlinedIcon />
             </IconButton>
             <ConfirmDialog

@@ -4,16 +4,13 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import '@testing-library/jest-dom/extend-expect';
 import { createMemoryHistory } from 'history';
-import { mount, configure, shallow } from 'enzyme';
-import { render, fireEvent } from '@testing-library/react';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
+import { configure, shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Adapter from 'enzyme-adapter-react-16';
 import store from '../../redux/store/store';
 import Login from '../../components/form/login';
 import App from '../../App';
 import HomePage from '../../pages/HomePage';
-import AddBird from '../../components/form/addBird';
 
 configure({ adapter: new Adapter() });
 
@@ -34,8 +31,6 @@ describe('<HomePage />', () => {
     expect(component.container).toHaveTextContent('Add New');
   });
 });
-
-
 
 describe('<Login />', () => {
   const history = createMemoryHistory();

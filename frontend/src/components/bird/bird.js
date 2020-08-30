@@ -62,7 +62,7 @@ const Bird = (props) => {
               {location.pathname === '/' ? (
                 <TableRow>
                   <TableCell>
-                    <Link underline="none" to={`/${bird.id}`}>
+                    <Link data-testid={`${bird.id}`} underline="none" to={`/${bird.id}`}>
                       Details
                     </Link>
                   </TableCell>

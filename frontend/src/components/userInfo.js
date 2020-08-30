@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Avatar, Button } from '@material-ui/core';
 
-const UserInfo = ({ user, handleLogout }) => {
-  const avatarText = user.username.charAt(0).toUpperCase();
+const UserInfo = ({ username, handleLogout }) => {
+  const avatarText = username && username.charAt(0).toUpperCase();
   return (
     <Grid container direction="row">
       <Grid item>

@@ -24,8 +24,9 @@ const AddBird = ({ createBird, history }) => {
   });
 
   console.log('bird', bird);
-
+  
   const [image, setImage] = useState(null);
+  console.log('image', image);
   const [imageName, setImageName] = useState('');
 
   const handleChange = (e) => {

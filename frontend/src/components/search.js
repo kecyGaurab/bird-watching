@@ -9,6 +9,8 @@ import { removeUser } from '../redux/reducers/userReducer';
 import UserInfo from './userInfo';
 
 const Search = ({ query, handleQueryChange, user, removeUser }) => {
+
+  console.log('user', user)
   const handleLogout = async () => {
     try {
       await removeUser();
@@ -39,12 +41,12 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
         />
       </Grid>
       <Grid item md={4} xs={4} align="left">
-        {!user ? (
-          <Link style={{ textDecoration: 'none' }} href="/login" variant="body1">
+        {user !== null ? (
+          <UserInfo username={user.username} handleLogout={handleLogout} />
+        ) : (
+          <Link href="/login" variant="body1">
             <Button>Login</Button>
           </Link>
-        ) : (
-          <UserInfo user={user} handleLogout={handleLogout} />
         )}
       </Grid>
     </Grid>

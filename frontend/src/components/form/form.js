@@ -41,7 +41,12 @@ const Form = (props) => {
   return (
     <>
       <Dialog open disablePortal disableEnforceFocus>
-        <Link align="right" style={{ textDecoration: 'none' }} to={redirectTo}>
+        <Link
+          data-testid="close-dialog"
+          align="right"
+          style={{ textDecoration: 'none' }}
+          to={redirectTo}
+        >
           <Button>
             <CloseIcon />
           </Button>
