@@ -2,9 +2,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import { Typography, Box, AppBar, Toolbar } from '@material-ui/core';
 import Search from './search';
 
 const NavBar = (props) => {
@@ -16,9 +14,11 @@ const NavBar = (props) => {
           <Grid container justify="space-between">
             <Grid item xs={3} align="right">
               <Link style={{ textDecoration: 'none' }} to="/">
-                <Typography variant="h3" color="primary">
-                  Birds
-                </Typography>
+                <Box fontWeightBold>
+                  <Typography variant="h3" color="primary">
+                    Birds
+                  </Typography>
+                </Box>
               </Link>
             </Grid>
             {location.pathname === '/' ? (

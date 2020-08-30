@@ -33,8 +33,7 @@ theme.overrides = {
   },
   MuiTextField: {
     root: {
-      backgroundColor: theme.palette.common.white,
-      fontSize: '30px',
+      fontSize: '10px',
       borderRadius: '5px',
     },
   },
