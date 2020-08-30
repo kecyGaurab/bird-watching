@@ -111,6 +111,7 @@ const AddBird = ({ createBird, history }) => {
   return (
     <>
       <Form
+        data-testid="addBird"
         onSubmit={addBird}
         handleChange={handleChange}
         handleRarityChange={handleRarityChange}

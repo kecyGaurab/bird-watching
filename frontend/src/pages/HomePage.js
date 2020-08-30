@@ -59,7 +59,7 @@ const HomePage = (props) => {
           <Grid item xs={12} align="center">
             <Link style={{ textDecoration: 'none' }} to={user.currentUser ? '/add' : '/login'}>
               <Button size="large" color="primary" variant="outlined">
-                Add New
+                Add New Obeservation
               </Button>
             </Link>
           </Grid>

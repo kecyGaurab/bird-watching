@@ -3,7 +3,7 @@
 import React from 'react';
 import {
   CardContent,
-  Paper,
+  Card,
   ButtonBase,
   CardHeader,
   CardMedia,
@@ -12,16 +12,11 @@ import {
   TableRow,
   Table,
   Typography,
+  Box,
 } from '@material-ui/core';
 import { Link, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
-import styled from 'styled-components';
-import { StyledCard } from '../styledComponents';
 import Header from './header';
-
-export const SCard = styled(Paper)`
-  height: 210px important;
-`;
 
 const Bird = (props) => {
   const { bird, location } = props;
@@ -42,15 +37,15 @@ const Bird = (props) => {
   }
 
   const rows = [
-    createData('Species: ', `${bird.species}`),
-    createData('Rarity: ', `${bird.rarity}`),
-    createData('Time: ', `${formattedDate(bird.date)}`),
-    createData('Location: ', `${birdLocation()}`),
+    createData('Species', `${bird.species}`),
+    createData('Rarity', `${bird.rarity}`),
+    createData('Time', `${formattedDate(bird.date)}`),
+    createData('Location', `${birdLocation()}`),
   ];
 
   return (
     <>
-      <StyledCard elevation={10}>
+      <Card style={{ height: '495px' }} elevation={10}>
         <CardHeader title={<Header bird={bird} />} />
         <CardMedia image={bird.imageUrl} />
         <CardContent>
@@ -59,7 +54,7 @@ const Bird = (props) => {
               {rows.map((row, index) => (
                 <TableRow key={index}>
                   <TableCell component="th" scope="row">
-                    {row.categories}
+                    <Box fontWeight="fontWeightBold">{row.categories}</Box>
                   </TableCell>
                   <TableCell align="left">{row.values}</TableCell>
                 </TableRow>
@@ -67,8 +62,8 @@ const Bird = (props) => {
               {location.pathname === '/' ? (
                 <TableRow>
                   <TableCell>
-                    <Link style={{ textDecoration: 'none' }} to={`/${bird.id}`}>
-                      <ButtonBase>Details</ButtonBase>
+                    <Link underline="none" to={`/${bird.id}`}>
+                      Details
                     </Link>
                   </TableCell>
                   <TableCell>
@@ -82,7 +77,7 @@ const Bird = (props) => {
             </TableBody>
           </Table>
         </CardContent>
-      </StyledCard>
+      </Card>
     </>
   );
 };
