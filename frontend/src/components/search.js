@@ -9,8 +9,6 @@ import { removeUser } from '../redux/reducers/userReducer';
 import UserInfo from './userInfo';
 
 const Search = ({ query, handleQueryChange, user, removeUser }) => {
-
-  console.log('user', user)
   const handleLogout = async () => {
     try {
       await removeUser();
@@ -20,11 +18,11 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
   };
 
   return (
-    <Grid container direction="row" alignItems="center" spacing={2} justify="space-between">
-      <Grid item md={8} xs={8}>
+    <Grid container direction="row" alignItems="center" spacing={2} justify="center">
+      <Grid item >
         <TextField
+          size="large"
           fullWidth
-          size="medium"
           id="outlined-search"
           type="search"
           variant="outlined"
@@ -40,7 +38,7 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
           }}
         />
       </Grid>
-      <Grid item md={4} xs={4} align="left">
+      <Grid item>
         {user !== null ? (
           <UserInfo username={user.username} handleLogout={handleLogout} />
         ) : (
