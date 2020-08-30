@@ -8,7 +8,7 @@
     "watch": "cross-env NODE_ENV=development nodemon server.js",
     "client": "cd client && yarn start",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
-    "build:ui": "rm -rf build && cd client && yarn run build --prod && cp -r build ../",
+    "build:ui": "rm -rf build && cd ../frontend && yarn run build --prod && cp -r build ../backend/",
     "deploy": "git push heroku master",
     "deploy:full": "yarn run build:ui && git add . && git commit -m uibuild && yarn run deploy",
     "logs:prod": "heroku logs --tail",
