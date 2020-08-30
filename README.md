@@ -15,6 +15,12 @@ Bird watching application is built for bird watching enthusiasts that lets users
 * Mongoose
 * MongoDb
 
+# Testing 
+
+* Jest
+* Cypress
+* Rest client
+
 ## Installation
 
 * `git clone https://github.com/kecyGaurab/bird-watching`.
@@ -28,3 +34,9 @@ Bird watching application is built for bird watching enthusiasts that lets users
 * `yarn start` or `npm start` to start react app.
 * `go to localhost:3000 on the browser`.
 * Application has started.
+
+## Testing
+
+* To run E2E tests `cd frontend && yarn run cypress:open` or `npm run cypress:open`
+* To run unit tests `cd frontend && yarn test` or `npm run test`
+
