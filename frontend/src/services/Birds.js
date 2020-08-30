@@ -35,7 +35,6 @@ const create = async (newObs, image, token) => {
   const response = await axios.post(`${baseUrl}`, data, config);
   return response.data;
 };
-
 // update takes in id and newObject to update the observation
 const update = async (id, birdToEdit, imageToUpdate, token) => {
   const newToken = setToken(token);

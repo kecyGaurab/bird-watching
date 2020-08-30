@@ -62,7 +62,6 @@ const Login = ({ setCurrentUser, history }) => {
             Sign in
           </Typography>
         </Grid>
-        {/* {error ? <Typography style={{ color: 'red' }}>{error}</Typography> : null} */}
       </Grid>
       {error ? (
         <Alert variant="outlined" severity="error">
@@ -73,6 +72,7 @@ const Login = ({ setCurrentUser, history }) => {
       <form onSubmit={handleLogin} noValidate>
         <TextField
           fullWidth
+          inputProps={{ 'data-testid': 'username' }}
           id="outlined-name"
           autoComplete="username"
           label="Username"
@@ -84,6 +84,8 @@ const Login = ({ setCurrentUser, history }) => {
         />
         <TextField
           fullWidth
+          inputProps={{ 'data-testid': 'password' }}
+
           label="Password"
           name="password"
           value={credentials.password}
@@ -97,7 +99,7 @@ const Login = ({ setCurrentUser, history }) => {
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
         />
-        <Button type="submit" fullWidth variant="contained" color="primary">
+        <Button data-testid="submit" type="submit" fullWidth variant="contained" color="primary">
           Sign In
         </Button>
         <Grid container>

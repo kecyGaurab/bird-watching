@@ -11,7 +11,9 @@
     "build:ui": "rm -rf build && cd client && yarn run build --prod && cp -r build ../",
     "deploy": "git push heroku master",
     "deploy:full": "yarn run build:ui && git add . && git commit -m uibuild && yarn run deploy",
-    "logs:prod": "heroku logs --tail"
+    "logs:prod": "heroku logs --tail",
+    "start:test": "cross-env NODE_ENV=test node server.js"
+
   },
   "proxy": "localhost:5000",
   "dependencies": {

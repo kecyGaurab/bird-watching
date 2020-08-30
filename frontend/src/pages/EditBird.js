@@ -106,8 +106,6 @@ const EditBird = (props) => {
     props.editBird(id, birdToEdit, imageToUpdate, token).then(history.push(`/${id}`));
   };
 
-
-
   return (
     <>
       <Form

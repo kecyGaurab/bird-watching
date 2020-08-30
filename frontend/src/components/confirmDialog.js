@@ -16,6 +16,7 @@ const ConfirmDialog = (props) => {
           No
         </Button>
         <Button
+          data-testid="confirm-delete"
           variant="contained"
           onClick={() => {
             setOpen(false);
