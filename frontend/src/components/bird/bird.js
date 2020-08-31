@@ -45,7 +45,7 @@ const Bird = (props) => {
 
   return (
     <>
-      <Card style={{ height: '495px' }} elevation={10}>
+      <Card style={{ height: '100%' }} elevation={10}>
         <CardHeader title={<Header bird={bird} />} />
         <CardMedia image={bird.imageUrl} />
         <CardContent>
@@ -54,7 +54,7 @@ const Bird = (props) => {
               {rows.map((row, index) => (
                 <TableRow key={index}>
                   <TableCell component="th" scope="row">
-                    <Box fontWeight="fontWeightBold">{row.categories}</Box>
+                    <Box fontWeight="fontWeightbold">{row.categories}</Box>
                   </TableCell>
                   <TableCell align="left">{row.values}</TableCell>
                 </TableRow>

@@ -21,7 +21,7 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
     <Grid container direction="row" alignItems="center" spacing={2} justify="center">
       <Grid item >
         <TextField
-          size="large"
+          size="medium"
           fullWidth
           id="outlined-search"
           type="search"

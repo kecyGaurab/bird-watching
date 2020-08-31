@@ -14,7 +14,7 @@ const NavBar = (props) => {
           <Grid container justify="space-between">
             <Grid item xs={3} align="right">
               <Link style={{ textDecoration: 'none' }} to="/">
-                <Box fontWeightBold>
+                <Box fontwieght="fontWeightBold">
                   <Typography variant="h3" color="primary">
                     Birds
                   </Typography>
