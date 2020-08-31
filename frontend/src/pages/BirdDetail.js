@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { Grid, Box, Container, Button } from '@material-ui/core';
+import { Card, Grid, Box, Container, Button } from '@material-ui/core';
 import { withRouter, Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import GoogleMap from '../components/GoogleMap';
@@ -32,13 +32,14 @@ const BirdDetail = (props) => {
             Back
           </Button>
         </Link>
-        <Grid container direction="row" justify="space-around" alignContent="center">
-          <Grid item />
-          <Grid item xs={3}>
+        <Grid container justify="space-around" alignContent="center">
+          <Grid item xs={12} md={4} sm={4}>
             <Bird bird={bird} />
           </Grid>
-          <Grid item xs={9}>
-            <GoogleMap latitude={bird.lat} longitude={bird.long} />
+          <Grid item xs={12} md={8} sm={8}>
+            <Card square>
+              <GoogleMap latitude={bird.lat} longitude={bird.long} />
+            </Card>
           </Grid>
         </Grid>
       </Container>
