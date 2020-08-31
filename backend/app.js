@@ -1,5 +1,8 @@
 const express = require('express');
+
+const path = require('path');
 const bodyParser = require('body-parser');
+
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -27,13 +30,15 @@ mongoose
     logger.error('error connection to MongoDB:', error.message);
   });
 
-app.use(express.static('build'));
-
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(middleware.requestLogger);
 app.use('/api/birds', birdsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/build/index.html'));
+});
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 

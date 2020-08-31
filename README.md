@@ -1,14 +1,14 @@
 
 # Bird Watching App
 
-Bird watching application is built for bird watching enthusiasts that lets users to save observations with common name, scientific name, rarity, location, image, date and time of observation. Observations are saved in the mongodb and can be added, deleted or edited only users who are authenticated. The lastest version of the application production version of application can be viewed from https://bird-watching-app.herokuapp.com/
+Bird watching application is built for bird watching enthusiasts that lets users to save observations with common name, scientific name, rarity, location, image, date and time of observation.Observations are saved in the mongodb and can be added, deleted or edited only users who are authenticated. The lastest version of the application production version of application can be viewed from https://bird-watching-app.herokuapp.com/
 
 # Features
 
 * React 
 * Redux
 * Material UI
-* Jest
+* Google Map
 * NodeJs
 * JSON Web Token
 * Express
@@ -43,3 +43,9 @@ Bird watching application is built for bird watching enthusiasts that lets users
 ## Deployment
 
 * The application has been deployed in Heroku and can be viewed on https://  bird-watching-app.herokuapp.com/
+
+## Roadmap
+
+* The application will allow users to add custom location by placing the pin on the map.
+* More feature and filters to search.
+* The application will also have offline support and developed as PWA.
