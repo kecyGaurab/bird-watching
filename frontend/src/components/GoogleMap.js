@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card } from '@material-ui/core';
 import GoogleMapReact from 'google-map-react';
 import { REACT_APP_GOOGLE_API_KEY } from '../utils/config';
 
@@ -15,7 +16,7 @@ const GoogleMap = (props) => {
   };
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div style={{ height: '40rem', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: REACT_APP_GOOGLE_API_KEY }}
         defaultCenter={{ lat: latitude, lng: longitude }}

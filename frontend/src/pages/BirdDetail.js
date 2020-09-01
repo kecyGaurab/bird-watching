@@ -37,7 +37,7 @@ const BirdDetail = (props) => {
             <Bird bird={bird} />
           </Grid>
           <Grid item xs={12} md={8} sm={8}>
-            <Card square>
+            <Card >
               <GoogleMap latitude={bird.lat} longitude={bird.long} />
             </Card>
           </Grid>
