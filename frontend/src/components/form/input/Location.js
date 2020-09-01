@@ -12,7 +12,6 @@ const Location = (props) => {
       </Grid>
       <Grid item>
         <TextField
-          //   error={bird.lat < -90 || bird.lat > 90}
           error
           id="outlined-number"
           label="Latitude"
@@ -47,6 +46,7 @@ const Location = (props) => {
           current location
         </Button>
         <Chip
+          clickable
           variant="outlined"
           color="primary"
           size="medium"

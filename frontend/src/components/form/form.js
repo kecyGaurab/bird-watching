@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-alert */
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -37,6 +38,10 @@ const Form = (props) => {
     clearImage,
     uploadButton,
   } = props;
+
+  function isValidDate() {
+    return bird.date instanceof Date && !isNaN(bird.date) && new Date() > bird.date;
+  }
 
   return (
     <>
@@ -144,7 +149,8 @@ const Form = (props) => {
                         !bird.commonname ||
                         !bird.rarity ||
                         image === null ||
-                        image === 'File Not Found'
+                        image === 'File Not Found' ||
+                        !isValidDate()
                       }
                       type="submit"
                       variant="outlined"

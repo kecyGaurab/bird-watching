@@ -1,12 +1,9 @@
 /* eslint-disable no-undef */
-import { login, deleteBird, getBird, signUp, addBird } from '../support/commands';
+import { login, deleteBird, getBird, signUp } from '../support/commands';
 
 describe('login', () => {
   it('can log in', () => {
     login();
-  });
-  it('can let logged in user to add new observation', () => {
-    addBird();
   });
 });
 

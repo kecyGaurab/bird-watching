@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { setCurrentUser } from '../../redux/reducers/userReducer';
 import userService from '../../services/Login';
+import NavBar from '../navBar';
 
 const Login = ({ setCurrentUser, history }) => {
   const [error, setError] = useState('');
@@ -49,73 +50,75 @@ const Login = ({ setCurrentUser, history }) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Grid container direction="column" justify="center">
-        <Grid item align="center">
-          <Avatar>
-            <LockOutlinedIcon />
-          </Avatar>
-        </Grid>
-        <Grid item align="center">
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-        </Grid>
-      </Grid>
-      {error ? (
-        <Alert variant="outlined" severity="error">
-          {error}
-        </Alert>
-      ) : null}
-
-      <form onSubmit={handleLogin} noValidate>
-        <TextField
-          fullWidth
-          inputProps={{ 'data-testid': 'username' }}
-          id="outlined-name"
-          autoComplete="username"
-          label="Username"
-          name="username"
-          value={credentials.username}
-          margin="normal"
-          variant="outlined"
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          inputProps={{ 'data-testid': 'password' }}
-
-          label="Password"
-          name="password"
-          value={credentials.password}
-          onChange={handleChange}
-          type="password"
-          autoComplete="current-password"
-          margin="normal"
-          variant="outlined"
-        />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
-        <Button data-testid="submit" type="submit" fullWidth variant="contained" color="primary">
-          Sign In
-        </Button>
-        <Grid container>
-          <Grid item xs>
-            <Link href="#" variant="body2">
-              Forgot password?
-            </Link>
+    <>
+      <NavBar />
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Grid container direction="column" justify="center">
+          <Grid item align="center">
+            <Avatar>
+              <LockOutlinedIcon />
+            </Avatar>
           </Grid>
-          <Grid item>
-            <Link href="/signup" variant="body2">
-              Don&apos;t have an account? Sign Up
-            </Link>
+          <Grid item align="center">
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
           </Grid>
         </Grid>
-      </form>
-    </Container>
+        {error ? (
+          <Alert variant="outlined" severity="error">
+            {error}
+          </Alert>
+        ) : null}
+
+        <form onSubmit={handleLogin} noValidate>
+          <TextField
+            fullWidth
+            inputProps={{ 'data-testid': 'username' }}
+            id="outlined-name"
+            autoComplete="username"
+            label="Username"
+            name="username"
+            value={credentials.username}
+            margin="normal"
+            variant="outlined"
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            inputProps={{ 'data-testid': 'password' }}
+            label="Password"
+            name="password"
+            value={credentials.password}
+            onChange={handleChange}
+            type="password"
+            autoComplete="current-password"
+            margin="normal"
+            variant="outlined"
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button data-testid="submit" type="submit" fullWidth variant="contained" color="primary">
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                Don&apos;t have an account? Sign Up
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </Container>
+    </>
   );
 };
 

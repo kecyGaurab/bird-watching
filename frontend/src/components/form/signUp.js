@@ -16,6 +16,7 @@ import { withRouter } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Alert from '@material-ui/lab/Alert';
 import userService from '../../services/SignUp';
+import NavBar from '../navBar';
 import { setCurrentUser } from '../../redux/reducers/userReducer';
 
 const SignUp = ({ history }) => {
@@ -65,106 +66,109 @@ const SignUp = ({ history }) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Grid container direction="column" justify="center" spacing={2}>
-        <Grid item align="center">
-          <Avatar>
-            <LockOutlinedIcon />
-          </Avatar>
+    <>
+      <NavBar />
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Grid container direction="column" justify="center" spacing={2}>
+          <Grid item align="center">
+            <Avatar>
+              <LockOutlinedIcon />
+            </Avatar>
+          </Grid>
+          <Grid item align="center">
+            <Typography component="h1" variant="h5">
+              Sign Up
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item align="center">
-          <Typography component="h1" variant="h5">
+        <form onSubmit={handleSubmit} noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              {error ? (
+                <Alert variant="outlined" severity="error">
+                  {error}
+                </Alert>
+              ) : null}
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                value={information.firstName}
+                variant="outlined"
+                required
+                fullWidth
+                onChange={handleChange}
+                label="First Name"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                onChange={handleChange}
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                value={information.lastName}
+                autoComplete="lname"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                label="Username"
+                name="username"
+                onChange={handleChange}
+                value={information.username}
+                autoComplete="username"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                onChange={handleChange}
+                label="Password"
+                type="password"
+                value={information.password}
+                autoComplete="current-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="confirmPassword"
+                onChange={handleChange}
+                label="confirm password"
+                type="password"
+                value={information.confirmPassword}
+                autoComplete="current-password"
+              />
+            </Grid>
+          </Grid>
+          <Button type="submit" fullWidth variant="contained" color="primary">
             Sign Up
-          </Typography>
-        </Grid>
-      </Grid>
-      <form onSubmit={handleSubmit} noValidate>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            {error ? (
-              <Alert variant="outlined" severity="error">
-                {error}
-              </Alert>
-            ) : null}
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="/login" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              autoComplete="fname"
-              name="firstName"
-              value={information.firstName}
-              variant="outlined"
-              required
-              fullWidth
-              onChange={handleChange}
-              label="First Name"
-              autoFocus
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              onChange={handleChange}
-              id="lastName"
-              label="Last Name"
-              name="lastName"
-              value={information.lastName}
-              autoComplete="lname"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Username"
-              name="username"
-              onChange={handleChange}
-              value={information.username}
-              autoComplete="username"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              name="password"
-              onChange={handleChange}
-              label="Password"
-              type="password"
-              value={information.password}
-              autoComplete="current-password"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              name="confirmPassword"
-              onChange={handleChange}
-              label="confirm password"
-              type="password"
-              value={information.confirmPassword}
-              autoComplete="current-password"
-            />
-          </Grid>
-        </Grid>
-        <Button type="submit" fullWidth variant="contained" color="primary">
-          Sign Up
-        </Button>
-        <Grid container justify="flex-end">
-          <Grid item>
-            <Link href="/login" variant="body2">
-              Already have an account? Sign in
-            </Link>
-          </Grid>
-        </Grid>
-      </form>
-    </Container>
+        </form>
+      </Container>
+    </>
   );
 };
 
