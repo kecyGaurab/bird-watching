@@ -11,6 +11,7 @@ Bird watching application is built for bird watching enthusiasts that lets users
 * Google Map
 * NodeJs
 * JSON Web Token
+* Cloudinary
 * Express
 * Mongoose
 * MongoDb
