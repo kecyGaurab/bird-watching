@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card } from '@material-ui/core';
 import GoogleMapReact from 'google-map-react';
 import { REACT_APP_GOOGLE_API_KEY } from '../utils/config';
 

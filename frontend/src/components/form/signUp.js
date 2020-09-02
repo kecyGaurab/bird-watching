@@ -40,7 +40,7 @@ const SignUp = ({ history }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, lastName, username, password, confirmPassword } = information;
-    if (!(firstName || lastName || username || password || confirmPassword)) {
+    if (!firstName || !lastName || !username || !password || !confirmPassword) {
       setError('Please fill all the fields');
       setTimeout(() => {
         setError('');
