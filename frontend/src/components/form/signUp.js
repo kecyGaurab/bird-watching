@@ -16,7 +16,7 @@ import { withRouter } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Alert from '@material-ui/lab/Alert';
 import userService from '../../services/SignUp';
-import NavBar from '../navBar';
+import NavBar from '../NavBar';
 import { setCurrentUser } from '../../redux/reducers/userReducer';
 
 const SignUp = ({ history }) => {

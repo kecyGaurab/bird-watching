@@ -1,17 +1,17 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { connect } from 'react-redux';
-import { Button, TextField, Grid, InputAdornment, Link, Avatar } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, TextField, Grid, InputAdornment, Link } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { removeUser } from '../redux/reducers/userReducer';
-import UserInfo from './userInfo';
+import UserInfo from './UserInfo';
 
-const Search = ({ query, handleQueryChange, user, removeUser }) => {
+const Search = ({ query, handleQueryChange }) => {
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+
   const handleLogout = async () => {
     try {
-      await removeUser();
+      await dispatch(removeUser());
     } catch (error) {
       console.log('error', error);
     }
@@ -19,7 +19,7 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
 
   return (
     <Grid container direction="row" alignItems="center" spacing={2} justify="center">
-      <Grid item >
+      <Grid item>
         <TextField
           size="medium"
           fullWidth
@@ -51,10 +51,4 @@ const Search = ({ query, handleQueryChange, user, removeUser }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user.currentUser,
-  };
-};
-
-export default connect(mapStateToProps, { removeUser })(Search);
+export default Search;

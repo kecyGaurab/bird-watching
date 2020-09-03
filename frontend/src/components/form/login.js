@@ -19,7 +19,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { setCurrentUser } from '../../redux/reducers/userReducer';
 import userService from '../../services/Login';
-import NavBar from '../navBar';
+import NavBar from '../NavBar';
 
 const Login = ({ setCurrentUser, history }) => {
   const [error, setError] = useState('');

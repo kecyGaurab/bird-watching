@@ -15,14 +15,12 @@ import {
 } from '@material-ui/core';
 import { Link, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
-import Header from './header';
+import Header from './Header';
 
-const Bird = (props) => {
-  const { bird, location } = props;
-
-  const formattedDate = (date) => {
+const Bird = ({ bird, location }) => {
+  function formattedDate(date) {
     return moment(new Date(date)).format('MMMM Do YYYY, h:mm a');
-  };
+  }
 
   function birdLocation() {
     if (bird && bird.lat === 0) {

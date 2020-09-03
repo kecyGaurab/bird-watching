@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 
 import Resizer from 'react-image-file-resizer';
-import Form from '../components/form/form';
+import Form from '../components/form/Form';
 import { editBird } from '../redux/reducers/birdReducer';
-import { usePosition } from '../hooks/position';
+import { usePosition } from '../hooks/Position';
 
 const EditBird = (props) => {
   const token = useSelector((state) => state.user.currentUser.token);

@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { Typography, Box, AppBar, Toolbar } from '@material-ui/core';
-import Search from './search';
+import Search from './Search';
 
 const NavBar = (props) => {
   const { handleQueryChange, query, location } = props;

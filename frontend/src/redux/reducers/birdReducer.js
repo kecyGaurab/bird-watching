@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { ADD_BIRD, REMOVE_BIRD, INIT_BIRDS, EDIT_BIRD, GET_BIRD } from '../constants/action-types';
+import { ADD_BIRD, REMOVE_BIRD, INIT_BIRDS, EDIT_BIRD, GET_BIRD } from '../constants/actionTypes';
 import birdService from '../../services/Birds';
 
 const INITIAL_STATE = {
