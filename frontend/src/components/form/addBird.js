@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import Resizer from 'react-image-file-resizer';
-import Form from './form';
+import Form from './Form';
 import { createBird } from '../../redux/reducers/birdReducer';
-import { usePosition } from '../../hooks/position';
+import { usePosition } from '../../hooks/Position';
 
 const AddBird = ({ createBird, history }) => {
   const { latitude, longitude } = usePosition();

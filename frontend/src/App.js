@@ -1,12 +1,12 @@
 /* eslint-disable no-shadow */
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import AddBird from './components/form/addBird';
+import AddBird from './components/form/AddBird';
 import HomePage from './pages/HomePage';
 import BirdDetail from './pages/BirdDetail';
 import EditBird from './pages/EditBird';
-import Login from './components/form/login';
-import SignUp from './components/form/signUp';
+import Login from './components/form/Login';
+import SignUp from './components/form/SignUp';
 
 const App = () => {
   return (

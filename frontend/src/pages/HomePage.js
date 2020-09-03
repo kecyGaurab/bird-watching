@@ -5,9 +5,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Container, Grid, Button } from '@material-ui/core';
 import { useDispatch, connect } from 'react-redux';
-import Bird from '../components/bird/bird';
+import Bird from '../components/bird/Bird';
 import { initializeBirds } from '../redux/reducers/birdReducer';
-import NavBar from '../components/navBar';
+import NavBar from '../components/NavBar';
 import { setCurrentUser } from '../redux/reducers/userReducer';
 
 const mapStateToProps = (state) => {

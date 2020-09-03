@@ -7,7 +7,7 @@ import { withRouter, Link } from 'react-router-dom';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import { removeBird } from '../../redux/reducers/birdReducer';
-import ConfirmDialog from '../confirmDialog';
+import ConfirmDialog from '../ConfirmDialog';
 
 const Header = (props) => {
   let token = null;

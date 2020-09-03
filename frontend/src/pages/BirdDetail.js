@@ -4,8 +4,8 @@ import { Card, Grid, Box, Container, Button } from '@material-ui/core';
 import { withRouter, Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import GoogleMap from '../components/GoogleMap';
-import Bird from '../components/bird/bird';
-import NavBar from '../components/navBar';
+import Bird from '../components/bird/Bird';
+import NavBar from '../components/NavBar';
 import { getBird } from '../redux/reducers/birdReducer';
 
 const BirdDetail = (props) => {

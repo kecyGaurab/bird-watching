@@ -18,8 +18,8 @@ import {
 import CloseIcon from '@material-ui/icons/Close';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import DoneIcon from '@material-ui/icons/Done';
-import ImageUpload from './imageUpload';
-import DateAndTime from './dateAndTime';
+import ImageUpload from './ImageUpload';
+import DateAndTime from './DateAndTime';
 
 const Form = (props) => {
   const {
