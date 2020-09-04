@@ -34,7 +34,7 @@ const Bird = ({ bird, location }) => {
   }
 
   const rows = [
-    createData('Species', `${bird.species}`),
+    createData('Species', <Box fontStyle="italic">{bird.species}</Box>),
     createData('Rarity', `${bird.rarity}`),
     createData('Time', `${formattedDate(bird.date)}`),
     createData('Location', `${birdLocation()}`),
