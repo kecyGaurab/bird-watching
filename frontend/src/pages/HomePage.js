@@ -49,6 +49,7 @@ const HomePage = (props) => {
     setQuery(event.target.value);
   };
 
+  
   const sortedBirds = birds.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (

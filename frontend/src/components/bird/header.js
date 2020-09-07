@@ -1,5 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import { IconButton, Typography, Grid } from '@material-ui/core';
 import { connect, useSelector } from 'react-redux';
