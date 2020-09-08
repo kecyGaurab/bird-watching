@@ -26,7 +26,7 @@ const Search = ({ query, handleQueryChange }) => {
           id="outlined-search"
           type="search"
           variant="outlined"
-          placeholder="Search for observations"
+          placeholder="Search observations..."
           onChange={handleQueryChange}
           value={query}
           InputProps={{

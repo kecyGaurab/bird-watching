@@ -18,12 +18,11 @@ const theme = createMuiTheme({
       default: '#f5f5f5',
     },
   },
-  typography:{
-    h3:{
+  typography: {
+    h3: {
       fontWeight: 500,
-      fontFamily: "Ubuntu"
-    }
-  }
+    },
+  },
 });
 
 theme.overrides = {
@@ -121,6 +120,11 @@ theme.overrides = {
   MuiAlert: {
     root: {
       marginTop: '15px',
+    },
+  },
+  MuiAvatar: {
+    colorDefault: {
+      backgroundColor: theme.palette.primary.main,
     },
   },
 };

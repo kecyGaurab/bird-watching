@@ -15,13 +15,14 @@ import {
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Alert from '@material-ui/lab/Alert';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { setCurrentUser } from '../../redux/reducers/userReducer';
 import userService from '../../services/Login';
 import NavBar from '../NavBar';
 
-const Login = ({ setCurrentUser, history }) => {
+const Login = ({ history }) => {
+  const dispatch = useDispatch();
   const [error, setError] = useState('');
   const [credentials, setCredentials] = useState({
     username: '',
@@ -37,7 +38,7 @@ const Login = ({ setCurrentUser, history }) => {
     event.preventDefault();
     try {
       const user = await userService.login(credentials);
-      setCurrentUser(user);
+      dispatch(setCurrentUser(user));
       setCredentials({ username: '', password: '' });
       history.push('/');
     } catch (error) {
@@ -122,4 +123,4 @@ const Login = ({ setCurrentUser, history }) => {
   );
 };
 
-export default connect(null, { setCurrentUser })(withRouter(Login));
+export default withRouter(Login);

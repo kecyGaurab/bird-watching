@@ -4,24 +4,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Container, Grid, Button } from '@material-ui/core';
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Bird from '../components/bird/Bird';
 import { initializeBirds } from '../redux/reducers/birdReducer';
 import NavBar from '../components/NavBar';
 import { setCurrentUser } from '../redux/reducers/userReducer';
 
-const mapStateToProps = (state) => {
-  return {
-    birds: state.observations.birds,
-    user: state.user,
-  };
-};
-
-const HomePage = (props) => {
+const HomePage = () => {
+  const dispatch = useDispatch();
+  const birds = useSelector((state) => state.observations.birds);
+  const user = useSelector((state) => state.user);
   const [query, setQuery] = useState('');
   const [filteredBirds, setFilteredBirds] = useState('');
-  const { birds, user } = props;
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(initializeBirds());
@@ -81,4 +75,4 @@ const HomePage = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(withRouter(HomePage));
+export default withRouter(HomePage);

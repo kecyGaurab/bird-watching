@@ -2,15 +2,16 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Resizer from 'react-image-file-resizer';
 import Form from './Form';
 import { createBird } from '../../redux/reducers/birdReducer';
 import { usePosition } from '../../hooks/Position';
 
-const AddBird = ({ createBird, history }) => {
-  const { latitude, longitude } = usePosition();
+const AddBird = ({ history }) => {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { latitude, longitude } = usePosition();
 
   const { token } = user.currentUser;
 
@@ -23,10 +24,7 @@ const AddBird = ({ createBird, history }) => {
     date: new Date(),
   });
 
-  console.log('bird', bird);
-  
   const [image, setImage] = useState(null);
-  console.log('image', image);
   const [imageName, setImageName] = useState('');
 
   const handleChange = (e) => {
@@ -102,7 +100,7 @@ const AddBird = ({ createBird, history }) => {
   const addBird = async (e) => {
     e.preventDefault();
     try {
-      createBird(bird, image, token);
+      dispatch(createBird(bird, image, token));
     } catch (error) {
       console.log('error', error);
     }
@@ -132,4 +130,4 @@ const AddBird = ({ createBird, history }) => {
   );
 };
 
-export default connect(null, { createBird })(withRouter(AddBird));
+export default withRouter(AddBird);
