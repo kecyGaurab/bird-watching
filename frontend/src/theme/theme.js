@@ -21,7 +21,6 @@ const theme = createMuiTheme({
   typography: {
     h3: {
       fontWeight: 500,
-      fontFamily: 'Ubuntu',
     },
   },
 });

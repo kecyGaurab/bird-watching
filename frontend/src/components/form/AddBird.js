@@ -12,9 +12,7 @@ import { usePosition } from '../../hooks/Position';
 const AddBird = ({ history }) => {
   const dispatch = useDispatch();
   const { latitude, longitude } = usePosition();
-  const user = useSelector((state) => state.user);
-
-  const { token } = user.currentUser;
+  const token = useSelector((state) => state.user.currentUser.token);
 
   const [bird, setBird] = useState({
     commonname: '',

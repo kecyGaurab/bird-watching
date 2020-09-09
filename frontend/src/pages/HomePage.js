@@ -12,7 +12,7 @@ import { setCurrentUser } from '../redux/reducers/userReducer';
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.currentUser.user);
+  const user = useSelector((state) => state.user);
   const birds = useSelector((state) => state.observations.birds);
   const [query, setQuery] = useState('');
   const [filteredBirds, setFilteredBirds] = useState('');

@@ -7,9 +7,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import { removeBird } from '../../redux/reducers/birdReducer';
 import ConfirmDialog from '../ConfirmDialog';
 
-const Header = ({ history, location }) => {
+const Header = ({ history, location, bird }) => {
   const dispatch = useDispatch();
-  const bird = useSelector((state) => state.observations.bird);
   let token = null;
   let username = null;
   const { currentUser } = useSelector((state) => state.user);
