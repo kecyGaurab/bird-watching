@@ -18,12 +18,12 @@ const theme = createMuiTheme({
       default: '#f5f5f5',
     },
   },
-  typography:{
-    h3:{
+  typography: {
+    h3: {
       fontWeight: 500,
-      fontFamily: "Ubuntu"
-    }
-  }
+      fontFamily: 'Ubuntu',
+    },
+  },
 });
 
 theme.overrides = {

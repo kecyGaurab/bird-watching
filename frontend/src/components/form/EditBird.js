@@ -1,20 +1,19 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-alert */
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Resizer from 'react-image-file-resizer';
 import Form from './Form';
 import { editBird } from '../../redux/reducers/birdReducer';
 import { usePosition } from '../../hooks/Position';
 
-const EditBird = (props) => {
+const EditBird = ({ match, history }) => {
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.user.currentUser.token);
+  const bird = useSelector((state) => state.observations.bird);
   const { latitude, longitude } = usePosition();
-
-  const { match, bird, history } = props;
 
   const { id } = match.params;
   const { commonname, species, rarity, lat, long, public_id, version, imageUrl } = bird;
@@ -33,8 +32,6 @@ const EditBird = (props) => {
     version,
     date: bird.date,
   });
-
-  console.log('birdToEdit', birdToEdit);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -103,7 +100,7 @@ const EditBird = (props) => {
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    props.editBird(id, birdToEdit, imageToUpdate, token).then(history.push(`/${id}`));
+    dispatch(editBird(id, birdToEdit, imageToUpdate, token)).then(history.push(`/${id}`));
   };
 
   return (
@@ -126,10 +123,4 @@ const EditBird = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    bird: state.observations.bird,
-  };
-};
-
-export default connect(mapStateToProps, { editBird })(withRouter(EditBird));
+export default withRouter(EditBird);

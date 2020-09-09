@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { IconButton, Typography, Grid } from '@material-ui/core';
-import { connect, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import { removeBird } from '../../redux/reducers/birdReducer';
 import ConfirmDialog from '../ConfirmDialog';
 
-const Header = (props) => {
+const Header = ({ history, location }) => {
+  const dispatch = useDispatch();
+  const bird = useSelector((state) => state.observations.bird);
   let token = null;
   let username = null;
   const { currentUser } = useSelector((state) => state.user);
@@ -15,12 +17,11 @@ const Header = (props) => {
     token = currentUser.token;
     username = currentUser.username;
   }
-  const { history, location, bird, removeBird } = props;
   const { id } = bird;
   const [confirmOpen, setConfirmOpen] = useState(false);
   const handleRemove = async () => {
     try {
-      await removeBird(id, token);
+      await dispatch(removeBird(id, token));
     } catch (error) {
       console.log('error', error);
     }
@@ -35,7 +36,7 @@ const Header = (props) => {
         <>
           <Grid item xs={1}>
             <Link data-testid="edit-bird" to={`/${id}/edit`}>
-              <IconButton >
+              <IconButton>
                 <EditIcon />
               </IconButton>
             </Link>
@@ -59,4 +60,4 @@ const Header = (props) => {
   );
 };
 
-export default connect(null, { removeBird })(withRouter(Header));
+export default withRouter(Header);

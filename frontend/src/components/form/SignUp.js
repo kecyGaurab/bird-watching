@@ -11,13 +11,11 @@ import {
   Link,
   Avatar,
 } from '@material-ui/core';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Alert from '@material-ui/lab/Alert';
 import userService from '../../services/SignUp';
 import NavBar from '../NavBar';
-import { setCurrentUser } from '../../redux/reducers/userReducer';
 
 const SignUp = ({ history }) => {
   const initialState = {
@@ -172,4 +170,4 @@ const SignUp = ({ history }) => {
   );
 };
 
-export default connect(null, { setCurrentUser })(withRouter(SignUp));
+export default withRouter(SignUp);

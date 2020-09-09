@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Card, Grid, Box, Container, Button } from '@material-ui/core';
 import { withRouter, Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -8,10 +8,10 @@ import Bird from '../components/bird/Bird';
 import NavBar from '../components/NavBar';
 import { getBird } from '../redux/reducers/birdReducer';
 
-const BirdDetail = (props) => {
+const BirdDetail = ({ match }) => {
   const dispatch = useDispatch();
+  const bird = useSelector((state) => state.observations.bird);
 
-  const { match, bird } = props;
   const { id } = match.params;
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const BirdDetail = (props) => {
             <Bird bird={bird} />
           </Grid>
           <Grid item xs={12} md={8} sm={8}>
-            <Card >
+            <Card>
               <GoogleMap latitude={bird.lat} longitude={bird.long} />
             </Card>
           </Grid>
@@ -47,9 +47,4 @@ const BirdDetail = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    bird: state.observations.bird,
-  };
-};
-export default connect(mapStateToProps, { getBird })(withRouter(BirdDetail));
+export default withRouter(BirdDetail);
