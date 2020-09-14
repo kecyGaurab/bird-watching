@@ -1,8 +1,7 @@
-/* eslint-disable no-alert */
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Resizer from 'react-image-file-resizer';
 import Form from '../components/form/Form';

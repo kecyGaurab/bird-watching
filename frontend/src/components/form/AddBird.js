@@ -3,16 +3,18 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Resizer from 'react-image-file-resizer';
 import Form from './Form';
 import { createBird } from '../../redux/reducers/birdReducer';
 import { usePosition } from '../../hooks/Position';
 
 const AddBird = ({ history }) => {
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { latitude, longitude } = usePosition();
-  const token = useSelector((state) => state.user.currentUser.token);
+
+  const { token } = user.currentUser;
 
   const [bird, setBird] = useState({
     commonname: '',
@@ -24,7 +26,6 @@ const AddBird = ({ history }) => {
   });
 
   const [image, setImage] = useState(null);
-  console.log('image', image);
   const [imageName, setImageName] = useState('');
 
   const handleChange = (e) => {

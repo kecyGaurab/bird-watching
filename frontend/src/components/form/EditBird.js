@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable no-alert */
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,9 +9,10 @@ import { editBird } from '../../redux/reducers/birdReducer';
 import { usePosition } from '../../hooks/Position';
 
 const EditBird = ({ match, history }) => {
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.user.currentUser.token);
   const bird = useSelector((state) => state.observations.bird);
+  const dispatch = useDispatch();
+
   const { latitude, longitude } = usePosition();
 
   const { id } = match.params;

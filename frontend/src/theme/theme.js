@@ -122,6 +122,11 @@ theme.overrides = {
       marginTop: '15px',
     },
   },
+  MuiAvatar: {
+    colorDefault: {
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
 };
 
 export default theme;
