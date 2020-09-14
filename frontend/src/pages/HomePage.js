@@ -24,15 +24,15 @@ const HomePage = () => {
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
     if (loggedUserJSON) {
-      const getUser = JSON.parse(loggedUserJSON);
-      dispatch(setCurrentUser(getUser));
+      const savedUser = JSON.parse(loggedUserJSON);
+      dispatch(setCurrentUser(savedUser));
     }
   }, [dispatch]);
 
   useEffect(() => {
     const handleFilter = () => {
       const matchedBirds = birds.filter((n) =>
-        n.commonname.toLowerCase().startsWith(query.toLowerCase()),
+        n.commonname.toLowerCase().includes(query.toLowerCase()),
       );
       setFilteredBirds(matchedBirds);
     };

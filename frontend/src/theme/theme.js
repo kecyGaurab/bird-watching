@@ -45,7 +45,6 @@ theme.overrides = {
 
   MuiCardContent: {
     root: {
-      // !important over the default &:last-child padding-bottom
       padding: `${theme.spacing(3)}px !important`,
     },
   },
@@ -85,7 +84,7 @@ theme.overrides = {
   MuiInputBase: {
     root: {
       borderRadius: '15px',
-      height: '3.5em',
+      height: '3.5rem',
       width: '80%',
     },
   },
@@ -103,7 +102,6 @@ theme.overrides = {
     },
     sizeLarge: {
       height: '55px',
-      opacity: 6,
     },
     outlinedSecondary: {
       backgroundColor: theme.palette.primary.main,
@@ -123,6 +121,9 @@ theme.overrides = {
     },
   },
   MuiAvatar: {
+    root: {
+      fontWeight: 600,
+    },
     colorDefault: {
       backgroundColor: theme.palette.primary.main,
     },

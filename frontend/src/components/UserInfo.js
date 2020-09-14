@@ -7,7 +7,7 @@ const UserInfo = ({ username, handleLogout }) => {
     <Grid container direction="row">
       <Grid item>
         <Hidden only="xs">
-          <Avatar>{avatarText}</Avatar>
+          <Avatar>{avatarText || null}</Avatar>
         </Hidden>
       </Grid>
       <Grid item>

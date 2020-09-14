@@ -50,7 +50,7 @@ const Bird = ({ bird, location }) => {
               {rows.map((row, index) => (
                 <TableRow key={index}>
                   <TableCell component="th" scope="row">
-                    <Box fontWeight="fontWeightbold">{row.categories}</Box>
+                    <Box fontWeight="fontWeightBold">{row.categories}</Box>
                   </TableCell>
                   <TableCell align="left">{row.values}</TableCell>
                 </TableRow>
