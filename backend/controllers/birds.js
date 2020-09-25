@@ -16,4 +16,3 @@ birdsRouter.delete('/:id', birdService.removeBird);
 birdsRouter.put('/:id', upload.single('imageToUpdate'), birdService.updateBird);
 
 module.exports = birdsRouter;
-

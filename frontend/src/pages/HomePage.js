@@ -43,13 +43,12 @@ const HomePage = () => {
     setQuery(event.target.value);
   };
 
-  const sortedBirds = birds.sort((a, b) => new Date(b.date) - new Date(a.date));
-
+  const sortedBirds = [...birds.sort((a, b) => new Date(b.date) - new Date(a.date))];
   return (
     <>
       <NavBar query={query} handleQueryChange={handleQueryChange} />
       <Container>
-        <Grid justify="space-around" container direction="row" spacing={5}>
+        <Grid justify="space-around" container direction="row" spacing={2}>
           <Grid item xs={12} align="center">
             <Link style={{ textDecoration: 'none' }} to={user.currentUser ? '/add' : '/login'}>
               <Button size="large" color="primary" variant="outlined">
