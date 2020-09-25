@@ -5,7 +5,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#002884',
+      main: '#3f51b5',
+      light: '#757de8',
       dark: '#002884',
     },
     secondary: {
@@ -15,7 +16,7 @@ const theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      default: '#f5f5f5',
+      default: '#e0e0e0',
     },
   },
   typography: {
@@ -128,6 +129,15 @@ theme.overrides = {
       backgroundColor: theme.palette.primary.main,
     },
   },
+  MuiPaper: {
+    elevation4: {
+      boxShadow: 'none',
+    },
+  },
 };
 
+if (process.env.NODE_ENV !== 'production') {
+  // console.log the theme config object to the window console for debugging.
+  console.log(theme);
+}
 export default theme;

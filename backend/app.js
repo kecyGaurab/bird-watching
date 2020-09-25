@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const config = require('./utils/config');
 const middleware = require('./utils/middleware');
 const birdsRouter = require('./controllers/birds');
-const usersRouter = require('./controllers/users');
+const usersRouter = require('./controllers/user');
 const loginRouter = require('./controllers/login');
 const logger = require('./utils/logger');
 
@@ -33,13 +33,13 @@ mongoose
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
-app.use(middleware.requestLogger);
 app.use('/api/birds', birdsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/build/index.html'));
 });
+app.use(middleware.requestLogger);
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 

@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt');
-const usersRouter = require('express').Router();
 const User = require('../models/user');
 
-usersRouter.get('/', async (request, response) => {
+const getUser = async (request, response) => {
   const users = await User.find({}).populate('birds', {
     commonname: 1,
     species: 1,
@@ -13,9 +12,9 @@ usersRouter.get('/', async (request, response) => {
     date: 1,
   });
   response.json(users.map((u) => u.toJSON()));
-});
+};
 
-usersRouter.post('/', async (request, response, next) => {
+const signUpUser = async (request, response, next) => {
   try {
     const { body } = request;
     const saltRounds = 10;
@@ -33,6 +32,6 @@ usersRouter.post('/', async (request, response, next) => {
   } catch (exception) {
     next(exception);
   }
-});
+};
 
-module.exports = usersRouter;
+module.exports = { getUser, signUpUser };
