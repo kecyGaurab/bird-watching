@@ -1,14 +1,14 @@
 
 # Bird Watching App
 
-Bird watching application is built for bird watching enthusiasts that lets users to save observations with common name, scientific name, rarity, location, image, date and time of observation.Observations are saved in the mongodb and can be added, deleted or edited only users who are authenticated. The lastest version of the application production version of application can be viewed from https://bird-watching-app.herokuapp.com/
+Bird watching application is built for bird watching enthusiasts that lets users to save observations with common name, scientific name, rarity, location, image, date and time of observation. Observations are saved in the mongodb and can be added, deleted or edited only users who are authenticated. The latest version of the application can be viewed from https://bird-watching-app.herokuapp.com/
 
 # Features
 
 * React 
 * Redux
 * Material UI
-* Google Map
+* MapBox
 * NodeJs
 * JSON Web Token
 * Cloudinary
@@ -27,7 +27,7 @@ Bird watching application is built for bird watching enthusiasts that lets users
 * `git clone https://github.com/kecyGaurab/bird-watching`.
 * `cd bird-watching`.
 *  add `.env` file in frontend directory and in backend directory.
-*  add `REACT_APP_GOOGLE_API_KEY` to the `.env` in frontend directory.
+*  add `REACT_APP_MAPBOX_ACCESS_TOKEN` to the `.env` in frontend directory.
 *  add `MONGODB_URI`, `PORT`, `CLOUD_NAME`, `API_KEY`, `API_SECRET`, `SECRET` to       `.env`  in backend directory.
 * `cd backend && npm install` or `yarn`.
 * `yarn watch` to run the server with nodemon in watch mode or `yarn start` to run the server.

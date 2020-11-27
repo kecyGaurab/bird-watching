@@ -33,11 +33,11 @@ const birdSchema = new mongoose.Schema({
     required: true,
   },
   lat: {
-    type: Number || undefined,
+    type: Number,
     required: false,
   },
   long: {
-    type: Number || undefined,
+    type: Number,
     required: false,
   },
   user: {
