@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card, Grid, Box, Container, Button } from '@material-ui/core';
 import { withRouter, Link } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import GoogleMap from '../components/GoogleMap';
 import Bird from '../components/bird/Bird';
 import NavBar from '../components/NavBar';
 import { getBird } from '../redux/reducers/birdReducer';
+import Map from '../components/map/Map';
 
 const BirdDetail = ({ match }) => {
   const dispatch = useDispatch();
@@ -38,7 +38,8 @@ const BirdDetail = ({ match }) => {
           </Grid>
           <Grid item xs={12} md={8} sm={8}>
             <Card>
-              <GoogleMap latitude={bird.lat} longitude={bird.long} />
+              {/* <GoogleMap latitude={bird.lat} longitude={bird.long} /> */}
+              <Map lat={bird.lat} long={bird.long} />
             </Card>
           </Grid>
         </Grid>

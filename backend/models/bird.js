@@ -33,11 +33,11 @@ const birdSchema = new mongoose.Schema({
     required: true,
   },
   lat: {
-    type: Number || undefined,
+    type: Number,
     required: false,
   },
   long: {
-    type: Number || undefined,
+    type: Number,
     required: false,
   },
   user: {
@@ -55,7 +55,7 @@ const birdSchema = new mongoose.Schema({
 });
 
 birdSchema.set('toJSON', {
-  transform: (returnedObject) => {
+  transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
