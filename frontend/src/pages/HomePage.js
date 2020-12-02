@@ -9,6 +9,7 @@ import Bird from '../components/bird/Bird';
 import { initializeBirds } from '../redux/reducers/birdReducer';
 import NavBar from '../components/NavBar';
 import { setCurrentUser } from '../redux/reducers/userReducer';
+import Hero from '../components/common/Hero';
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -50,11 +51,13 @@ const HomePage = () => {
       <Container>
         <Grid justify="space-around" container direction="row" spacing={2}>
           <Grid item xs={12} align="center">
-            <Link style={{ textDecoration: 'none' }} to={user.currentUser ? '/add' : '/login'}>
-              <Button size="large" color="primary" variant="outlined">
-                Add New Observation
-              </Button>
-            </Link>
+            <Hero>
+              <Link style={{ textDecoration: 'none' }} to={user.currentUser ? '/add' : '/login'}>
+                <Button size="large" color="primary" variant="outlined">
+                  Add New Observation
+                </Button>
+              </Link>
+            </Hero>
           </Grid>
           {filteredBirds
             ? filteredBirds.map((b) => (

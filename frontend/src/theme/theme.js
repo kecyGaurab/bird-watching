@@ -17,6 +17,7 @@ const theme = createMuiTheme({
     },
     background: {
       default: '#e0e0e0',
+      light: '#FFFFFF',
     },
   },
   typography: {
@@ -103,6 +104,9 @@ theme.overrides = {
     },
     sizeLarge: {
       height: '55px',
+      color: '#FFFFFF',
+      border: ' 2px solid #FFFFFF',
+      fontWeight: '600',
     },
     outlinedSecondary: {
       backgroundColor: theme.palette.primary.main,
@@ -113,7 +117,7 @@ theme.overrides = {
       background: theme.palette.background.default,
     },
     colorPrimary: {
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: theme.palette.background.light,
     },
   },
   MuiAlert: {
