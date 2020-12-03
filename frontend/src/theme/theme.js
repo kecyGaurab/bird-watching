@@ -143,6 +143,11 @@ theme.overrides = {
       boxShadow: 'none',
     },
   },
+  MuiSvgIcon: {
+    root: {
+      margin: '0 8px',
+    },
+  },
 };
 
 if (process.env.NODE_ENV !== 'production') {
