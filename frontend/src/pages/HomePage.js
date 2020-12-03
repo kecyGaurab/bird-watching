@@ -7,6 +7,7 @@ import { initializeBirds } from '../redux/reducers/birdReducer';
 import NavBar from '../components/NavBar';
 import { setCurrentUser } from '../redux/reducers/userReducer';
 import Hero from '../components/common/Hero';
+import Footer from '../components/common/Footer';
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ const HomePage = () => {
               ))}
         </Grid>
       </Container>
+      <Footer />
     </>
   );
 };
