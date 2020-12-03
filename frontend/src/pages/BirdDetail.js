@@ -32,13 +32,12 @@ const BirdDetail = ({ match }) => {
             Back
           </Button>
         </Link>
-        <Grid container justify="space-around" alignContent="center">
+        <Grid container spacing={3} justify="space-around" alignContent="center">
           <Grid item xs={12} md={4} sm={4}>
             <Bird bird={bird} />
           </Grid>
           <Grid item xs={12} md={8} sm={8}>
             <Card>
-              {/* <GoogleMap latitude={bird.lat} longitude={bird.long} /> */}
               <Map lat={bird.lat} long={bird.long} />
             </Card>
           </Grid>

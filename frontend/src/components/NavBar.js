@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';

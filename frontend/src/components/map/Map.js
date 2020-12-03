@@ -7,15 +7,11 @@ import { REACT_APP_MAPBOX_ACCESS_TOKEN } from '../../utils/config';
 const Map = ({ lat, long }) => {
   const [viewport, setViewport] = useState({
     width: '100',
-    height: '100vh',
+    height: '55vh',
     latitude: lat,
     longitude: long,
     zoom: 8,
   });
-
-  //   const handleViewportChange = useCallback(() => {
-  //     setViewport({ ...viewport, latitude: lat, longitude: long });
-  //   }, [lat, long]);
 
   const checkIfCoordinatesChanged = lat !== viewport.latitude || long !== viewport.longitude;
 

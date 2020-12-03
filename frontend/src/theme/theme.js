@@ -133,6 +133,11 @@ theme.overrides = {
       backgroundColor: theme.palette.primary.main,
     },
   },
+  MuiLink: {
+    underlineNone: {
+      textDecoration: 'none',
+    },
+  },
   MuiPaper: {
     elevation4: {
       boxShadow: 'none',

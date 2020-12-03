@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-closing-tag-location */
-/* eslint-disable react/jsx-indent */
-/* eslint-disable react/jsx-no-undef */
 import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Container, Grid, Button } from '@material-ui/core';
@@ -13,24 +10,22 @@ import Hero from '../components/common/Hero';
 
 const HomePage = () => {
   const dispatch = useDispatch();
+
   const birds = useSelector((state) => state.observations.birds);
   const user = useSelector((state) => state.user);
+
   const [query, setQuery] = useState('');
   const [filteredBirds, setFilteredBirds] = useState('');
 
   useEffect(() => {
     dispatch(initializeBirds());
-  }, [dispatch]);
 
-  useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
     if (loggedUserJSON) {
       const savedUser = JSON.parse(loggedUserJSON);
       dispatch(setCurrentUser(savedUser));
     }
-  }, [dispatch]);
 
-  useEffect(() => {
     const handleFilter = () => {
       const matchedBirds = birds.filter((n) =>
         n.commonname.toLowerCase().includes(query.toLowerCase()),
@@ -38,13 +33,14 @@ const HomePage = () => {
       setFilteredBirds(matchedBirds);
     };
     handleFilter();
-  }, [query, birds]);
+  }, [dispatch, query, birds]);
 
   const handleQueryChange = (event) => {
     setQuery(event.target.value);
   };
 
   const sortedBirds = [...birds.sort((a, b) => new Date(b.date) - new Date(a.date))];
+
   return (
     <>
       <NavBar query={query} handleQueryChange={handleQueryChange} />
@@ -60,9 +56,9 @@ const HomePage = () => {
             </Hero>
           </Grid>
           {filteredBirds
-            ? filteredBirds.map((b) => (
-                <Grid key={b.id} item xs={12} md={3}>
-                  <Bird bird={b} />
+            ? filteredBirds.map((bird) => (
+                <Grid key={bird.id} item xs={12} md={3}>
+                  <Bird bird={bird} />
                 </Grid>
               ))
             : sortedBirds &&
