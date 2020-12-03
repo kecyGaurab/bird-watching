@@ -22,7 +22,7 @@ const Footer = () => {
       <Typography variant="h6" align="baseline">
         @ 2020 Gaurab Kecy
         <Link href="https://github.com/kecyGaurab">
-          <GitHubIcon fontSize="defualt" />
+          <GitHubIcon fontSize="default" />
         </Link>
         <Link href="https://www.linkedin.com/in/gaurab-kc04/">
           <LinkedInIcon fontSize="default" />

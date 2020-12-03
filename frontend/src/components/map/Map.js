@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useState, useEffect } from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import PinDropIcon from '@material-ui/icons/PinDrop';
@@ -7,7 +7,7 @@ import { REACT_APP_MAPBOX_ACCESS_TOKEN } from '../../utils/config';
 const Map = ({ lat, long }) => {
   const [viewport, setViewport] = useState({
     width: '100',
-    height: '55vh',
+    height: '70vh',
     latitude: lat,
     longitude: long,
     zoom: 8,

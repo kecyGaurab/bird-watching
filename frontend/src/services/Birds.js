@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
 import axios from 'axios';
 
 const baseUrl = '/api/birds';

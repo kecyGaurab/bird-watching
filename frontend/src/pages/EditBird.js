@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';

@@ -55,6 +55,10 @@ theme.overrides = {
       height: 0,
       paddingTop: '56.25%',
       margin: '0 10% 0 10%',
+      transition: 'transform 0.8s cubic-bezier(.17,.67,.57,.66)',
+      '&:hover': {
+        transform: 'scale(1.1)',
+      },
     },
   },
   MuiDialog: {
@@ -145,7 +149,9 @@ theme.overrides = {
   },
   MuiSvgIcon: {
     root: {
-      margin: '0 8px',
+      textAlign: 'center',
+      margin: '0 5px 0 5px',
+      verticalAlign: 'middle',
     },
   },
 };

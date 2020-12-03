@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import bird from '../../assets/bird.png';
 
 const HeroImage = styled.section`
+  :hover {
+    transform: scale(1.1);
+    transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +14,6 @@ const HeroImage = styled.section`
   text-align: center;
   width: 100%;
   height: 75vh;
-  overflow: hidden;
   background-size: cover !important;
   background: radial-gradient(
       ellipse at center,
@@ -20,9 +23,16 @@ const HeroImage = styled.section`
     ),
     url(${bird}) no-repeat center center scroll;
 `;
+const Wrapper = styled.div`
+  overflow: hidden;
+`;
 
 const Hero = ({ children }) => {
-  return <HeroImage>{children}</HeroImage>;
+  return (
+    <Wrapper>
+      <HeroImage>{children}</HeroImage>
+    </Wrapper>
+  );
 };
 
 export default Hero;
