@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Container, Grid, Button } from '@material-ui/core';
+import { Container, Grid, Button, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import Bird from '../components/bird/Bird';
 import { initializeBirds } from '../redux/reducers/birdReducer';
@@ -46,7 +46,7 @@ const HomePage = () => {
     <>
       <NavBar query={query} handleQueryChange={handleQueryChange} />
       <Container>
-        <Grid justify="space-around" container direction="row" spacing={2}>
+        <Grid justify="space-around" container direction="row" spacing={4}>
           <Grid item xs={12} align="center">
             <Hero>
               <Link style={{ textDecoration: 'none' }} to={user.currentUser ? '/add' : '/login'}>
@@ -55,6 +55,11 @@ const HomePage = () => {
                 </Button>
               </Link>
             </Hero>
+          </Grid>
+          <Grid item xs={12} align="flex-start">
+            <Typography variant="h4" color="textPrimary">
+              Recent Observations
+            </Typography>
           </Grid>
           {filteredBirds
             ? filteredBirds.map((bird) => (
